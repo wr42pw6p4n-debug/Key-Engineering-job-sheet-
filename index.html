@@ -1445,8 +1445,13 @@ function renderQuotes(){
    const mats=(j.materials||[]).filter(x=>String(x).trim()).join('; ');
    return '<tr><td>'+esc(j.job)+'</td><td>'+esc(lastWorked(j)?ukDate(lastWorked(j)):'')+'</td><td>'+esc(j.status)+'</td><td>'+esc(mats||'—')+'</td><td class="r">'+gbp(t.costs[i].grossP)+'</td></tr>';
   }).join('');
-  const actions='<div class="actions" style="margin-top:10px"><button onclick="loadQuoteForEdit('+editArg+')">Edit quote</button>'+
-   (q.status!=='Complete'?'<button class="primary" onclick="completeQuote('+editArg+')">✓ Complete Quote</button>':'<button onclick="reopenQuote('+editArg+')">Re-open</button>')+'</div>';
+  const safeArg=String(q.number).replace(/\\/g,'\\\\').replace(/'/g,"&#39;");
+  const actions='<div class="actions" style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">'+
+   '<button onclick="loadQuoteForEdit(\''+safeArg+'\')">✏️ Edit quote</button>'+
+   (q.status!=='Complete'
+    ? '<button class="primary" onclick="completeQuote(\''+safeArg+'\')">✓ Complete Quote</button>'
+    : '<button onclick="reopenQuote(\''+safeArg+'\')">↩️ Re-open Quote</button><button class="primary" onclick="createQuoteInvoice(\''+safeArg+'\')">🧾 Create Invoice</button>')+
+   '</div>';
   return '<div class="repgroup"><h4>'+esc(q.number)+' — '+esc(q.customer||'No customer')+' '+status+'</h4><div class="invcard">'+
    (q.description?'<div style="white-space:pre-wrap;margin-bottom:8px">'+esc(q.description)+'</div>':'')+
    '<div class="invline"><span class="k">Job sheets linked</span><span class="v">'+t.jobs.length+'</span></div>'+
@@ -1463,6 +1468,24 @@ function renderQuotes(){
 function loadQuoteForEdit(number){const q=quotes[String(number).toLowerCase()];if(!q)return;document.getElementById('q_number').value=q.number;document.getElementById('q_customer').value=q.customer||'';document.getElementById('q_email').value=q.email||'';document.getElementById('q_date').value=q.date||localDateStr();document.getElementById('q_value').value=q.value===''?'':q.value;document.getElementById('q_description').value=q.description||'';document.getElementById('q_status').value=q.status||'Open';window.scrollTo({top:0,behavior:'smooth'})}
 function completeQuote(number){const key=String(number).toLowerCase(),q=quotes[key];if(!q)return;const t=quoteTotals(q);if(!confirm('Complete quote '+q.number+'?\n\nIt currently contains '+t.jobs.length+' linked job sheet'+(t.jobs.length===1?'':'s')+' with an actual net cost of '+gbp(t.net)+'.\n\nNo further job sheets can be added to this quote until you re-open it.'))return;q.status='Complete';q.completedAt=new Date().toISOString();q.updatedAt=new Date().toISOString();saveQuotes();renderQuotes()}
 function reopenQuote(number){const q=quotes[String(number).toLowerCase()];if(!q)return;q.status='Open';q.updatedAt=new Date().toISOString();saveQuotes();renderQuotes()}
+function createQuoteInvoice(number){
+ const q=quotes[String(number).toLowerCase()];if(!q)return;
+ if(q.status!=='Complete'){alert('Complete the quote first. Once it is complete, the Create Invoice button will appear.');return}
+ const t=quoteTotals(q);
+ if(!t.jobs.length){alert('There are no job sheets linked to this quote yet. Add the jobs using this Quote No. first.');return}
+ if(!t.jobs.every(j=>jobCost(j,rates).ready)){alert('Some jobs on this quote are not ready to invoice yet. Open Invoices, enter any missing materials costs and make sure your private rates are set.');return}
+ const invoiceNo='INV-'+q.number,today=ukDate(localDateStr());
+ const rows=t.jobs.map((j,i)=>'<tr><td>'+esc(j.job)+'</td><td>'+esc(lastWorked(j)?ukDate(lastWorked(j)):'')+'</td><td>'+esc(j.site||'')+'</td><td class="r">'+gbp(t.costs[i].net)+'</td></tr>').join('');
+ const html=`<!doctype html><html><head><meta charset="utf-8"><title>${esc(invoiceNo)}</title><style>body{font-family:Arial,sans-serif;margin:40px;color:#111}h1{margin:0 0 6px}.top{display:flex;justify-content:space-between;border-bottom:2px solid #111;padding-bottom:18px;margin-bottom:24px}.box{border:1px solid #bbb;padding:14px;margin:12px 0}table{width:100%;border-collapse:collapse;margin-top:18px}th,td{padding:9px;border-bottom:1px solid #ddd;text-align:left}th.r,td.r{text-align:right}.total{font-size:20px;font-weight:700}.print{padding:10px 16px;margin-bottom:20px}@media print{.print{display:none}body{margin:15mm}}</style></head><body>
+ <button class="print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+ <div class="top"><div><h1>INVOICE</h1><b>${esc(invoiceNo)}</b><br>Quote: ${esc(q.number)}</div><div style="text-align:right"><b>KEY ENGINEERING CHESTERFIELD LTD</b><br>The Bungalow, Whittington Lane<br>Unstone, Dronfield, S18 4DQ<br>Date: ${today}</div></div>
+ <div class="box"><b>Bill to</b><br>${esc(q.customer||'')}${q.email?'<br>'+esc(q.email):''}</div>
+ ${q.description?'<div class="box"><b>Work / Quote description</b><br>'+esc(q.description).replace(/\n/g,'<br>')+'</div>':''}
+ <table><tr><th>Job</th><th>Date</th><th>Site</th><th class="r">Net</th></tr>${rows}</table>
+ <div style="margin-left:auto;max-width:320px;margin-top:20px"><p>Labour: <b style="float:right">${gbp(t.nt+t.ot+t.dt)}</b></p><p>Mileage: <b style="float:right">${gbp(t.mile)}</b></p><p>Call-outs: <b style="float:right">${gbp(t.call)}</b></p><p>Materials: <b style="float:right">${gbp(t.mat)}</b></p><hr><p>Net: <b style="float:right">${gbp(t.net)}</b></p><p>VAT: <b style="float:right">${gbp(t.vat)}</b></p><p class="total">TOTAL: <span style="float:right">${gbp(t.gross)}</span></p></div>
+ </body></html>`;
+ const w=window.open('','_blank');if(!w){alert('Your browser blocked the invoice window. Please allow pop-ups for this app and try again.');return}w.document.open();w.document.write(html);w.document.close();
+}
 
 /* ---------------- invoices ---------------- */
 const RATES_KEY='rkey_rates';
