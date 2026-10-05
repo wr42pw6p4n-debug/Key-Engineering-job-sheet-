@@ -20,22 +20,57 @@ label{font-size:12px;font-weight:700;display:block;margin-bottom:4px}input,selec
 .jobrow{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #d5dce1;border-radius:8px;padding:12px;margin:7px 0}.pill{font-size:11px;border-radius:20px;padding:5px 8px;background:#e7f1fb;color:#145c8d;font-weight:700}
 hr{border:0;border-top:1px solid #d2d8dd;margin:18px 0}
 .sigcanvas{border:1px solid #222;border-radius:5px;background:#fff;width:100%;height:130px;touch-action:none}.sig-actions{margin-top:5px}
-.actions{display:flex;gap:7px;flex-wrap:wrap}.stat{display:inline-block;background:#f5f7f8;border:1px solid #d7dde1;border-radius:7px;padding:8px 10px;margin:3px;font-size:12px}
-.job-sheet{max-width:1000px;margin:auto;background:white;color:#000;padding:22px}
+.actions{display:flex;gap:7px;flex-wrap:wrap}.dashgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.dashcard{border:1px solid #d5dce1;border-radius:9px;padding:12px;background:#fff;cursor:pointer}.dashcard strong{display:block;font-size:24px;margin-top:3px}.dashcard small{color:#68747d}.attention{border-left:4px solid #c0392b}.backupbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.stat{display:inline-block;background:#f5f7f8;border:1px solid #d7dde1;border-radius:7px;padding:8px 10px;margin:3px;font-size:12px}
+.job-sheet{max-width:1000px;margin:auto;background-color:#fff;background-image:url('watermark.png');background-repeat:no-repeat;background-position:center;background-size:auto 92%;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#000;padding:22px}
 .company{text-align:center;border:1px solid #111;padding:7px;font-size:10px;line-height:1.35}.company strong{font-size:14px}
 .title{border:2px solid #111;border-top:0;text-align:center;font-weight:bold;font-size:22px;padding:9px}
 .info{width:100%;border-collapse:collapse;margin-top:9px;font-size:11px}.info th,.info td{border:1px solid #111;padding:6px;vertical-align:top}.info th{background:#e8e8e8;text-align:left;width:18%}
+.hourstable{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}.hourstable th,.hourstable td{border:1px solid #d5dce1;padding:9px 10px;text-align:left}.hourstable th{background:#f2f5f7}
 .section{background:#dedede;border:1px solid #111;border-bottom:0;font-size:11px;font-weight:bold;padding:6px;margin-top:9px}.box{border:1px solid #111;min-height:115px;padding:7px;font-size:11px;white-space:pre-wrap}
 .time th,.time td{text-align:center}.time input{border:0;padding:0;text-align:center;background:transparent}.time input:focus{outline:1px solid #1769aa}
 .cert{font-size:10px;border:1px solid #111;padding:7px;min-height:90px}.signprint{height:55px;border-bottom:1px solid #111;margin-top:4px}
 .footer{font-size:8px;text-align:center;margin-top:7px}
 .sig-label{font-weight:300}
 .custrow{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #d5dce1;border-radius:8px;padding:12px;margin:7px 0;cursor:pointer}
+.calloutbtn{border:2px solid #c0392b;color:#c0392b;background:#fff;border-radius:8px;padding:8px 14px;font-weight:700;font-size:13px;cursor:pointer}
+.calloutbtn.active{background:#c0392b;color:#fff;box-shadow:0 0 0 3px #f5c2ba}
+.callout-badge{display:inline-block;background:#c0392b;color:#fff;font-weight:700;font-size:12px;border-radius:6px;padding:3px 9px;margin-left:10px;vertical-align:middle}
 .custrow:hover{background:#f5f8fb}
 .custedit{border:1px solid #d5dce1;border-radius:8px;padding:12px;margin:7px 0;background:#f9fbfc}
 button[disabled]{opacity:.55;cursor:wait}
-@media(max-width:700px){.grid,.grid4{grid-template-columns:1fr}.jobrow,.custrow{flex-direction:column;align-items:flex-start}.job-sheet{padding:10px}}
-@media print{body{background:#fff}.no-print,header{display:none!important}.wrap{padding:0;max-width:none}.card{box-shadow:none;padding:0;margin:0}.job-sheet{max-width:none;padding:6mm;transform-origin:top left}@page{size:A4;margin:7mm}}
+@media(max-width:700px){.grid,.grid4{grid-template-columns:1fr}.dashgrid{grid-template-columns:repeat(2,1fr)}.dashcard{padding:9px 11px}.dashcard strong{font-size:20px}.jobrow,.custrow{flex-direction:column;align-items:flex-start}.job-sheet{padding:10px}}
+@media print{body{background:#fff}.no-print,header{display:none!important}.wrap{padding:0;max-width:none}.card{box-shadow:none;padding:0;margin:0}.job-sheet{max-width:none;padding:6mm;transform-origin:top left}@page{size:A4;margin:7mm}
+.company{padding:4px;font-size:9px}.company strong{font-size:13px}.company img{height:34px!important}
+.title{font-size:17px;padding:5px}
+.section{padding:4px;margin-top:5px}
+.box{min-height:60px;padding:5px}
+.cert{min-height:55px;padding:5px}.signprint{height:36px}
+.footer{margin-top:4px}}
+.filterchip{display:inline-flex;align-items:center;gap:8px;background:#e7f1fb;border:1px solid #b9d3ee;color:#0f4c81;border-radius:20px;padding:5px 6px 5px 12px;font-size:13px;font-weight:700;margin:6px 0}
+.filterchip button{padding:2px 9px;border-radius:14px;font-size:13px}
+.notice{border-radius:8px;padding:10px 12px;margin:8px 0;font-size:13px}.notice.warn{background:#fff4d6;border:1px solid #e5cf6b}.notice.ok{background:#e6f4ea;border:1px solid #a8d5b5}
+.notice button{padding:4px 10px;font-size:12px;margin-left:8px}
+.modalback{position:fixed;inset:0;background:#0007;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.modalbox{background:#fff;border-radius:12px;max-width:460px;width:100%;padding:18px;box-shadow:0 8px 30px #0005}.modalbox h3{margin:0 0 8px}.modalbox p{margin:6px 0;font-size:14px}
+.repgroup{border:1px solid #d5dce1;border-radius:10px;margin:10px 0;overflow:hidden;background:#fff}
+.repgroup>h4{margin:0;padding:9px 12px;background:#f2f5f7;font-size:15px}
+.repitem{padding:10px 12px;border-top:1px solid #e3e8ec}.repitem .meta{font-size:12px;color:#55616a;margin-bottom:4px}.repitem .txt{white-space:pre-wrap;font-size:14px}
+.repstatus{display:inline-flex;gap:4px;margin-top:8px;flex-wrap:wrap}.repstatus button{padding:6px 10px;font-size:12px}
+.repstatus button.on{background:#1769aa;color:#fff;border-color:#1769aa}.repstatus button.on.booked{background:#e08a00;border-color:#e08a00}.repstatus button.on.done{background:#2e7d32;border-color:#2e7d32}
+.repbadge{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;background:#e08a00;color:#fff;margin-left:8px;vertical-align:middle}
+
+.invcard{padding:12px;border-top:1px solid #e3e8ec}
+.invcard .meta{font-size:12px;color:#55616a;margin-bottom:6px}
+.invline{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:2px 0}
+.invline .k{color:#33414a}.invline .v{font-variant-numeric:tabular-nums;white-space:nowrap}
+.invtotal{display:flex;justify-content:space-between;font-weight:700;border-top:1px solid #d5dce1;margin-top:6px;padding-top:6px}
+.invmat{background:#f7f9fb;border:1px dashed #b9c4cc;border-radius:8px;padding:8px 10px;margin:8px 0}
+.invmat .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.invmat summary{cursor:pointer}
+.ratesgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px}
+.invtable{width:100%;border-collapse:collapse;font-size:11px}
+.invtable th,.invtable td{border:1px solid #111;padding:5px 6px;vertical-align:top;text-align:left}
+.invtable th{background:#e8e8e8}.invtable td.r,.invtable th.r{text-align:right;white-space:nowrap}
+.invtable tr.tot td{font-weight:700;background:#f2f2f2}
 </style>
 <script>
 // Loads a lib from a primary CDN, falling back to a mirror if the first is blocked/unreachable.
@@ -63,29 +98,44 @@ loadWithFallback(['https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.mi
 </script>
 </head>
 <body>
-<header class="no-print"><div class="head"><h1>Key Engineering Chesterfield LTD — Job Manager <span style="font-size:11px;font-weight:400;opacity:.55">build 2026-08-28.4</span></h1><span id="counter"></span></div></header>
+<header class="no-print"><div class="head"><div style="display:flex;align-items:center;gap:10px"><img src="logo-header.png" alt="Key Engineering logo" style="height:38px;width:auto;flex-shrink:0"><h1>Key Engineering Chesterfield LTD — Job Manager <span style="font-size:11px;font-weight:400;opacity:.55">build 2026-10-03.1</span></h1></div><span id="counter"></span></div></header>
 <div class="wrap">
 <div class="nav no-print">
-<button class="primary" onclick="newJob()">＋ New Job</button><button onclick="home()">Jobs</button><button onclick="customersPage()">Customers</button>
+<button class="primary" onclick="newJob()">＋ New Job</button><button onclick="home()">Jobs</button><button onclick="customersPage()">Customers</button><button onclick="engineersPage()">Engineers</button><button onclick="repairsPage()">🔧 Repairs</button><button onclick="invoicesPage()">🧾 Invoices</button><button onclick="quotesPage()">💷 Quotes</button>
 </div>
 
 <section id="home" class="card no-print">
-<h2>Job Orders</h2>
+<h2>Job Dashboard</h2>
+<div id="backupNotice"></div>
+<div id="dashboardCards" class="dashgrid"></div>
 <div id="stats"></div>
-<input id="search" placeholder="Search job number, customer, site or engineer…" oninput="renderJobs()">
+<div class="backupbar">
+ <button onclick="exportBackup()">⬇ Backup Data</button>
+ <button onclick="importBackup()">⬆ Restore / Merge Backup</button>
+ <button id="undoImportBtn" class="hidden" onclick="undoImport()">↩ Undo last import</button>
+ <button onclick="showTodayJobs()">📅 Today</button><button onclick="quotesPage()">💷 Quotes</button>
+</div>
+<div id="lastBackupInfo" class="muted" style="margin-top:6px"></div>
+<hr>
+<input id="search" placeholder="Search job number, customer, site, engineer, crane no. or notes…" oninput="renderJobs()">
+<div id="filterChip"></div>
 <div id="jobList"></div>
 </section>
 
 <section id="form" class="card no-print hidden">
-<h2>New Job Order</h2>
+<h2 id="formHeading">New Job Order</h2>
 <div class="grid">
 <div><label>Job No.</label><input id="f_job" oninput="jobNumberChanged()"></div>
-<div><label>Customer Order No.</label><input id="f_order" oninput="orderNumberChanged()"></div>
-<div><label>Customer / Company</label><input id="f_customer" list="customerOptions" oninput="customerChanged()"><datalist id="customerOptions"></datalist></div>
+<div><label>Customer Order No.</label><input id="f_order" oninput="orderNumberChanged()"></div><div><label>Quote No.</label><input id="f_quote" list="quoteOptions" placeholder="e.g. Q-1001" onchange="quoteNumberChanged()"><datalist id="quoteOptions"></datalist></div>
+<div><label>Customer (quick select)</label><select id="f_customerSelect" onchange="selectExistingCustomer()"></select></div>
+<div><label>Customer / Company (type to add new)</label><input id="f_customer" list="customerOptions" oninput="customerChanged()" placeholder="Start typing a new customer name…"><datalist id="customerOptions"></datalist></div>
 <div><label>Customer Email</label><input id="f_email" type="email" placeholder="name@company.com"></div>
 <div><label>Type of Work</label><select id="f_type"></select></div>
-<div><label>Location / Site</label><input id="f_site"></div>
-<div><label>Site Contact(s)</label><input id="f_contact"></div>
+<div><label>Location / Site</label><input id="f_site" onchange="autoFillMileage()" placeholder="Site / address — include the postcode"><div id="mileageStatus" class="muted" style="margin-top:4px;font-size:12px"></div></div>
+<div><label>Customer Postcode</label><input id="f_postcode" placeholder="e.g. S41 9EY" autocapitalize="characters" onchange="saveFormCustomerPostcode();autoFillMileage(this.value)"></div><div><label>Site Contact(s)</label><input id="f_contact"></div>
+<div><label>Equipment / Crane No.</label><input id="f_equipment" placeholder="Asset, crane or equipment number"></div>
+<div><label>Manufacturer / Model</label><input id="f_model" placeholder="e.g. Demag / Konecranes / SWF"></div>
+<div><label>Serial No. / SWL</label><input id="f_serial" placeholder="Serial number / SWL"></div>
 <div><label>Date</label><input id="f_date" type="date"></div>
 <div><label>Status</label><select id="f_status"><option>Open</option><option>In Progress</option><option>Complete</option></select></div>
 </div>
@@ -96,9 +146,11 @@ loadWithFallback(['https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.mi
 </div>
 <datalist id="engineerOptions"></datalist>
 <hr>
-<label>Report of Work Carried Out / Comments</label><textarea id="f_comments"></textarea>
+<label>Report of Work Carried Out / Comments</label><textarea id="f_comments" placeholder="Describe work carried out, tests completed and condition of equipment…"></textarea>
+<div style="margin-top:10px"><label>Repairs Required / Defects / Recommendations</label><textarea id="f_defects" placeholder="Record outstanding repairs, defects or recommendations. Leave blank if none."></textarea>
+<div style="margin-top:8px;max-width:260px"><label>Repair status</label><select id="f_repairStatus"><option value="">Outstanding</option><option value="Booked">Booked in</option><option value="Done">Done</option></select></div></div>
 <hr>
-<h3>Time, Expenses & Mileage</h3>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px"><h3 style="margin:0">Time, Expenses & Mileage</h3><button type="button" id="calloutBtn" class="calloutbtn no-print" onclick="toggleCallout()">⚡ Call-out</button></div>
 <div id="timeRows"></div>
 <button class="secondary" onclick="addTimeRow()">＋ Add Date</button>
 <hr>
@@ -124,6 +176,108 @@ loadWithFallback(['https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.mi
 <input id="custSearch" placeholder="Search customers…" oninput="renderCustomers()">
 <div id="customerView"></div>
 </section>
+<section id="engineers" class="card no-print hidden">
+<h2>Engineers</h2>
+<div class="muted" style="margin-bottom:8px">Rename or remove engineers from the picker used on job sheets. This doesn't change engineers already recorded on past jobs.</div>
+<div class="no-print" style="margin:8px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+ <label style="margin:0 4px 0 0">Invoices for week starting</label>
+ <input type="date" id="engWeekPick" onchange="renderEngineers()" style="width:auto">
+ <button onclick="shiftEngWeek(-7)">◀ Prev week</button><button onclick="shiftEngWeek(7)">Next week ▶</button>
+</div>
+<div id="engineerView"></div>
+<div class="actions" style="margin-top:10px"><input id="newEngineerName" placeholder="New engineer name" style="flex:1" onkeydown="if(event.key==='Enter')addEngineer()"><button class="primary" onclick="addEngineer()">+ Add</button></div>
+</section>
+<section id="hours" class="card hidden">
+<button class="no-print" onclick="engineersPage()" style="margin-bottom:10px">← Back to Engineers</button>
+<div class="no-print" style="margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+ <label style="margin-right:4px">Week starting</label>
+ <input type="date" id="hoursWeekPick" onchange="renderHoursCard()">
+ <button onclick="shiftHoursWeek(-7)">◀ Prev week</button>
+ <button onclick="shiftHoursWeek(7)">Next week ▶</button>
+ <button class="primary" onclick="downloadHoursPdf()">⬇ Download PDF</button>
+ <button onclick="downloadWeeklyJobSheetsPdf()">📎 Merge Job Sheets This Week</button>
+ <button onclick="exportHoursEngineerInvoices()">🧾 Merge Invoices This Week</button>
+</div>
+<div id="hoursPrintArea">
+ <h2 id="hoursHeading">Weekly Hours</h2>
+ <div id="hoursWeekLabel" style="font-weight:700;font-size:16px;margin-bottom:6px"></div>
+ <div class="muted no-print" style="margin-bottom:10px;font-size:12px">Totals are pulled straight from every job sheet's time entries that fall in this week (Mon–Sun), grouped by whichever engineer is set on each row — or the first engineer listed on the job if a row doesn't specify one. Call-outs shows how many call-out jobs each engineer attended that week.</div>
+ <div id="hoursCardBody"></div>
+</div>
+</section>
+<section id="invoices" class="card hidden">
+<button class="no-print" onclick="home()" style="margin-bottom:10px">← Back to Jobs</button>
+<h2>Invoices</h2>
+<div class="muted" style="margin-bottom:10px">Every completed job sheet, costed from your rates. Type the materials cost on each job and it is ready to invoice.</div>
+<div id="invNotices"></div>
+<details id="invRatesBox" class="invmat" style="margin-bottom:10px">
+ <summary><b>Rates</b> <span id="invRatesState" class="muted"></span></summary>
+ <div class="ratesgrid" style="margin-top:8px">
+  <div><label>Normal time £/hr (N/T)</label><input id="rate_nt" type="number" min="0" step="0.01" inputmode="decimal"></div>
+  <div><label>Overtime 1 £/hr (O/T)</label><input id="rate_ot" type="number" min="0" step="0.01" inputmode="decimal"></div>
+  <div><label>Overtime 2 £/hr (D/T)</label><input id="rate_dt" type="number" min="0" step="0.01" inputmode="decimal"></div>
+  <div><label>Mileage £/mile</label><input id="rate_mile" type="number" min="0" step="0.001" inputmode="decimal"></div>
+  <div><label>Call-out fee £ (each)</label><input id="rate_callout" type="number" min="0" step="0.01" inputmode="decimal"></div>
+  <div><label>VAT % (0 if not registered)</label><input id="rate_vat" type="number" min="0" max="100" step="0.01" inputmode="decimal"></div>
+ </div>
+ <div class="actions" style="margin-top:8px"><button class="primary" onclick="saveRates()">Save rates</button></div>
+ <div class="muted" style="font-size:12px;margin-top:6px">Enter 0 for anything you don't charge. These rates are saved only on this device and are not included in backups. They are deliberately not stored in the public app source.</div>
+</details>
+<div class="no-print" style="margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+ <label style="margin:0 4px 0 0">Show</label>
+ <select id="invScope" onchange="renderInvoices()" style="width:auto"><option value="week">A week's jobs</option><option value="all">Everything not yet invoiced</option></select>
+ <span id="invWeekCtl" style="display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap">
+  <label style="margin:0 0 0 6px">Week starting</label>
+  <input type="date" id="invWeekPick" onchange="renderInvoices()" style="width:auto">
+  <button onclick="shiftInvWeek(-7)">◀ Prev week</button>
+  <button onclick="shiftInvWeek(7)">Next week ▶</button>
+ </span>
+</div>
+<div class="actions no-print" style="margin-bottom:10px">
+ <button onclick="importBackup({invoices:true})">⬆ Add engineers' jobs</button>
+ <button class="primary" onclick="exportInvoicesPdf('download')">⬇ Worksheet PDF</button>
+ <button onclick="exportInvoicesPdf('share')">📤 Share PDF</button>
+ <button onclick="exportInvoicesCsv()">⬇ CSV for accounts</button>
+</div>
+<div id="invEngCheck"></div>
+<div id="invSummary" style="font-weight:700;margin:6px 0"></div>
+<div id="invBody"></div>
+<div id="invBulk"></div>
+<div id="invExtra"></div>
+</section>
+<section id="quotes" class="card hidden">
+<button class="no-print" onclick="home()" style="margin-bottom:10px">← Back to Jobs</button>
+<h2>Quotes</h2>
+<div class="muted" style="margin-bottom:10px">Create a quote number once, then put that number on every job sheet for the work. Every saved sheet with the same quote number is automatically added to the running quote until the quote is marked Complete.</div>
+<div class="card" style="background:#f7f9fb"><div class="grid">
+<div><label>Quote No.</label><input id="q_number" placeholder="e.g. Q-1001"></div><div><label>Customer / Company</label><input id="q_customer" list="customerOptions"></div>
+<div><label>Customer Email</label><input id="q_email" type="email"></div><div><label>Quote Date</label><input id="q_date" type="date"></div>
+<div><label>Quoted Price £ (optional)</label><input id="q_value" type="number" min="0" step="0.01" inputmode="decimal"></div><div><label>Status</label><select id="q_status"><option>Open</option><option>Complete</option></select></div>
+</div><div style="margin-top:10px"><label>Quote Description / Scope</label><textarea id="q_description" placeholder="Describe the quoted work..."></textarea></div>
+<div class="actions" style="margin-top:10px"><button class="primary" onclick="saveQuote()">Save Quote</button><button onclick="newQuote()">Clear</button></div></div>
+<div id="quoteBody"></div></section>
+<section id="repairs" class="card hidden">
+<button class="no-print" onclick="home()" style="margin-bottom:10px">← Back to Jobs</button>
+<h2>Repairs Required</h2>
+<div class="muted" style="margin-bottom:10px">Everything recorded under "Repairs Required / Defects / Recommendations" on job sheets, grouped by customer so repairs can be booked in. Set each one to <b>Booked in</b> or <b>Done</b> as you go.</div>
+<div class="no-print" style="margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+ <label style="margin:0 4px 0 0">Show</label>
+ <select id="repairsScope" onchange="renderRepairs()" style="width:auto"><option value="week">This week's reports</option><option value="all">All outstanding repairs</option></select>
+ <span id="repairsWeekCtl" style="display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap">
+  <label style="margin:0 0 0 6px">Week starting</label>
+  <input type="date" id="repairsWeekPick" onchange="renderRepairs()" style="width:auto">
+  <button onclick="shiftRepairsWeek(-7)">◀ Prev week</button>
+  <button onclick="shiftRepairsWeek(7)">Next week ▶</button>
+ </span>
+</div>
+<div class="actions no-print" style="margin-bottom:10px">
+ <button class="primary" onclick="exportRepairsPdf('download')">⬇ Download PDF</button>
+ <button onclick="exportRepairsPdf('share')">📤 Share / Email PDF</button>
+</div>
+<div id="repairsUndo"></div>
+<div id="repairsSummary" style="font-weight:700;margin:6px 0"></div>
+<div id="repairsBody"></div>
+</section>
 <section id="detail" class="card hidden"></section>
 </div>
 
@@ -138,41 +292,136 @@ if(!Array.isArray(jobs)){
  seededFromHistory=true;
  try{localStorage.setItem('rkey_jobs',JSON.stringify(jobs))}catch(e){}
 }
+function normalizeJob(j){
+ // Fills any missing fields so one odd record (older app version, hand-edited or damaged backup)
+ // can never break the Jobs list or a job sheet. Also refuses anything but a real image as a signature.
+ const s=v=>typeof v==='string'?v:(v==null?'':String(v));
+ const img=v=>(typeof v==='string'&&/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+\/=]+$/.test(v))?v:'';
+ const time=Array.isArray(j.time)?j.time.filter(r=>r&&typeof r==='object').map(r=>({date:s(r.date),nt:s(r.nt),ot:s(r.ot),dt:s(r.dt),mile:s(r.mile),eid:s(r.eid)})):[];
+ return Object.assign({},j,{
+  job:s(j.job),order:s(j.order),quoteNo:s(j.quoteNo),customer:s(j.customer),site:s(j.site),contact:s(j.contact),email:s(j.email),
+  equipment:s(j.equipment),model:s(j.model),serial:s(j.serial),date:s(j.date),
+  status:['Open','In Progress','Complete'].includes(j.status)?j.status:'Open',type:s(j.type),
+  engineers:Array.isArray(j.engineers)?j.engineers.map(s).filter(Boolean):[],
+  comments:s(j.comments),defects:s(j.defects),repairStatus:['Booked','Done'].includes(j.repairStatus)?j.repairStatus:'',
+  time,materials:Array.isArray(j.materials)?j.materials.map(s):[],
+  customerName:s(j.customerName),customerPosition:s(j.customerPosition),
+  customerSig:img(j.customerSig),engineerSig:img(j.engineerSig),callout:!!j.callout,invoice:hasInvoiceData(j)?normInvoice(j.invoice):undefined,
+  created:s(j.created)||((s(j.date)||'1970-01-01')+'T00:00:00.000Z')
+ });
+}
+jobs=jobs.filter(j=>j&&typeof j==='object').map(normalizeJob);
 let savedCustomers=[];
 try{savedCustomers=JSON.parse(localStorage.getItem('rkey_customers')||'[]');if(!Array.isArray(savedCustomers))savedCustomers=[]}catch(e){savedCustomers=[]}
-let customers=[...new Set([...savedCustomers,...SEED.customers])];
-let engineers=SEED.engineers;
+let deletedCustomers=[];
+try{deletedCustomers=JSON.parse(localStorage.getItem('rkey_deleted_customers')||'[]');if(!Array.isArray(deletedCustomers))deletedCustomers=[]}catch(e){deletedCustomers=[]}
+function saveDeletedCustomers(){localStorage.setItem('rkey_deleted_customers',JSON.stringify(deletedCustomers))}
+let customers=[...new Set([...savedCustomers,...SEED.customers])].filter(c=>!deletedCustomers.includes(c.trim().toLowerCase()));
+let engineers=(()=>{
+ try{
+  let saved=JSON.parse(localStorage.getItem('rkey_engineers')||'null');
+  if(Array.isArray(saved)&&saved.length)return saved;
+ }catch(e){}
+ return SEED.engineers.slice();
+})();
+function saveEngineers(){localStorage.setItem('rkey_engineers',JSON.stringify(engineers))}
 let types=[...new Set(['Repair','Service','Office Work','Test','Inspection','Survey','Delivery','Quotation','Installation','Crane build',...SEED.types])];
 let timeRows=[],matRows=[];
+let calloutActive=false;
+function toggleCallout(){calloutActive=!calloutActive;updateCalloutBtn()}
+function updateCalloutBtn(){
+ let btn=document.getElementById('calloutBtn');if(!btn)return;
+ btn.classList.toggle('active',calloutActive);
+ btn.textContent=calloutActive?'⚡ Call-out ✓':'⚡ Call-out';
+}
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function hide(){['home','form','customers','detail'].forEach(x=>document.getElementById(x).classList.add('hidden'))}
-function home(){hide();document.getElementById('home').classList.remove('hidden');renderJobs()}
+function hide(){['home','form','customers','engineers','hours','repairs','invoices','quotes','detail'].forEach(x=>document.getElementById(x).classList.add('hidden'))}
+function home(){window._jobFilterStatus=null;window._jobFilterDefects=false;window._jobFilterToday=false;window._showAllJobs=false;hide();document.getElementById('home').classList.remove('hidden');renderJobs()}
 function nextJob(){let n=jobs.map(j=>parseInt(j.job,10)).filter(Number.isFinite);return String((n.length?Math.max(...n):0)+1)}
-function setupLists(){customerOptions.innerHTML=customers.map(x=>`<option value="${esc(x)}"></option>`).join('');document.getElementById('engineerOptions').innerHTML=engineers.map(x=>`<option value="${esc(x)}"></option>`).join('');document.getElementById('f_type').innerHTML=types.map(x=>`<option>${esc(x)}</option>`).join('')}
+function setupLists(){let qdl=document.getElementById('quoteOptions');if(qdl&&typeof quotes!=='undefined')qdl.innerHTML=Object.values(quotes||{}).map(q=>'<option value="'+esc(q.number)+'"></option>').join('');customerOptions.innerHTML=customers.map(x=>`<option value="${esc(x)}"></option>`).join('');document.getElementById('engineerOptions').innerHTML=engineers.map(x=>`<option value="${esc(x)}"></option>`).join('');document.getElementById('f_type').innerHTML=types.map(x=>`<option>${esc(x)}</option>`).join('');
+ let sel=document.getElementById('f_customerSelect');
+ let current=sel.value;
+ sel.innerHTML='<option value="">— Select existing customer —</option><option value="__new__">+ Add a new customer…</option>'+[...customers].sort((a,b)=>a.localeCompare(b)).map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('');
+ sel.value=customers.includes(current)?current:'';
+}
+function selectExistingCustomer(){
+ let sel=document.getElementById('f_customerSelect');
+ let name=sel.value;
+ if(!name)return;
+ if(name==='__new__'){
+  sel.value='';
+  document.getElementById('f_customer').value='';
+  document.getElementById('f_customer').focus();
+  return;
+ }
+ document.getElementById('f_customer').value=name;
+ customerChanged();
+}
 function newJob(){
- hide();document.getElementById('form').classList.remove('hidden');setupLists();f_job.value=nextJob();f_date.value=new Date().toISOString().slice(0,10);
- ['f_order','f_customer','f_email','f_site','f_contact','e1','e2','e3','e4','f_comments','custName','custPosition'].forEach(x=>document.getElementById(x).value='');
+ hide();document.getElementById('form').classList.remove('hidden');setupLists();f_job.value=nextJob();f_date.value=localDateStr();
+ editingJobNo=null;document.getElementById('formHeading').textContent='New Job Order';
+ ['f_order','f_quote','f_customer','f_customerSelect','f_email','f_site','f_postcode','f_contact','f_equipment','f_model','f_serial','f_defects','f_repairStatus','e1','e2','e3','e4','f_comments','custName','custPosition'].forEach(x=>document.getElementById(x).value='');
  timeRows=[];matRows=[];addTimeRow();renderMaterials();clearSig('customerSig');clearSig('engineerSig');
+ calloutActive=false;updateCalloutBtn();mileageReq++;setMileageStatus('');
+}
+let editingJobNo=null;
+function editJob(no){
+ let j=jobs.find(x=>x.job===no);if(!j)return;
+ hide();document.getElementById('form').classList.remove('hidden');setupLists();
+ editingJobNo=no;document.getElementById('formHeading').textContent='Editing Job '+no;
+ document.getElementById('f_job').value=j.job;
+ document.getElementById('f_order').value=j.order||'';
+document.getElementById('f_quote').value=j.quoteNo||'';
+ document.getElementById('f_customer').value=j.customer||'';
+ document.getElementById('f_customerSelect').value=customers.includes(j.customer)?j.customer:'';
+ document.getElementById('f_email').value=j.email||'';
+ document.getElementById('f_site').value=j.site||'';
+document.getElementById('f_postcode').value=extractPostcode(j.site||'')||getCustomerInfo(j.customer||'').postcode||'';
+ document.getElementById('f_contact').value=j.contact||'';
+ document.getElementById('f_equipment').value=j.equipment||'';
+ document.getElementById('f_model').value=j.model||'';
+ document.getElementById('f_serial').value=j.serial||'';
+ document.getElementById('f_date').value=j.date||'';
+ document.getElementById('f_status').value=j.status||'Open';
+ document.getElementById('f_type').value=j.type||'';
+ ['e1','e2','e3','e4'].forEach((id,i)=>document.getElementById(id).value=(j.engineers||[])[i]||'');
+ document.getElementById('f_comments').value=j.comments||'';
+ document.getElementById('f_defects').value=j.defects||'';
+ document.getElementById('f_repairStatus').value=j.repairStatus||'';
+ document.getElementById('custName').value=j.customerName||'';
+ document.getElementById('custPosition').value=j.customerPosition||'';
+ timeRows=(j.time||[]).map(r=>({...r}));if(!timeRows.length)timeRows.push({date:j.date||localDateStr(),nt:'',ot:'',dt:'',mile:'',eid:''});
+ matRows=(j.materials||[]).map(desc=>({desc}));
+ renderTime();renderMaterials();
+ calloutActive=!!j.callout;updateCalloutBtn();mileageReq++;setMileageStatus('');
+ clearSig('customerSig');clearSig('engineerSig');
+ setTimeout(()=>{
+  if(j.customerSig){let img=new Image();img.onload=()=>{let c=document.getElementById('customerSig');c.getContext('2d').drawImage(img,0,0,c.width,c.height)};img.src=j.customerSig}
+  if(j.engineerSig){let img=new Image();img.onload=()=>{let c=document.getElementById('engineerSig');c.getContext('2d').drawImage(img,0,0,c.width,c.height)};img.src=j.engineerSig}
+ },150);
 }
 let customerRecords={};
 try{customerRecords=JSON.parse(localStorage.getItem('rkey_customer_records')||'{}');if(typeof customerRecords!=='object'||!customerRecords)customerRecords={}}catch(e){customerRecords={}}
 function saveCustomerRecords(){localStorage.setItem('rkey_customer_records',JSON.stringify(customerRecords))}
 function getCustomerInfo(name){
- let key=(name||'').trim().toLowerCase();if(!key)return{site:'',contact:'',email:''};
+ let key=(name||'').trim().toLowerCase();if(!key)return{site:'',contact:'',email:'',postcode:''};
  let rec=customerRecords[key];
  let old=jobs.find(j=>j.customer.toLowerCase()===key&&j.site);
  return{
   site:(rec&&rec.site)||(old&&old.site)||'',
   contact:(rec&&rec.contact)||(old&&old.contact)||'',
-  email:(rec&&rec.email)||''
+  email:(rec&&rec.email)||'',
+     postcode:(rec&&rec.postcode)||extractPostcode((rec&&rec.site)||'')||extractPostcode((old&&old.site)||'')
  };
 }
 function customerChanged(){
  let c=document.getElementById('f_customer').value.trim();if(!c)return;
  let info=getCustomerInfo(c);
  document.getElementById('f_site').value=info.site;
+ document.getElementById('f_postcode').value=info.postcode||extractPostcode(info.site)||'';
  document.getElementById('f_contact').value=info.contact;
  document.getElementById('f_email').value=info.email;
+ autoFillMileage(document.getElementById('f_postcode').value||info.postcode);
 }
 // Looks up an existing job sheet (imported history or previously saved) by Job No. or
 // Customer Order No. and scrapes its description (Type of Work) and Date, plus the
@@ -186,6 +435,7 @@ function fillFromOriginalJobSheet(match){
  customerChanged();
  if(!document.getElementById('f_site').value&&match.site)document.getElementById('f_site').value=match.site;
  if(!document.getElementById('f_contact').value&&match.contact)document.getElementById('f_contact').value=match.contact;
+ autoFillMileage();
 }
 function jobNumberChanged(){
  let jobNo=document.getElementById('f_job').value.trim();if(!jobNo)return;
@@ -200,7 +450,7 @@ function orderNumberChanged(){
  if(match)fillFromOriginalJobSheet(match);
 }
 function addTimeRow(d='',nt='',ot='',dt='',mile='',eid=''){
- timeRows.push({date:d||new Date().toISOString().slice(0,10),nt,ot,dt,mile,eid});renderTime()
+ timeRows.push({date:d||localDateStr(),nt,ot,dt,mile,eid});renderTime()
 }
 function renderTime(){
  let timeRowsEl=document.getElementById('timeRows');
@@ -209,8 +459,8 @@ function renderTime(){
  <div><label>N/T</label><input type="number" step=".25" value="${esc(r.nt)}" onchange="timeRows[${i}].nt=this.value"></div>
  <div><label>O/T</label><input type="number" step=".25" value="${esc(r.ot)}" onchange="timeRows[${i}].ot=this.value"></div>
  <div><label>D/T</label><input type="number" step=".25" value="${esc(r.dt)}" onchange="timeRows[${i}].dt=this.value"></div>
- <div><label>Mileage</label><input type="number" step="1" value="${esc(r.mile)}" onchange="timeRows[${i}].mile=this.value"></div>
- <div><label>Engineer ID</label><input value="${esc(r.eid)}" onchange="timeRows[${i}].eid=this.value"></div>
+ <div><label>Mileage (each van)</label><input type="number" step="any" inputmode="decimal" value="${esc(r.mile)}" onchange="timeRows[${i}].mile=this.value;autoMileRows.delete(timeRows[${i}])"></div>
+ <div><label>Engineer ID</label><input value="${esc(r.eid)}" placeholder="all on job" list="engineerOptions" onchange="timeRows[${i}].eid=this.value"></div>
  <div><button class="danger" style="width:100%" onclick="timeRows.splice(${i},1);renderTime()">Remove</button></div>
  </div>`).join('');
 }
@@ -222,38 +472,189 @@ function renderMaterials(){
 function saveJob(){
  const v=id=>document.getElementById(id).value;
  let j={
-  job:v('f_job'),order:v('f_order'),customer:v('f_customer'),site:v('f_site'),
-  contact:v('f_contact'),email:v('f_email').trim(),date:v('f_date'),status:v('f_status'),type:v('f_type'),
+  job:v('f_job'),order:v('f_order'),quoteNo:v('f_quote').trim(),customer:v('f_customer'),site:v('f_site'),
+  contact:v('f_contact'),equipment:v('f_equipment'),model:v('f_model'),serial:v('f_serial'),email:v('f_email').trim(),date:v('f_date'),status:v('f_status'),type:v('f_type'),
   engineers:['e1','e2','e3','e4'].map(v).filter(Boolean),
-  comments:v('f_comments'),time:timeRows,materials:matRows.map(x=>x.desc).filter(Boolean),
-  customerName:v('custName'),customerPosition:v('custPosition'),
+  comments:v('f_comments'),defects:v('f_defects'),repairStatus:v('f_defects').trim()?v('f_repairStatus'):'',updatedAt:new Date().toISOString(),time:timeRows,materials:matRows.map(x=>x.desc).filter(Boolean),
+  customerName:v('custName'),customerPosition:v('custPosition'),callout:calloutActive,
   customerSig:document.getElementById('customerSig').toDataURL(),
   engineerSig:document.getElementById('engineerSig').toDataURL(),
   created:new Date().toISOString()
  };
+ if(j.quoteNo){const q=quotes[String(j.quoteNo).toLowerCase()];if(q&&q.status==='Complete'){alert('Quote '+q.number+' is complete. Re-open it in Quotes before adding another job sheet to it.');return}}
  if(!j.customer){alert('Please enter the customer/company.');return}
  if(!j.job){alert('Please enter a job number.');return}
- if(jobs.some(x=>x.job===j.job)){if(!confirm('Job '+j.job+' already exists. Save anyway as a duplicate?'))return}
- jobs.push(j);
+ if(editingJobNo!==null){
+  let idx=jobs.findIndex(x=>x.job===editingJobNo);
+  if(idx===-1){alert('Could not find the original job to update — it may have been deleted.');return}
+  j.created=jobs[idx].created||j.created;j.invoice=jobs[idx].invoice;
+  if(j.email===jobs[idx].email)j.completionEmailSentAt=jobs[idx].completionEmailSentAt||'';
+  jobs[idx]=j;
+ }else{
+  if(jobs.some(x=>x.job===j.job)){if(!confirm('Job '+j.job+' already exists. Save anyway as a duplicate?'))return}
+  jobs.push(j);
+ }
  customers=[...new Set([...customers,j.customer])];
+ let jKey=j.customer.trim().toLowerCase();
+ if(deletedCustomers.includes(jKey)){deletedCustomers=deletedCustomers.filter(x=>x!==jKey);saveDeletedCustomers()}
  localStorage.setItem('rkey_jobs',JSON.stringify(jobs));
  localStorage.setItem('rkey_customers',JSON.stringify(customers));
  if(j.site||j.contact||j.email){
   let key=j.customer.trim().toLowerCase();
-  customerRecords[key]={name:j.customer,site:j.site,contact:j.contact,email:j.email};
+  customerRecords[key]={name:j.customer,site:j.site,postcode:(document.getElementById('f_postcode').value||extractPostcode(j.site)||((customerRecords[key]||{}).postcode)||'').trim().toUpperCase(),contact:j.contact,email:j.email};
   saveCustomerRecords();
  }
- if(j.status==='Complete'&&j.email)sendCompletionEmail(j);
+ if(j.status==='Complete'&&j.email&&!j.completionEmailSentAt)sendCompletionEmail(j);
+ editingJobNo=null;
  openJob(j.job);
 }
+const _searchCache=new WeakMap();
+function dateForms(iso){
+ // every way someone might type a date into the search box: 22 Sept 2026, 22 Sep 2026, 22/09/2026, 2026-09-22
+ if(!iso)return '';
+ const u=ukDate(iso),m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+ return u+' '+u.replace(/\bSept\b/,'Sep')+' '+iso+(m?' '+m[3]+'/'+m[2]+'/'+m[1]:'');
+}
+function searchText(j){
+ // Searchable text for one job (values only, and never the signature images — the old
+ // version searched the whole JSON, signatures included, on every keystroke).
+ let t=_searchCache.get(j);
+ if(t===undefined){
+  t=[j.job,j.order,j.customer,j.site,j.contact,j.email,j.equipment,j.model,j.serial,j.type,j.status,j.engineers.join(' '),j.comments,j.defects,j.materials.join(' '),j.customerName,j.customerPosition,dateForms(j.date),(j.time||[]).map(r=>dateForms(r.date)+' '+r.eid).join(' '),j.callout?'call-out callout':''].join(' ').toLowerCase();
+  _searchCache.set(j,t);
+ }
+ return t;
+}
+function jobIsToday(j,today){return j.date===today||(j.time||[]).some(r=>r.date===today)}
+function hasOpenRepair(j){return !!(j.defects&&j.defects.trim())&&j.repairStatus!=='Done'}
 function renderJobs(){
- let q=(search.value||'').toLowerCase(),a=jobs.filter(j=>JSON.stringify(j).toLowerCase().includes(q)).sort((a,b)=>b.created.localeCompare(a.created));
- document.getElementById('stats').innerHTML=`<span class="stat">Total: ${jobs.length}</span><span class="stat">Open: ${jobs.filter(x=>x.status==='Open').length}</span><span class="stat">Complete: ${jobs.filter(x=>x.status==='Complete').length}</span>`;
- document.getElementById('jobList').innerHTML=a.length?a.map(j=>`<div class="jobrow"><div><b>Job ${esc(j.job)}</b> — ${esc(j.customer)}<div class="muted">${esc(j.site)} · ${esc(j.date)} · ${esc(j.type)}</div></div><div class="actions"><span class="pill">${esc(j.status)}</span><button onclick="openJob('${esc(j.job)}')">Open</button></div></div>`).join(''):'<p class="muted">No jobs yet. Tap New Job.</p>';
- document.getElementById('counter').textContent=jobs.length+' jobs'
+ const q=(search.value||'').toLowerCase().trim(),today=localDateStr();
+ const st=window._jobFilterStatus,dfx=window._jobFilterDefects,td=window._jobFilterToday;
+ const a=jobs.filter(j=>(!st||j.status===st)&&(!dfx||(j.defects&&j.defects.trim()))&&(!td||jobIsToday(j,today))&&(!q||searchText(j).includes(q))).sort((x,y)=>(y.created||'').localeCompare(x.created||''));
+ const open=jobs.filter(x=>x.status==='Open').length,progress=jobs.filter(x=>x.status==='In Progress').length,complete=jobs.filter(x=>x.status==='Complete').length;
+ const todayJobs=jobs.filter(x=>jobIsToday(x,today)).length,repairs=jobs.filter(hasOpenRepair).length;
+ document.getElementById('dashboardCards').innerHTML=`<div class="dashcard" onclick="filterJobsByStatus('Open')"><small>Open</small><strong>${open}</strong></div><div class="dashcard" onclick="filterJobsByStatus('In Progress')"><small>In Progress</small><strong>${progress}</strong></div><div class="dashcard" onclick="filterJobsByStatus('Complete')"><small>Complete</small><strong>${complete}</strong></div><div class="dashcard attention" onclick="repairsPage('all')"><small>Repairs outstanding</small><strong>${repairs}</strong></div>`;
+ document.getElementById('stats').innerHTML=`<span class="stat">Total: ${jobs.length}</span><span class="stat">Today: ${todayJobs}</span><span class="stat">Customers: ${customers.length}</span>`;
+ const labels=[];if(st)labels.push('Status: '+st);if(td)labels.push('Today');if(dfx)labels.push('With defects');
+ document.getElementById('filterChip').innerHTML=labels.length?`<span class="filterchip">Showing: ${esc(labels.join(' + '))} · ${a.length} job${a.length===1?'':'s'}<button onclick="clearJobFilters()">✕ Clear</button></span>`:'';
+ const LIMIT=150,shown=window._showAllJobs?a:a.slice(0,LIMIT);
+ document.getElementById('jobList').innerHTML=(a.length?shown.map(j=>`<div class="jobrow"><div><b>Job ${esc(j.job)}</b> — ${esc(j.customer)}${j.callout?'<span class="callout-badge">CALL-OUT</span>':''}${hasOpenRepair(j)?'<span class="repbadge">REPAIRS</span>':''}<div class="muted">${esc(j.site)} · ${esc(ukDate(j.date))} · ${esc(j.type)}</div></div><div class="actions"><span class="pill">${esc(j.status)}</span><button onclick="openJob('${esc(j.job)}')">Open</button></div></div>`).join('')
+  :`<p class="muted">${(q||labels.length)?'No jobs match that search.':'No jobs yet. Tap New Job.'}</p>`)
+  +(a.length>shown.length?`<div class="muted" style="text-align:center;margin:12px">Showing the newest ${shown.length} of ${a.length} jobs — search to narrow down, or <a href="#" onclick="event.preventDefault();window._showAllJobs=true;renderJobs()">show all ${a.length}</a>.</div>`:'');
+ document.getElementById('counter').textContent=jobs.length+' jobs';
+ renderBackupInfo();
 }
 let editingCustomer=null;
 function customersPage(){hide();document.getElementById('customers').classList.remove('hidden');renderCustomers()}
+function engineersPage(){hide();document.getElementById('engineers').classList.remove('hidden');renderEngineers()}
+let hoursEngineerFilter=null;
+let currentHoursWeekStart='';
+function viewEngineerHours(name){
+ hide();document.getElementById('hours').classList.remove('hidden');
+ hoursEngineerFilter=name;
+ let pick=document.getElementById('hoursWeekPick');
+ if(!pick.value)pick.value=localDateStr(hoursWeekRange(localDateStr()).start);
+ renderHoursCard();
+}
+function hoursWeekRange(anyDateStr){
+ let d=new Date(anyDateStr+'T00:00:00');
+ if(isNaN(d))d=new Date();
+ let daysSinceMonday=(d.getDay()+6)%7; // Mon=0 ... Sun=6
+ let mon=new Date(d);mon.setDate(d.getDate()-daysSinceMonday);
+ let sun=new Date(mon);sun.setDate(mon.getDate()+6);
+ return{start:mon,end:sun};
+}
+function shiftHoursWeek(days){
+ let pick=document.getElementById('hoursWeekPick');
+ let cur=hoursWeekRange(pick.value||localDateStr()).start;
+ cur.setDate(cur.getDate()+days);
+ pick.value=localDateStr(cur);
+ renderHoursCard();
+}
+function engineerNamesMatch(a,b){
+ // Job sheets sometimes have a full name ("Dave Boler") where the engineer picker/filter
+ // only has a first name ("Dave"). Treat those as the same person by comparing first names.
+ a=(a||'').trim().toLowerCase();b=(b||'').trim().toLowerCase();
+ if(!a||!b)return false;
+ if(a===b)return true;
+ return a.split(/\s+/)[0]===b.split(/\s+/)[0];
+}
+function renderHoursCard(){
+ let pickVal=document.getElementById('hoursWeekPick').value||localDateStr();
+ let{start,end}=hoursWeekRange(pickVal);
+ let startStr=localDateStr(start),endStr=localDateStr(end);
+ currentHoursWeekStart=startStr;
+ document.getElementById('hoursWeekPick').value=startStr; // snap the picker itself to the Monday of that week
+ document.getElementById('hoursHeading').textContent=hoursEngineerFilter?hoursEngineerFilter+"'s Hours":'Weekly Hours';
+ document.getElementById('hoursWeekLabel').textContent='Week starting '+ukDate(startStr)+' (to '+ukDate(endStr)+')';
+ let totals={};
+ jobs.forEach(j=>{
+  (j.time||[]).forEach(r=>{
+   if(!r.date||r.date<startStr||r.date>endStr)return;
+   const names=rowEngineers(j,r);
+   // every engineer the row applies to is credited its hours; the trip's mileage goes to the first one only (one vehicle)
+   const credit=hoursEngineerFilter
+    ?(names.some(n=>engineerNamesMatch(n,hoursEngineerFilter))?[{eng:hoursEngineerFilter,first:true}]:[])
+    :names.map(n=>({eng:n,first:true}));
+   credit.forEach(c=>{
+    if(!totals[c.eng])totals[c.eng]={nt:0,ot:0,dt:0,mile:0,callouts:new Set()};
+    const t=totals[c.eng];
+    t.nt+=(+r.nt||0);t.ot+=(+r.ot||0);t.dt+=(+r.dt||0);if(c.first)t.mile+=(+r.mile||0);
+    if(j.callout)t.callouts.add(j.job);
+   });
+  });
+ });
+ let names=Object.keys(totals).sort((a,b)=>a.localeCompare(b));
+ document.getElementById('hoursCardBody').innerHTML=names.length?`<div style="overflow-x:auto"><table class="hourstable">
+  <tr><th>Engineer</th><th>N/T</th><th>O/T</th><th>D/T</th><th>Total Hrs</th><th>Call-outs</th><th>Mileage</th></tr>
+  ${names.map(n=>{let t=totals[n];let tot=t.nt+t.ot+t.dt;return`<tr><td>${esc(n)}</td><td>${t.nt.toFixed(2)}</td><td>${t.ot.toFixed(2)}</td><td>${t.dt.toFixed(2)}</td><td><b>${tot.toFixed(2)}</b></td><td>${t.callouts.size||0}</td><td>${t.mile?Math.round(t.mile):0}</td></tr>`}).join('')}
+ </table></div>`:`<p class="muted">No hours recorded for ${hoursEngineerFilter?esc(hoursEngineerFilter):'anyone'} this week.</p>`;
+}
+let editingEngineerIdx=null;
+function renderEngineers(){
+ const wp=document.getElementById('engWeekPick');if(!wp.value)wp.value=defaultInvoiceWeekStart();
+ const wk=hoursWeekRange(wp.value),ws=localDateStr(wk.start),we=localDateStr(wk.end);wp.value=ws;
+ document.getElementById('engineerView').innerHTML=engineers.length?engineers.map((name,i)=>{
+  const engJobs=engineerInvoiceJobs(name,ws,we).length;
+  let rowHtml=`<div class="custrow">
+   <div onclick="viewEngineerHours('${esc(name).replace(/'/g,"\\'")}')" style="flex:1"><b>${esc(name)}</b><div class="muted">Tap to see their hours</div></div>
+   <button onclick="event.stopPropagation();exportEngineerInvoicesAt(${i})" ${engJobs?'':'disabled'}>🧾 Invoices (${engJobs})</button>
+   <button onclick="event.stopPropagation();toggleEditEngineer(${i})">✎ Edit</button>
+   <button onclick="event.stopPropagation();removeEngineer(${i})" class="danger">Remove</button>
+  </div>`;
+  if(editingEngineerIdx===i){
+   rowHtml+=`<div class="custedit">
+    <div><label>Name</label><input id="ee_name" value="${esc(name)}"></div>
+    <div class="actions" style="margin-top:8px">
+     <button class="primary" onclick="saveEngineerEdit(${i})">Save</button>
+     <button onclick="editingEngineerIdx=null;renderEngineers()">Cancel</button>
+    </div></div>`;
+  }
+  return rowHtml;
+ }).join(''):'<p class="muted">No engineers yet.</p>';
+}
+function toggleEditEngineer(i){editingEngineerIdx=(editingEngineerIdx===i?null:i);renderEngineers()}
+function saveEngineerEdit(i){
+ let newName=document.getElementById('ee_name').value;
+ editingEngineerIdx=null;
+ renameEngineer(i,newName);
+}
+function renameEngineer(i,newName){
+ newName=newName.trim();
+ if(!newName){renderEngineers();return}
+ if(engineers.some((e,j)=>j!==i&&e.toLowerCase()===newName.toLowerCase())){alert('That name is already on the list.');renderEngineers();return}
+ engineers[i]=newName;saveEngineers();setupLists();renderEngineers();
+}
+function removeEngineer(i){
+ if(!confirm('Remove "'+engineers[i]+'" from the engineer picker? This won\'t change any past job records.'))return;
+ engineers.splice(i,1);saveEngineers();setupLists();renderEngineers();
+}
+function addEngineer(){
+ let input=document.getElementById('newEngineerName');
+ let name=input.value.trim();if(!name)return;
+ if(engineers.some(e=>e.toLowerCase()===name.toLowerCase())){alert('That engineer is already on the list.');return}
+ engineers.push(name);saveEngineers();input.value='';setupLists();renderEngineers();
+}
 function renderCustomers(){
  let q=(document.getElementById('custSearch').value||'').toLowerCase();
  let list=customers.filter(c=>c.toLowerCase().includes(q)).sort((a,b)=>a.localeCompare(b));
@@ -261,14 +662,16 @@ function renderCustomers(){
   let info=getCustomerInfo(c);
   let rowHtml=`<div class="custrow"><div onclick="selectCustomer('${esc(c).replace(/'/g,"\\'")}')" style="flex:1"><b>${esc(c)}</b>
    <div class="muted">${esc(info.site)||'No site saved'}${info.contact?' · '+esc(info.contact):''}${info.email?' · '+esc(info.email):''}</div></div>
-   <button onclick="event.stopPropagation();toggleEditCustomer('${esc(c).replace(/'/g,"\\'")}')">✎ Edit</button></div>`;
+   <button onclick="event.stopPropagation();toggleEditCustomer('${esc(c).replace(/'/g,"\\'")}')">✎ Edit</button>
+   <button onclick="event.stopPropagation();deleteCustomer('${esc(c).replace(/'/g,"\\'")}')" class="danger">🗑 Delete</button></div>`;
   if(editingCustomer===c){
    rowHtml+=`<div class="custedit">
     <div class="grid">
      <div><label>Location / Site</label><input id="ec_site" value="${esc(info.site)}"></div>
      <div><label>Site Contact(s)</label><input id="ec_contact" value="${esc(info.contact)}"></div>
     </div>
-    <div><label>Email</label><input id="ec_email" type="email" value="${esc(info.email)}"></div>
+    <div style="max-width:230px"><label>Customer postcode (for mileage)</label><input id="ec_postcode" value="${esc(info.postcode||'')}" placeholder="e.g. S41 9EY" autocapitalize="characters"></div>
+       <div><label>Email</label><input id="ec_email" type="email" value="${esc(info.email)}"></div>
     <div class="actions" style="margin-top:8px">
      <button class="primary" onclick="saveCustomerEdit('${esc(c).replace(/'/g,"\\'")}')">Save</button>
      <button onclick="editingCustomer=null;renderCustomers()">Cancel</button>
@@ -278,50 +681,74 @@ function renderCustomers(){
  }).join(''):'<p class="muted">No customers found.</p>';
 }
 function toggleEditCustomer(name){editingCustomer=(editingCustomer===name?null:name);renderCustomers()}
+function deleteCustomer(name){
+ if(!confirm('Remove "'+name+'" from the customers list?\n\nThis just hides it from the picker and search — it won\'t change anything already recorded on past job sheets.'))return;
+ let key=name.trim().toLowerCase();
+ customers=customers.filter(c=>c.trim().toLowerCase()!==key);
+ localStorage.setItem('rkey_customers',JSON.stringify(customers));
+ if(!deletedCustomers.includes(key)){deletedCustomers.push(key);saveDeletedCustomers()}
+ if(customerRecords[key]){delete customerRecords[key];saveCustomerRecords()}
+ if(editingCustomer===name)editingCustomer=null;
+ setupLists();renderCustomers();
+}
 function saveCustomerEdit(name){
  let key=name.trim().toLowerCase();
- customerRecords[key]={name:name,site:document.getElementById('ec_site').value,contact:document.getElementById('ec_contact').value,email:document.getElementById('ec_email').value.trim()};
+ customerRecords[key]={name:name,site:document.getElementById('ec_site').value,postcode:readPostcodeField('ec_postcode',(customerRecords[key]||{}).postcode)||extractPostcode(document.getElementById('ec_site').value),contact:document.getElementById('ec_contact').value,email:document.getElementById('ec_email').value.trim()};
  saveCustomerRecords();editingCustomer=null;renderCustomers();
 }
 function selectCustomer(name){
  newJob();
  document.getElementById('f_customer').value=name;
+ document.getElementById('f_customerSelect').value=customers.includes(name)?name:'';
  customerChanged();
 }
-function openJob(no){
- let j=jobs.find(x=>x.job===no);if(!j)return;hide();document.getElementById('detail').classList.remove('hidden');
+let printLanding=false;
+function jobSheetHtml(j){
  let total=0; (j.time||[]).forEach(r=>total+=(+r.nt||0)+(+r.ot||0)+(+r.dt||0));
- let tr=(j.time||[]).map(r=>`<tr><td>${esc(r.date)}</td><td>${esc(r.nt||'')}</td><td>${esc(r.ot||'')}</td><td>${esc(r.dt||'')}</td><td>${((+r.nt||0)+(+r.ot||0)+(+r.dt||0)).toFixed(2)}</td><td>${esc(r.mile||'')}</td><td>${esc(r.eid||j.engineers[0]||'')}</td></tr>`).join('');
+ let tr=(j.time||[]).map(r=>`<tr><td>${esc(ukDate(r.date))}</td><td>${esc(r.nt||'')}</td><td>${esc(r.ot||'')}</td><td>${esc(r.dt||'')}</td><td>${((+r.nt||0)+(+r.ot||0)+(+r.dt||0)).toFixed(2)}</td><td>${esc(r.mile||'')}</td><td>${esc(r.eid||(j.engineers||[]).join(', '))}</td></tr>`).join('');
  let mats=(j.materials||[]).map(x=>`<div>${esc(x)}</div>`).join('');
- document.getElementById('detail').innerHTML=`<div class="actions no-print" style="margin-bottom:12px">
- <button onclick="home()">← Back</button><button class="primary" onclick="printJob('${esc(j.job)}')">🖨 Print</button>
- <button class="primary" onclick="downloadPdf('${esc(j.job)}')">⬇ Download PDF</button>
- <button onclick="shareToOneDrive('${esc(j.job)}')">📤 Save to OneDrive</button>
- <button onclick="emailJob('${esc(j.job)}')">✉ Email</button><button onclick="deleteJob('${esc(j.job)}')" class="danger">Delete</button></div>
- <div class="no-print muted" id="shareHint" style="margin:-6px 0 12px 2px;font-size:12px"></div>
- <div class="job-sheet">
- <div class="company"><strong>KEY ENGINEERING CHESTERFIELD LTD</strong><br>The Bungalow, Whittington Lane, Unstone, Dronfield, S18 4DQ<br>
+ return `<div class="job-sheet">
+ <div class="company" style="display:flex;align-items:center;gap:12px">
+ <img src="logo-header.png" alt="Key Engineering logo" style="height:52px;width:auto;flex-shrink:0">
+ <div style="text-align:left"><strong>KEY ENGINEERING CHESTERFIELD LTD</strong><br>The Bungalow, Whittington Lane, Unstone, Dronfield, S18 4DQ<br>
  Overhead Cranes & Hoists ● Runways & Gantries ● Lifting Beams & Jib Cranes ● Crane Conversions & Repairs<br>
  Site Installation ● Testing ● Site Surveys ● Crane Service & Inspection ● Spares<br>
  Lifting Tackle Supplies & Inspection ● Fork Lift Truck Hire, Sales Services & Repair<br>
  Tel/Fax: 01246 413524 &nbsp; Mobile: 07971 222574 &nbsp; Email: rkeyengineering@hotmail.co.uk</div>
- <div class="title">JOB SHEET</div>
+ </div>
+ <div class="title">JOB SHEET${j.callout?'<span class="callout-badge">CALL-OUT</span>':''}</div>
  <table class="info">
- <tr><th>Job No.</th><td>${esc(j.job)}</td><th>Customer Order No.</th><td>${esc(j.order)}</td></tr>
+ <tr><th>Job No.</th><td>${esc(j.job)}</td><th>Customer Order No.</th><td>${esc(j.order)}</td></tr><tr><th>Quote No.</th><td colspan="3">${esc(j.quoteNo||'')}</td></tr>
  <tr><th>Customer/Company</th><td>${esc(j.customer)}${j.email?'<br><span style="font-weight:400;font-size:9px">'+esc(j.email)+'</span>':''}</td><th>Engineer(s) in Attendance</th><td>${esc(j.engineers.join(', '))}</td></tr>
- <tr><th>Location/Site</th><td>${esc(j.site)}</td><th>Date</th><td>${esc(j.date)}</td></tr>
+ <tr><th>Location/Site</th><td>${esc(j.site)}</td><th>Date</th><td>${esc(ukDate(j.date))}</td></tr>
  <tr><th>Site Contact(s)</th><td>${esc(j.contact)}</td><th>Type of Work</th><td>${esc(j.type)}</td></tr>
+ <tr><th>Equipment / Crane No.</th><td>${esc(j.equipment||'')}</td><th>Manufacturer / Model</th><td>${esc(j.model||'')}</td></tr>
+ <tr><th>Serial No. / SWL</th><td colspan="3">${esc(j.serial||'')}</td></tr>
  </table>
  <div class="section">REPORT OF WORK CARRIED OUT:</div><div class="box">${esc(j.comments||'')}</div>
+ <div class="section">REPAIRS REQUIRED / DEFECTS / RECOMMENDATIONS</div><div class="box" style="min-height:55px">${esc(j.defects||'None recorded')}</div>
  <div class="section">TRAVELLING TIME, EXPENSES & MILEAGE WILL BE CHARGED EXTRA — MATERIALS</div>
  <table class="info time"><tr><th>DATE</th><th>N/T</th><th>O/T</th><th>D/T</th><th>TOTAL</th><th>MILEAGE</th><th>Engineer ID No.</th></tr>
  ${tr||'<tr><td colspan="7">&nbsp;</td></tr>'}<tr><th>TOTAL</th><th colspan="3"></th><th>${total.toFixed(2)}</th><th></th><th></th></tr></table>
  <div class="section">Description / Material Used</div><div class="box">${mats||'&nbsp;'}</div>
  <div class="section">ENGINEER'S SIGNATURE</div><div class="cert">${esc(j.engineers[0]||'')}<div class="signprint">${j.engineerSig?`<img src="${j.engineerSig}" style="max-height:52px;max-width:260px">`:''}</div></div>
  <div class="section">CUSTOMER'S CERTIFICATION</div><div class="cert">The work detailed above has been carried out to my complete satisfaction. I further agree that all times stated are correct.<br><br>
- Name: ${esc(j.customerName||'')} &nbsp;&nbsp; Position: ${esc(j.customerPosition||'')}<div class="signprint">${j.customerSig?`<img src="${j.customerSig}" style="max-height:52px;max-width:260px">`:''}</div>Customer Signature / Date</div>
+ Name: ${esc(j.customerName||'')} &nbsp;&nbsp; Position: ${esc(j.customerPosition||'')} &nbsp;&nbsp; Date: ${esc(ukDate(j.date))}<div class="signprint">${j.customerSig?`<img src="${j.customerSig}" style="max-height:52px;max-width:260px">`:''}</div>Customer Signature / Date</div>
  <div class="footer">Job ${esc(j.job)} — Key Engineering Chesterfield LTD Job Sheet</div>
  </div>`;
+}
+function openJob(no){
+ let j=jobs.find(x=>x.job===no);if(!j)return;hide();document.getElementById('detail').classList.remove('hidden');
+ document.getElementById('detail').innerHTML=`${printLanding?'<div class="no-print" style="background:#fff8d6;border:1px solid #e5cf6b;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:14px">Tap <strong>🖨 Print</strong> below to continue.</div>':''}<div class="actions no-print" style="margin-bottom:12px">
+ <button onclick="home()">← Back</button><button class="primary" onclick="printJob('${esc(j.job)}')">🖨 Print</button>
+ <button class="primary" onclick="downloadPdf('${esc(j.job)}')">⬇ Download PDF</button>
+ <button onclick="shareToOneDrive('${esc(j.job)}')">📤 Save to OneDrive</button>
+ <button onclick="emailJob('${esc(j.job)}')">✉ Email</button>
+ <button onclick="editJob('${esc(j.job)}')">✎ Edit</button>
+ <button onclick="deleteJob('${esc(j.job)}')" class="danger">Delete</button></div>
+ <div class="no-print muted" id="shareHint" style="margin:-6px 0 4px 2px;font-size:12px"></div>
+ <div class="no-print muted" style="margin:0 0 12px 2px;font-size:12px">Nothing happen when you tapped Print? <a href="#" onclick="event.preventDefault();openInBrowserToPrint('${esc(j.job)}')">Tap here to open in your browser and print</a>.</div>
+ ${jobSheetHtml(j)}`;
  let ws=weekStartingLabel(j);
  document.getElementById('shareHint').textContent=j.engineers.length
   ? 'Suggested OneDrive path: Job Sheets / '+j.engineers.join(' + ')+' / Week starting '+ws
@@ -339,16 +766,31 @@ function isStandalone(){
  return window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
 }
 function safeName(s){return String(s||'').replace(/[\\\/:*?"<>|]/g,'-').trim()}
+function localDateStr(d){
+ // Returns YYYY-MM-DD in LOCAL time. Date.toISOString() converts to UTC first, which
+ // silently rolls back to the previous day whenever the local clock is ahead of UTC —
+ // exactly the case during British Summer Time. That was quietly corrupting week
+ // boundaries (Next/Prev week, and which job-sheet dates count as "this week").
+ d=d||new Date();
+ let y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
+ return y+'-'+m+'-'+day;
+}
+function ukDate(iso){
+ if(!iso)return '';
+ let d=new Date(iso+'T00:00:00');
+ if(isNaN(d))return iso;
+ return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+}
 function printJob(no){
- if(isStandalone()){
-  // iOS (and some Android) home-screen apps block window.print() entirely with no error —
-  // it just silently does nothing. Opening the job in a normal browser tab works around this.
-  let url=new URL(location.href);
-  url.hash='';url.search='?print='+encodeURIComponent(no);
-  window.open(url.toString(),'_blank');
-  return;
- }
+ // Always try the direct route first — this is the standard, reliable path in a normal
+ // browser tab. If the app was added to the home screen, iOS/Android can silently ignore
+ // this with no error at all, which is what the "open in browser" link below is for.
  window.print();
+}
+function openInBrowserToPrint(no){
+ let url=new URL(location.href);
+ url.hash='';url.search='?print='+encodeURIComponent(no);
+ window.open(url.toString(),'_blank');
 }
 async function generatePdfBlob(no){
  let j=jobs.find(x=>x.job===no);if(!j)return null;
@@ -365,7 +807,8 @@ async function generatePdfBlob(no){
  let pageW=pdf.internal.pageSize.getWidth(),pageH=pdf.internal.pageSize.getHeight();
  let imgW=pageW,imgH=canvas.height*imgW/canvas.width;
  let img=canvas.toDataURL('image/jpeg',0.92);
- if(imgH<=pageH){pdf.addImage(img,'JPEG',0,0,imgW,imgH)}
+ const sheetBox=sheet.getBoundingClientRect(),textLines=collectSheetText(sheet);
+ if(imgH<=pageH){drawPdfText(pdf,textLines,{k:imgW/sheetBox.width,maxYmm:imgH,maxXmm:imgW});pdf.addImage(img,'JPEG',0,0,imgW,imgH)}
  else{ // split across pages
   let y=0,remaining=canvas.height,pageCanvasH=canvas.width*pageH/imgW;
   while(remaining>0){
@@ -375,14 +818,151 @@ async function generatePdfBlob(no){
    sliceCanvas.getContext('2d').drawImage(canvas,0,y,canvas.width,sliceH,0,0,canvas.width,sliceH);
    let sliceImg=sliceCanvas.toDataURL('image/jpeg',0.92);
    if(y>0)pdf.addPage();
+   drawPdfText(pdf,textLines,{k:imgW/sheetBox.width,yOffsetCss:y*sheetBox.width/canvas.width,maxYmm:sliceH*imgW/canvas.width,maxXmm:imgW});
    pdf.addImage(sliceImg,'JPEG',0,0,imgW,sliceH*imgW/canvas.width);
    y+=sliceH;remaining-=sliceH;
   }
  }
  let ws=weekStartingLabel(j);
  let engPart=safeName(j.engineers.join('+'))||'Unassigned';
- let filename='Job '+safeName(j.job)+' - '+engPart+' - WS '+safeName(ws)+'.pdf';
+ let filename='Job '+safeName(j.job)+' - '+safeName(j.customer)+' - '+safeName(ukDate(j.date))+'.pdf';
  return{blob:pdf.output('blob'),filename,engPart,ws};
+}
+async function downloadHoursPdf(){
+ let card=document.getElementById('hoursPrintArea');
+ if(!card)return;
+ let btn=event&&event.target;let originalLabel=btn?btn.textContent:'';
+ if(btn){btn.disabled=true;btn.textContent='Generating…'}
+ try{
+  let ready=await window.pdfLibsReady;
+  if(!ready||!window.html2canvas||!window.jspdf){alert('Could not load the PDF tools — check your internet connection and try again.');return}
+  // Render at a fixed, generous width regardless of the device's actual screen size —
+  // otherwise capturing this wide table straight off a phone screen comes out cramped
+  // and gets clipped rather than properly scaled.
+  let canvas=await html2canvas(card,{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:900,width:900});
+  let{jsPDF}=window.jspdf;
+  let pdf=new jsPDF('l','mm','a4'); // landscape — a wide table fits far better than portrait
+  let pageW=pdf.internal.pageSize.getWidth(),pageH=pdf.internal.pageSize.getHeight();
+  let imgW=pageW,imgH=canvas.height*imgW/canvas.width;
+  let img=canvas.toDataURL('image/jpeg',0.92);
+  if(imgH<=pageH){pdf.addImage(img,'JPEG',0,0,imgW,imgH)}
+  else{let scale=pageH/imgH;pdf.addImage(img,'JPEG',0,0,imgW*scale,pageH)} // shrink to fit one page — this card is short, never needs multiple pages
+  let namePart=hoursEngineerFilter?safeName(hoursEngineerFilter)+' - ':'';
+  let filename='Weekly Hours - '+namePart+safeName(ukDate(currentHoursWeekStart))+'.pdf';
+  let blob=pdf.output('blob');
+  let url=URL.createObjectURL(blob);
+  let a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),4000);
+ }catch(e){alert('Could not generate the PDF: '+e.message)}
+ finally{if(btn){btn.disabled=false;btn.textContent=originalLabel}}
+}
+function computeEngineerWeekTotals(engName,startStr,endStr){
+ let t={nt:0,ot:0,dt:0,mile:0,callouts:new Set()};
+ jobs.forEach(j=>{
+  (j.time||[]).forEach(r=>{
+   if(!r.date||r.date<startStr||r.date>endStr)return;
+   const names=rowEngineers(j,r);
+   if(!names.some(n=>engineerNamesMatch(n,engName)))return;
+   t.nt+=(+r.nt||0);t.ot+=(+r.ot||0);t.dt+=(+r.dt||0);
+   if(engineerNamesMatch(names[0],engName))t.mile+=(+r.mile||0);
+   if(j.callout)t.callouts.add(j.job);
+  });
+ });
+ return t;
+}
+function weeklyHoursSummaryHtml(engName,startStr,endStr){
+ let t=computeEngineerWeekTotals(engName,startStr,endStr);
+ let tot=t.nt+t.ot+t.dt;
+ return `<div class="job-sheet">
+ <div class="company" style="display:flex;align-items:center;gap:12px">
+ <img src="logo-header.png" alt="Key Engineering logo" style="height:52px;width:auto;flex-shrink:0">
+ <div style="text-align:left"><strong>KEY ENGINEERING CHESTERFIELD LTD</strong></div>
+ </div>
+ <div class="title">Weekly Hours — ${esc(engName)}</div>
+ <div style="font-weight:700;font-size:16px;margin:14px 2px">Week starting ${esc(ukDate(startStr))} (to ${esc(ukDate(endStr))})</div>
+ <table class="hourstable">
+  <tr><th>N/T</th><th>O/T</th><th>D/T</th><th>Total Hrs</th><th>Call-outs</th><th>Mileage</th></tr>
+  <tr><td>${t.nt.toFixed(2)}</td><td>${t.ot.toFixed(2)}</td><td>${t.dt.toFixed(2)}</td><td><b>${tot.toFixed(2)}</b></td><td>${t.callouts.size||0}</td><td>${t.mile?Math.round(t.mile):0}</td></tr>
+ </table>
+ </div>`;
+}
+function jobsForEngineerWeek(engName,startStr,endStr){
+ let matched=jobs.filter(j=>(j.time||[]).some(r=>{
+  if(!r.date||r.date<startStr||r.date>endStr)return false;
+  return rowEngineers(j,r).some(n=>engineerNamesMatch(n,engName));
+ }));
+ matched.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+ return matched;
+}
+function waitForImages(container){
+ let imgs=Array.from(container.querySelectorAll('img'));
+ return Promise.all(imgs.map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.onload=resolve;img.onerror=resolve})));
+}
+async function downloadWeeklyJobSheetsPdf(){
+ if(!hoursEngineerFilter){alert('Pick an engineer from the Engineers page first.');return}
+ let btn=event&&event.target;let originalLabel=btn?btn.textContent:'';
+ if(btn){btn.disabled=true;btn.textContent='Generating…'}
+ let offscreen=null;
+ try{
+  let ready=await window.pdfLibsReady;
+  if(!ready||!window.html2canvas||!window.jspdf){alert('Could not load the PDF tools — check your internet connection and try again.');return}
+  let pickVal=document.getElementById('hoursWeekPick').value||localDateStr();
+  let{start,end}=hoursWeekRange(pickVal);
+  let startStr=localDateStr(start),endStr=localDateStr(end);
+  let matched=jobsForEngineerWeek(hoursEngineerFilter,startStr,endStr);
+  if(!matched.length){alert('No job sheets found for '+hoursEngineerFilter+' in that week.');return}
+
+  // Render each matching job sheet off-screen (reusing the exact same template the
+  // single-job PDF uses) and stitch them into one combined, multi-page PDF.
+  offscreen=document.createElement('div');
+  offscreen.style.position='fixed';offscreen.style.left='-99999px';offscreen.style.top='0';offscreen.style.width='1000px';
+  document.body.appendChild(offscreen);
+
+  let{jsPDF}=window.jspdf;
+  let pdf=new jsPDF('p','mm','a4');
+  let pageW=pdf.internal.pageSize.getWidth(),pageH=pdf.internal.pageSize.getHeight();
+  let pageCount=0;
+  async function addPageFromHtml(html){
+   offscreen.innerHTML=html;
+   await waitForImages(offscreen);
+   let sheet=offscreen.querySelector('.job-sheet');
+   let canvas=await html2canvas(sheet,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
+   let imgW=pageW,imgH=canvas.height*imgW/canvas.width;
+   let img=canvas.toDataURL('image/jpeg',0.92);
+   if(pageCount>0)pdf.addPage();
+   const drawW=imgH<=pageH?imgW:imgW*(pageH/imgH),drawH=imgH<=pageH?imgH:pageH;
+   drawPdfText(pdf,collectSheetText(sheet),{k:drawW/sheet.getBoundingClientRect().width,maxYmm:drawH,maxXmm:drawW});
+   if(imgH<=pageH){pdf.addImage(img,'JPEG',0,0,imgW,imgH)}
+   else{let scale=pageH/imgH;pdf.addImage(img,'JPEG',0,0,imgW*scale,pageH)}
+   pageCount++;
+  }
+
+  // Page 1: the week's hours totals for this engineer, then every matching job sheet after it.
+  if(btn)btn.textContent='Generating… (totals)';
+  await addPageFromHtml(weeklyHoursSummaryHtml(hoursEngineerFilter,startStr,endStr));
+  for(let i=0;i<matched.length;i++){
+   if(btn)btn.textContent='Generating… ('+(i+1)+'/'+matched.length+')';
+   await addPageFromHtml(jobSheetHtml(matched[i]));
+  }
+
+  let filename='Weekly Job Sheets - '+safeName(hoursEngineerFilter)+' - Week starting '+safeName(ukDate(startStr))+'.pdf';
+  let blob=pdf.output('blob');
+  let file=new File([blob],filename,{type:'application/pdf'});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+   await navigator.share({files:[file],title:filename,text:'Job Sheets / '+hoursEngineerFilter+' / Week starting '+ukDate(startStr)+' (totals + '+matched.length+' job'+(matched.length===1?'':'s')+')'});
+  }else{
+   let url=URL.createObjectURL(blob);
+   let a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(url),4000);
+   alert('Saved as "'+filename+'" (totals + '+matched.length+' job sheet'+(matched.length===1?'':'s')+'). In Files, choose "Save to OneDrive" and file it under:\nJob Sheets / '+hoursEngineerFilter+' / Week starting '+ukDate(startStr));
+  }
+ }catch(e){
+  if(e&&e.name==='AbortError'){}else{alert('Could not generate the combined PDF: '+e.message)}
+ }
+ finally{
+  if(offscreen)offscreen.remove();
+  if(btn){btn.disabled=false;btn.textContent=originalLabel}
+ }
 }
 async function downloadPdf(no){
  let btn=event&&event.target;let originalLabel=btn?btn.textContent:'';
@@ -414,16 +994,135 @@ async function shareToOneDrive(no){
  }catch(e){alert('Could not generate the PDF: '+e.message)}
  finally{if(btn){btn.disabled=false;btn.textContent=originalLabel}}
 }
-function emailJob(no){
+async function emailJob(no){
  let j=jobs.find(x=>x.job===no);if(!j)return;
- let subject=encodeURIComponent('Job Sheet '+j.job+' - '+j.customer);
- let body=encodeURIComponent('Job Sheet '+j.job+'\nCustomer: '+j.customer+'\nSite: '+j.site+'\nDate: '+j.date+'\n\nPlease attach the PDF generated using Download PDF.');
- let mailtoUrl='mailto:'+(j.email||'')+'?subject='+subject+'&body='+body;
- // location.href can silently no-op inside a home-screen PWA's webview; clicking a real
- // anchor element is the more reliable way to hand the mailto: link off to the Mail app.
- let a=document.createElement('a');a.href=mailtoUrl;a.style.display='none';
- document.body.appendChild(a);a.click();
- setTimeout(()=>a.remove(),1000);
+ let btn=event&&event.target;let originalLabel=btn?btn.textContent:'';
+ if(btn){btn.disabled=true;btn.textContent='Preparing…'}
+ try{
+  let result=await generatePdfBlob(no);
+  let subject='Job Sheet '+j.job+' - '+j.customer;
+  const bodyShort='Job Sheet '+j.job+'\nCustomer: '+j.customer+'\nSite: '+j.site+'\nDate: '+ukDate(j.date);
+  const clipTxt=(t,n)=>{t=String(t||'').trim();return t.length>n?t.slice(0,n)+'…':t};
+  let bodyText=bodyShort;
+  if(j.comments&&j.comments.trim())bodyText+='\n\nReport of work carried out:\n'+clipTxt(j.comments,1500);
+  if(j.defects&&j.defects.trim())bodyText+='\n\nRepairs required:\n'+clipTxt(j.defects,1000);
+  if(result){
+   let file=new File([result.blob],result.filename,{type:'application/pdf'});
+   if(navigator.canShare&&navigator.canShare({files:[file]})){
+    // Routes through the share sheet so the PDF actually attaches — a mailto: link
+    // can only pre-fill text, it can never attach a file.
+    await navigator.share({files:[file],title:subject,text:bodyText});
+    return;
+   }
+  }
+  // Fallback: no file-sharing support, or the PDF failed to generate — open a plain
+  // email with no attachment rather than leaving the person with nothing at all.
+  let fallbackBody=bodyShort+(result?'\n\nPlease attach the PDF generated using Download PDF.':'');
+  let mailtoUrl='mailto:'+(j.email||'')+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(fallbackBody);
+  let a=document.createElement('a');a.href=mailtoUrl;a.style.display='none';
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>a.remove(),1000);
+ }catch(e){
+  if(e&&e.name==='AbortError')return; // user cancelled the share sheet — not an error
+  alert('Could not prepare the email: '+e.message);
+ }
+ finally{if(btn){btn.disabled=false;btn.textContent=originalLabel}}
+}
+// ---- Automatic round-trip road mileage: free, no account, no key ----
+// Postcode -> coordinates from postcodes.io, driving distance from the public OSRM server
+// (route data (c) OpenStreetMap contributors). A customer's postcode is routed ONCE and the answer
+// is kept on the device, so repeat jobs cost nothing and known customers even work with no signal.
+const OFFICE_POSTCODE='S41 9EY';                       // every trip starts and ends here
+const OSRM_BASE='https://router.project-osrm.org';     // swap for your own OSRM / other service if this one is ever withdrawn
+let MILEAGE_TIMEOUT_MS=8000;
+const MILEAGE_CACHE_KEY='rkey_mileage_cache_v1';
+let mileageCache={};
+try{const c=JSON.parse(localStorage.getItem(MILEAGE_CACHE_KEY)||'{}');if(c&&typeof c==='object')mileageCache=c}catch(e){}
+let mileageReq=0;                 // bumped for every new attempt so a slow, stale answer is thrown away
+const autoMileRows=new WeakSet(); // rows whose figure was filled in automatically (safe to replace), never hand-typed ones
+class MileageError extends Error{constructor(kind,pc){super(kind);this.kind=kind;this.pc=pc}}
+function extractPostcode(text){
+ const m=String(text||'').toUpperCase().match(/\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d[A-Z]{2})\b/);
+ return m?m[1]+' '+m[2]:'';
+}
+function readPostcodeField(id,previous){
+ // Empty box = clear it. A mistyped one keeps the postcode that was already saved rather than wiping it.
+ const raw=document.getElementById(id).value.trim(),pc=extractPostcode(raw);
+ if(raw&&!pc){alert('"'+raw+'" doesn\'t look like a full UK postcode (for example S41 9EY), so the postcode was left as it was.');return previous||''}
+ return pc;
+}
+async function fetchJsonWithTimeout(url){
+ const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),MILEAGE_TIMEOUT_MS);
+ try{
+  const res=await fetch(url,{signal:ctl.signal});
+  let data=null;try{data=await res.json()}catch(e){}
+  return{ok:res.ok,status:res.status,data};
+ }finally{clearTimeout(timer)}
+}
+async function postcodeCoords(pc){
+ let r;
+ try{r=await fetchJsonWithTimeout('https://api.postcodes.io/postcodes/'+encodeURIComponent(pc))}
+ catch(e){throw new MileageError('network',pc)}
+ if(r.status===404)throw new MileageError('postcode',pc);
+ if(!r.ok||!r.data||!r.data.result)throw new MileageError('network',pc);
+ const{longitude,latitude}=r.data.result;
+ if(typeof longitude!=='number'||typeof latitude!=='number')throw new MileageError('postcode',pc);
+ return[longitude,latitude];
+}
+async function roundTripMiles(destPostcode){
+ const dest=destPostcode.trim().toUpperCase(),key=OFFICE_POSTCODE+'>'+dest,hit=mileageCache[key];
+ if(typeof hit==='number'&&isFinite(hit))return hit;
+ const[o,d]=await Promise.all([postcodeCoords(OFFICE_POSTCODE),postcodeCoords(dest)]);
+ let r;
+ try{r=await fetchJsonWithTimeout(OSRM_BASE+'/route/v1/driving/'+o[0]+','+o[1]+';'+d[0]+','+d[1]+'?overview=false')}
+ catch(e){throw new MileageError('network',dest)}
+ if(r.data&&r.data.code==='NoRoute')throw new MileageError('route',dest);
+ if(!r.ok)throw new MileageError('network',dest);
+ if(!r.data||!r.data.routes||!r.data.routes[0]||typeof r.data.routes[0].distance!=='number')throw new MileageError('route',dest);
+ const miles=Math.round(r.data.routes[0].distance/1609.344*2*10)/10; // there and back, one decimal place
+ mileageCache[key]=miles;                                             // only successes are remembered — a failure never sticks
+ try{localStorage.setItem(MILEAGE_CACHE_KEY,JSON.stringify(mileageCache))}catch(e){}
+ return miles;
+}
+function setMileageStatus(msg,opts){
+ const el=document.getElementById('mileageStatus');if(!el)return;
+ el.textContent='';el.style.color=opts&&opts.bad?'#b3261e':'';
+ if(!msg)return;
+ el.appendChild(document.createTextNode(msg));
+ if(opts&&opts.retry){const b=document.createElement('button');b.type='button';b.textContent='Try again';b.style.cssText='padding:3px 9px;font-size:12px;margin-left:8px';b.onclick=()=>autoFillMileage();el.appendChild(b)}
+}
+function clearAutoMileage(){
+ let changed=false;
+ timeRows.forEach(r=>{if(autoMileRows.has(r)){r.mile='';autoMileRows.delete(r);changed=true}});
+ if(changed)renderTime();
+}
+function mileageErrorText(e,pc){
+ if(e&&e.kind==='postcode')return 'The postcode '+(e.pc||pc)+' wasn\'t recognised — please check it, or type the mileage in yourself.';
+ if(e&&e.kind==='route')return 'No driving route was found to '+pc+' — please type the mileage in yourself.';
+ return 'Couldn\'t reach the mileage service just now (poor signal?). Type the mileage in yourself, or try again.';
+}
+async function autoFillMileage(postcodeHint){
+ const siteEl=document.getElementById('f_site');if(!siteEl)return;
+ const my=++mileageReq;
+ clearAutoMileage(); // the site changed: whatever we filled in for the previous one no longer applies
+ const site=siteEl.value.trim(),cust=(document.getElementById('f_customer').value||'').trim();
+ const known=cust&&customers.some(c=>c.trim().toLowerCase()===cust.toLowerCase());
+ const postcode=extractPostcode((typeof postcodeHint==='string'&&postcodeHint)||'')||extractPostcode(site)||(cust?getCustomerInfo(cust).postcode:'')||'';
+ if(!postcode){
+  if(site||known)setMileageStatus('Add the postcode to the site box (e.g. "Rotherham S60 1AB") or under Customers → Edit — mileage then fills in by itself, now and for every future job.');
+  else setMileageStatus('');
+  return;
+ }
+ if(!timeRows.some(r=>!r.mile)){setMileageStatus('Mileage already entered — left exactly as you typed it.');return}
+ setMileageStatus('Working out the round trip from '+OFFICE_POSTCODE+'…');
+ let miles;
+ try{miles=await roundTripMiles(postcode)}
+ catch(e){if(my!==mileageReq)return;setMileageStatus(mileageErrorText(e,postcode),{bad:true,retry:true});return}
+ if(my!==mileageReq)return; // a newer job/customer has taken over; this answer is for the wrong one
+ let changed=false;
+ timeRows.forEach(r=>{if(!r.mile){r.mile=String(miles);autoMileRows.add(r);changed=true}});
+ if(changed)renderTime();
+ setMileageStatus('Round trip '+miles.toFixed(1)+' miles ('+OFFICE_POSTCODE+' → '+postcode+' → '+OFFICE_POSTCODE+'). Route data © OpenStreetMap contributors (OSRM).');
 }
 // ---- Automatic "Job Complete" email (optional) ----
 // This is a static site with no server, so a truly silent auto-send needs a third-party
@@ -444,11 +1143,144 @@ function sendCompletionEmail(j){
   return;
  }
  emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{
-  to_email:j.email,customer:j.customer,job:j.job,site:j.site,date:j.date,engineers:j.engineers.join(', ')
- }).then(()=>console.log('Completion email sent to',j.email))
+  to_email:j.email,customer:j.customer,job:j.job,site:j.site,date:j.date,engineers:j.engineers.join(', '),defects:j.defects||'',equipment:j.equipment||''
+ }).then(()=>{
+  j.completionEmailSentAt=new Date().toISOString();
+  let i=jobs.findIndex(x=>x.job===j.job); if(i>=0){jobs[i]=j;localStorage.setItem('rkey_jobs',JSON.stringify(jobs))}
+  console.log('Completion email sent to',j.email)
+ })
    .catch(err=>{console.error('Auto-email failed:',err);alert('Job saved, but the automatic email to the customer failed to send.')});
 }
-function deleteJob(no){if(confirm('Delete this job?')){jobs=jobs.filter(x=>x.job!==no);localStorage.setItem('rkey_jobs',JSON.stringify(jobs));home()}}
+function resetJobFilters(){window._jobFilterStatus=null;window._jobFilterDefects=false;window._jobFilterToday=false;window._showAllJobs=false;document.getElementById('search').value=''}
+function clearJobFilters(){resetJobFilters();renderJobs()}
+function filterJobsByStatus(status){resetJobFilters();window._jobFilterStatus=status;renderJobs()}
+function filterJobsWithDefects(){resetJobFilters();window._jobFilterDefects=true;renderJobs()}
+function showTodayJobs(){resetJobFilters();window._jobFilterToday=true;renderJobs()}
+
+/* ---------------- backup / restore / merge ---------------- */
+const BACKUP_KEY='rkey_last_backup',PRE_IMPORT_KEY='rkey_pre_import';
+function backupPayload(){return{version:3,exportedAt:new Date().toISOString(),jobs,customers,engineers,customerRecords,deletedCustomers}}
+function persistAll(){
+ localStorage.setItem('rkey_jobs',JSON.stringify(jobs));
+ localStorage.setItem('rkey_customers',JSON.stringify(customers));
+ localStorage.setItem('rkey_engineers',JSON.stringify(engineers));
+ localStorage.setItem('rkey_customer_records',JSON.stringify(customerRecords));
+ localStorage.setItem('rkey_deleted_customers',JSON.stringify(deletedCustomers));
+}
+function cleanCustomerRecords(o){
+ const out={};if(!o||typeof o!=='object')return out;
+ Object.keys(o).forEach(k=>{const r=o[k];if(r&&typeof r==='object')out[k]={name:String(r.name||''),site:String(r.site||''),contact:String(r.contact||''),email:String(r.email||''),postcode:extractPostcode(r.postcode||'')}});
+ return out;
+}
+function markBackedUp(){try{localStorage.setItem(BACKUP_KEY,new Date().toISOString())}catch(e){}renderBackupInfo()}
+function renderBackupInfo(){
+ const info=document.getElementById('lastBackupInfo'),notice=document.getElementById('backupNotice');if(!info)return;
+ let last=null,hasUndo=false;try{last=localStorage.getItem(BACKUP_KEY);hasUndo=!!localStorage.getItem(PRE_IMPORT_KEY)}catch(e){}
+ const days=last?Math.floor((Date.now()-new Date(last).getTime())/86400000):null;
+ info.textContent=last?'Last backup: '+ukDate(localDateStr(new Date(last)))+(days>0?' ('+days+' day'+(days===1?'':'s')+' ago)':' (today)'):'No backup made on this device yet.';
+ notice.innerHTML=(last===null||days>=7)?'<div class="notice warn">⚠ '+(last===null?'This device has never been backed up.':'It has been '+days+' days since the last backup.')+' Jobs are stored on this device only.<button class="primary" onclick="exportBackup()">Back up now</button></div>':'';
+ const u=document.getElementById('undoImportBtn');if(u)u.classList.toggle('hidden',!hasUndo);
+}
+async function exportBackup(){
+ const name='Key-Engineering-Job-Manager-Backup-'+localDateStr()+'.json';
+ const blob=new Blob([JSON.stringify(backupPayload())],{type:'application/json'});
+ const file=new File([blob],name,{type:'application/json'});
+ try{
+  if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:name,text:'Key Engineering Job Manager backup'});markBackedUp();return}
+ }catch(e){if(e&&e.name==='AbortError')return} // cancelled the share sheet — not backed up yet
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(a.href),4000);markBackedUp();
+}
+function askImportMode(info){
+ return new Promise(resolve=>{
+  const wrap=document.createElement('div');wrap.className='modalback no-print';
+  wrap.innerHTML=`<div class="modalbox"><h3>Import backup</h3><p><b>${info}</b></p><p><b>Merge</b> adds new jobs and updates any that are newer, and keeps everything else already on this device — use this to combine other devices' backups.</p><p><b>Replace</b> swaps everything on this device for what is in the file.</p><div class="actions" style="margin-top:12px"><button class="primary" data-m="merge">Merge (recommended)</button><button class="danger" data-m="replace">Replace everything</button><button data-m="">Cancel</button></div></div>`;
+  wrap.addEventListener('click',e=>{const b=e.target.closest('button');if(b){wrap.remove();resolve(b.dataset.m||null)}else if(e.target===wrap){wrap.remove();resolve(null)}});
+  document.body.appendChild(wrap);
+ });
+}
+function jobSig(j){ // what "the same job" means for merge purposes (signature images compared by length only)
+ return JSON.stringify([j.job,j.order,j.customer,j.site,j.contact,j.email,j.equipment,j.model,j.serial,j.date,j.status,j.type,j.engineers,j.comments,j.defects,j.repairStatus,j.time,j.materials,j.customerName,j.customerPosition,j.callout,(j.customerSig||'').length,(j.engineerSig||'').length]);
+}
+function applyReplace(d,incoming){
+ jobs=incoming;
+ customers=Array.isArray(d.customers)?d.customers.map(String):customers;
+ if(Array.isArray(d.engineers)&&d.engineers.length)engineers=d.engineers.map(String);
+ customerRecords=cleanCustomerRecords(d.customerRecords);
+ deletedCustomers=Array.isArray(d.deletedCustomers)?d.deletedCustomers.map(String):[];
+ return 'Backup restored: '+jobs.length+' jobs.\n\nNot what you wanted? Tap "Undo last import" on the Jobs page.';
+}
+function applyMerge(d,incoming){
+ const key=j=>j.created+'|'+j.job;
+ const at=new Map(jobs.map((j,i)=>[key(j),i]));
+ let added=0,updated=0,same=0,keptLocal=0;const addedJobs=[];
+ incoming.forEach(inc=>{
+  const k=key(inc);
+  if(!at.has(k)){jobs.push(inc);at.set(k,jobs.length-1);addedJobs.push(inc);added++;return}
+  const cur=jobs[at.get(k)];
+  if(jobSig(cur)===jobSig(inc)){if(!hasInvoiceData(cur)&&hasInvoiceData(inc))cur.invoice=inc.invoice;same++;return}
+  if((inc.updatedAt||'')>(cur.updatedAt||'')){if(hasInvoiceData(cur)&&!hasInvoiceData(inc))inc.invoice=cur.invoice;jobs[at.get(k)]=inc;updated++}else keptLocal++;
+ });
+ const seen=new Set(customers.map(c=>c.trim().toLowerCase()));
+ (Array.isArray(d.customers)?d.customers:[]).forEach(c=>{c=String(c);const k=c.trim().toLowerCase();if(k&&!seen.has(k)&&!deletedCustomers.includes(k)){customers.push(c);seen.add(k)}});
+ const es=new Set(engineers.map(e=>e.trim().toLowerCase()));
+ (Array.isArray(d.engineers)?d.engineers:[]).forEach(e=>{e=String(e).trim();if(e&&!es.has(e.toLowerCase())){engineers.push(e);es.add(e.toLowerCase())}});
+ const cr=cleanCustomerRecords(d.customerRecords);
+ Object.keys(cr).forEach(k=>{if(!customerRecords[k])customerRecords[k]=cr[k];else if(!customerRecords[k].postcode&&cr[k].postcode)customerRecords[k].postcode=cr[k].postcode});
+ const counts={};jobs.forEach(j=>{counts[j.job]=(counts[j.job]||0)+1});
+ const clashes=[...new Set(addedJobs.map(j=>j.job))].filter(n=>n&&counts[n]>1);
+ let msg='Merged: '+added+' new job'+(added===1?'':'s')+', '+updated+' updated, '+same+' already up to date'+(keptLocal?', '+keptLocal+' kept as they are on this device (this device\'s copy was newer)':'')+'.';
+ if(clashes.length)msg+='\n\n⚠ Job number'+(clashes.length===1?'':'s')+' '+clashes.slice(0,10).join(', ')+(clashes.length>10?'…':'')+' now appear on more than one job — worth checking they are not duplicates.';
+ return msg;
+}
+function revertFromSnapshot(){
+ let raw=null;try{raw=localStorage.getItem(PRE_IMPORT_KEY)}catch(e){}
+ if(!raw)return false;
+ const d=JSON.parse(raw);
+ jobs=(d.jobs||[]).map(normalizeJob);customers=d.customers||[];engineers=d.engineers||[];
+ customerRecords=cleanCustomerRecords(d.customerRecords);deletedCustomers=d.deletedCustomers||[];
+ persistAll();try{localStorage.removeItem(PRE_IMPORT_KEY)}catch(e){}
+ return true;
+}
+function undoImport(){
+ if(!confirm('Undo the last import and put this device back exactly as it was before it?'))return;
+ try{if(!revertFromSnapshot()){alert('There is nothing to undo.');return}}catch(e){alert('Could not undo: '+e.message);return}
+ setupLists();home();alert('Import undone.');
+}
+function importBackup(opts){
+ const input=document.createElement('input');input.type='file';input.accept='.json,application/json';
+ input.onchange=()=>{
+  const f=input.files&&input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=async()=>{
+   let d;try{d=JSON.parse(r.result)}catch(e){d=null}
+   if(!d||!Array.isArray(d.jobs)){alert('That file is not a valid Key Engineering backup.');return}
+   const incoming=d.jobs.filter(j=>j&&typeof j==='object').map(normalizeJob);
+   const when=d.exportedAt&&!isNaN(new Date(d.exportedAt))?ukDate(localDateStr(new Date(d.exportedAt))):'unknown date';
+   const mode=await askImportMode('Backup from '+when+' — '+incoming.length+' job'+(incoming.length===1?'':'s'));
+   if(!mode)return;
+   let hadSnapshot=false;
+   try{localStorage.setItem(PRE_IMPORT_KEY,JSON.stringify(backupPayload()));hadSnapshot=true}catch(e){/* storage too full for an undo copy — carry on */}
+   try{
+    const summary=mode==='replace'?applyReplace(d,incoming):applyMerge(d,incoming);
+    persistAll();setupLists();if(opts&&opts.invoices)invoicesPage();else home();alert(summary);
+   }catch(e){
+    let restored=false;try{restored=hadSnapshot&&revertFromSnapshot()}catch(e2){}
+    setupLists();home();
+    alert('The import failed ('+e.message+').'+(restored?' Nothing has been changed.':' Please check your jobs before carrying on.'));
+   }
+  };
+  r.readAsText(f);
+ };
+ input.click();
+}
+function deleteJob(no){
+ // Removes only the job you are looking at. (It used to remove EVERY job sharing that number —
+ // and the job book already has a handful of repeated numbers.)
+ const i=jobs.findIndex(x=>x.job===no);if(i<0)return;
+ if(!confirm('Delete Job '+jobs[i].job+' — '+jobs[i].customer+'?\n\nThis cannot be undone (a backup is your safety net).'))return;
+ jobs.splice(i,1);localStorage.setItem('rkey_jobs',JSON.stringify(jobs));home();
+}
 function canvasSetup(id){
  const c=document.getElementById(id),ctx=c.getContext('2d');ctx.lineWidth=2;ctx.lineCap='round';
  let down=false;function pos(e){let r=c.getBoundingClientRect(),p=e.touches?e.touches[0]:e;return{x:(p.clientX-r.left)*c.width/r.width,y:(p.clientY-r.top)*c.height/r.height}}
@@ -479,11 +1311,582 @@ function fitJobSheetToPage(){
 }
 window.addEventListener('beforeprint',fitJobSheetToPage);
 window.addEventListener('afterprint',()=>{let sheet=document.querySelector('.job-sheet');if(sheet)sheet.style.zoom=1});
+/* ---------------- weekly repairs list ---------------- */
+function repairsPage(scope){
+ hide();document.getElementById('repairs').classList.remove('hidden');
+ const pick=document.getElementById('repairsWeekPick');
+ if(!pick.value)pick.value=localDateStr(hoursWeekRange(localDateStr()).start);
+ if(scope)document.getElementById('repairsScope').value=scope;
+ window._repairUndo=null;renderRepairs();
+}
+function shiftRepairsWeek(days){
+ const pick=document.getElementById('repairsWeekPick');
+ const cur=hoursWeekRange(pick.value||localDateStr()).start;cur.setDate(cur.getDate()+days);
+ pick.value=localDateStr(cur);renderRepairs();
+}
+function repairSelection(){
+ const scope=document.getElementById('repairsScope').value;
+ const {start,end}=hoursWeekRange(document.getElementById('repairsWeekPick').value||localDateStr());
+ const s=localDateStr(start),e=localDateStr(end);
+ let items=jobs.filter(j=>j.defects&&j.defects.trim());
+ items=scope==='all'?items.filter(j=>j.repairStatus!=='Done'):items.filter(j=>j.date>=s&&j.date<=e);
+ items.sort((a,b)=>(a.customer||'').toLowerCase().localeCompare((b.customer||'').toLowerCase())||(a.date||'').localeCompare(b.date||''));
+ return {items,s,e,scope};
+}
+function repairsListHtml(sel,interactive){
+ const {items,scope}=sel;
+ if(!items.length)return '<p class="muted">'+(scope==='all'?'No outstanding repairs recorded.':'No repairs recorded on job sheets dated in this week.')+'</p>';
+ const groups=[];const byKey={};
+ items.forEach((j,idx)=>{const k=(j.customer||'Unknown').trim().toLowerCase();if(!byKey[k]){byKey[k]={name:j.customer||'Unknown',rows:[]};groups.push(byKey[k])}byKey[k].rows.push({j,idx})});
+ return groups.map(g=>`<div class="repgroup"><h4>${esc(g.name)} <span class="muted">(${g.rows.length})</span></h4>${g.rows.map(({j,idx})=>{
+  const st=j.repairStatus||'';
+  const meta=['Job '+j.job,ukDate(j.date),j.site,j.equipment?'Crane / equipment: '+j.equipment:'',j.serial?'Serial / SWL: '+j.serial:'',j.engineers.join(', ')].filter(Boolean).map(esc).join(' · ');
+  const stat=interactive
+   ?`<div class="repstatus"><button class="${st===''?'on':''}" onclick="setRepairStatus(${idx},'')">Outstanding</button><button class="${st==='Booked'?'on booked':''}" onclick="setRepairStatus(${idx},'Booked')">Booked in</button><button class="${st==='Done'?'on done':''}" onclick="setRepairStatus(${idx},'Done')">Done</button> <button onclick="openRepairJob(${idx})">Open job</button></div>`
+   :`<div class="meta" style="margin-top:4px"><b>Status:</b> ${st==='Booked'?'Booked in':st==='Done'?'Done':'Outstanding'}</div>`;
+  return `<div class="repitem"><div class="meta">${meta}</div><div class="txt">${esc(j.defects)}</div>${stat}</div>`;
+ }).join('')}</div>`).join('');
+}
+function renderRepairs(){
+ const sel=repairSelection();window._repairItems=sel.items;
+ document.getElementById('repairsWeekCtl').style.display=sel.scope==='all'?'none':'inline-flex';
+ const custs=new Set(sel.items.map(j=>(j.customer||'').trim().toLowerCase())).size;
+ document.getElementById('repairsSummary').textContent=(sel.scope==='all'?'All outstanding repairs':'Week starting '+ukDate(sel.s)+' (to '+ukDate(sel.e)+')')+' — '+sel.items.length+' item'+(sel.items.length===1?'':'s')+' across '+custs+' customer'+(custs===1?'':'s');
+ const u=window._repairUndo;
+ document.getElementById('repairsUndo').innerHTML=u?`<div class="notice ok">Job ${esc(u.job.job)} marked <b>${esc(u.now||'Outstanding')}</b>.<button onclick="undoRepairChange()">Undo</button></div>`:'';
+ document.getElementById('repairsBody').innerHTML=repairsListHtml(sel,true);
+}
+function saveJobsQuiet(){try{localStorage.setItem('rkey_jobs',JSON.stringify(jobs))}catch(e){alert('Could not save — this device may be out of storage.')}}
+function setRepairStatus(i,status){
+ const j=(window._repairItems||[])[i];if(!j)return;
+ window._repairUndo={job:j,prev:j.repairStatus||'',now:status==='Booked'?'Booked in':status==='Done'?'Done':'Outstanding'};
+ j.repairStatus=status;j.updatedAt=new Date().toISOString();_searchCache.delete(j);saveJobsQuiet();renderRepairs();
+}
+function undoRepairChange(){
+ const u=window._repairUndo;if(!u)return;
+ u.job.repairStatus=u.prev;u.job.updatedAt=new Date().toISOString();_searchCache.delete(u.job);saveJobsQuiet();window._repairUndo=null;renderRepairs();
+}
+function openRepairJob(i){const j=(window._repairItems||[])[i];if(j)openJob(j.job)}
+
+// choose page-break positions (in px) so a page never cuts through the middle of a repair item
+function repairPageBreaks(boundaries,totalH,pageH){
+ const cuts=[];let y=0;
+ while(totalH-y>pageH+1){
+  const limit=y+pageH;
+  const good=boundaries.filter(b=>b>y+pageH*0.4&&b<=limit);
+  const cut=good.length?good[good.length-1]:limit;
+  cuts.push(cut);y=cut;
+ }
+ return cuts;
+}
+function addCanvasPages(pdf,canvas,boundariesCss,cssWidth,textLines){
+ const pageW=pdf.internal.pageSize.getWidth(),pageH=pdf.internal.pageSize.getHeight();
+ const k=canvas.width/cssWidth; // canvas px per CSS px
+ const pagePx=Math.floor(canvas.width*pageH/pageW);
+ const cuts=repairPageBreaks(boundariesCss.map(b=>Math.round(b*k)),canvas.height,pagePx);
+ const edges=[0,...cuts,canvas.height];
+ for(let p=0;p<edges.length-1;p++){
+  const sy=edges[p],sh=edges[p+1]-edges[p];
+  const slice=document.createElement('canvas');slice.width=canvas.width;slice.height=sh;
+  const ctx=slice.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,slice.width,sh);
+  ctx.drawImage(canvas,0,sy,canvas.width,sh,0,0,canvas.width,sh);
+  if(p>0)pdf.addPage();
+  drawPdfText(pdf,textLines,{k:pageW/cssWidth,yOffsetCss:sy/k,maxYmm:sh*pageW/canvas.width,maxXmm:pageW});
+  pdf.addImage(slice.toDataURL('image/jpeg',0.92),'JPEG',0,0,pageW,sh*pageW/canvas.width);
+ }
+}
+async function exportRepairsPdf(mode){
+ const btn=event&&event.target,orig=btn?btn.textContent:'';
+ if(btn){btn.disabled=true;btn.textContent='Generating…'}
+ let off=null;
+ try{
+  const ready=await window.pdfLibsReady;
+  if(!ready||!window.html2canvas||!window.jspdf){alert('Could not load the PDF tools — check your internet connection and try again.');return}
+  const sel=repairSelection();
+  if(!sel.items.length){alert('There are no repairs to list for this selection.');return}
+  const title=sel.scope==='all'?'Outstanding Repairs':'Repairs Required — Week starting '+ukDate(sel.s);
+  off=document.createElement('div');off.style.cssText='position:fixed;left:-99999px;top:0;width:1000px';document.body.appendChild(off);
+  off.innerHTML=`<div class="job-sheet" style="background-image:none"><div class="company" style="display:flex;align-items:center;gap:12px"><img src="logo-header.png" alt="" style="height:52px;width:auto;flex-shrink:0"><div style="text-align:left"><strong>KEY ENGINEERING CHESTERFIELD LTD</strong><br>Repairs required from completed inspection reports</div></div><div class="title" style="font-size:18px">${esc(title)}</div><div style="margin:8px 2px 4px;font-size:12px">Prepared ${esc(ukDate(localDateStr()))} · ${sel.items.length} item${sel.items.length===1?'':'s'}</div>${repairsListHtml(sel,false)}</div>`;
+  await waitForImages(off);
+  const sheet=off.firstElementChild,top=sheet.getBoundingClientRect().top;
+  const bounds=[...sheet.querySelectorAll('.repgroup,.repitem')].filter(el=>!(el.classList.contains('repitem')&&el.previousElementSibling&&el.previousElementSibling.tagName==='H4')).map(el=>el.getBoundingClientRect().top-top);
+  const canvas=await html2canvas(sheet,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
+  const {jsPDF}=window.jspdf;const pdf=new jsPDF('p','mm','a4');
+  addCanvasPages(pdf,canvas,bounds,sheet.getBoundingClientRect().width,collectSheetText(sheet));
+  const name=(sel.scope==='all'?'Outstanding Repairs - '+ukDate(localDateStr()):'Repairs Required - Week starting '+ukDate(sel.s))+'.pdf';
+  const blob=pdf.output('blob'),file=new File([blob],name,{type:'application/pdf'});
+  if(mode==='share'&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:name,text:title})}
+  else{const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+ }catch(e){if(!(e&&e.name==='AbortError'))alert('Could not create the PDF: '+e.message)}
+ finally{if(off)off.remove();if(btn){btn.disabled=false;btn.textContent=orig}}
+}
+
+/* ---------------- quotes ---------------- */
+const QUOTES_KEY='rkey_quotes';
+let quotes={};
+try{quotes=JSON.parse(localStorage.getItem(QUOTES_KEY)||'{}');if(!quotes||typeof quotes!=='object')quotes={}}catch(e){quotes={}}
+function saveQuotes(){try{localStorage.setItem(QUOTES_KEY,JSON.stringify(quotes))}catch(e){alert('Could not save quotes on this device.')}}
+function quoteList(){return Object.values(quotes).sort((a,b)=>String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')))}
+function newQuote(){['q_number','q_customer','q_email','q_value','q_description'].forEach(id=>document.getElementById(id).value='');document.getElementById('q_date').value=localDateStr();document.getElementById('q_status').value='Open'}
+function quotesPage(){hide();document.getElementById('quotes').classList.remove('hidden');setupLists();newQuote();renderQuotes()}
+function quoteNumberChanged(){const n=document.getElementById('f_quote').value.trim().toLowerCase();if(!n)return;const q=quotes[n];if(q){document.getElementById('f_customer').value=q.customer||'';document.getElementById('f_email').value=q.email||'';customerChanged()}}
+function saveFormCustomerPostcode(){const name=document.getElementById('f_customer').value.trim();if(!name)return;const key=name.toLowerCase();customerRecords[key]=Object.assign({},customerRecords[key]||{},{name,postcode:readPostcodeField('f_postcode','').trim().toUpperCase()});saveCustomerRecords()}
+function saveQuote(){const number=document.getElementById('q_number').value.trim();if(!number){alert('Please enter a quote number.');return}const key=number.toLowerCase(),existing=quotes[key]||{},raw=document.getElementById('q_value').value.trim();let value='';if(raw!==''){const v=Number(raw);if(!isFinite(v)||v<0){alert('Please enter a valid quoted price.');return}value=Math.round(v*100)/100}quotes[key]={number,customer:document.getElementById('q_customer').value.trim(),email:document.getElementById('q_email').value.trim(),date:document.getElementById('q_date').value||localDateStr(),value,description:document.getElementById('q_description').value.trim(),status:document.getElementById('q_status').value==='Complete'?'Complete':'Open',createdAt:existing.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};saveQuotes();renderQuotes();setupLists()}
+function quoteJobs(q){return jobs.filter(j=>String(j.quoteNo||'').trim().toLowerCase()===String(q.number||'').trim().toLowerCase())}
+function quoteTotals(q){const js=quoteJobs(q),cs=js.map(j=>jobCost(j,rates));return{jobs:js,costs:cs,nt:cs.reduce((a,c)=>a+c.ntP,0),ot:cs.reduce((a,c)=>a+c.otP,0),dt:cs.reduce((a,c)=>a+c.dtP,0),mile:cs.reduce((a,c)=>a+c.mileP,0),call:cs.reduce((a,c)=>a+c.callP,0),mat:cs.reduce((a,c)=>a+(c.matP||0),0),net:cs.reduce((a,c)=>a+c.net,0),vat:cs.reduce((a,c)=>a+c.vatP,0),gross:cs.reduce((a,c)=>a+c.grossP,0)}}
+function renderQuotes(){
+ const body=document.getElementById('quoteBody'),list=quoteList();
+ if(!list.length){body.innerHTML='<p class="muted">No quotes yet. Create your first quote above.</p>';return}
+ body.innerHTML=list.map(q=>{
+  const t=quoteTotals(q),quoted=q.value===''?null:Number(q.value)*100,variance=quoted==null?null:quoted-t.net;
+  const status=q.status==='Complete'?'<span class="pill">Complete</span>':'<span class="pill">Open</span>';
+  const editArg=JSON.stringify(q.number);
+  const rows=t.jobs.map((j,i)=>{
+   const mats=(j.materials||[]).filter(x=>String(x).trim()).join('; ');
+   return '<tr><td>'+esc(j.job)+'</td><td>'+esc(lastWorked(j)?ukDate(lastWorked(j)):'')+'</td><td>'+esc(j.status)+'</td><td>'+esc(mats||'—')+'</td><td class="r">'+gbp(t.costs[i].grossP)+'</td></tr>';
+  }).join('');
+  const actions='<div class="actions" style="margin-top:10px"><button onclick="loadQuoteForEdit('+editArg+')">Edit quote</button>'+
+   (q.status!=='Complete'?'<button class="primary" onclick="completeQuote('+editArg+')">✓ Complete Quote</button>':'<button onclick="reopenQuote('+editArg+')">Re-open</button>')+'</div>';
+  return '<div class="repgroup"><h4>'+esc(q.number)+' — '+esc(q.customer||'No customer')+' '+status+'</h4><div class="invcard">'+
+   (q.description?'<div style="white-space:pre-wrap;margin-bottom:8px">'+esc(q.description)+'</div>':'')+
+   '<div class="invline"><span class="k">Job sheets linked</span><span class="v">'+t.jobs.length+'</span></div>'+
+   '<div class="invline"><span class="k">Labour</span><span class="v">'+gbp(t.nt+t.ot+t.dt)+'</span></div>'+
+   '<div class="invline"><span class="k">Mileage — all engineer vans</span><span class="v">'+gbp(t.mile)+'</span></div>'+
+   '<div class="invline"><span class="k">Call-outs — per engineer</span><span class="v">'+gbp(t.call)+'</span></div>'+
+   '<div class="invline"><span class="k">Materials</span><span class="v">'+gbp(t.mat)+'</span></div>'+
+   '<div class="invtotal"><span>Actual net cost</span><span>'+gbp(t.net)+'</span></div>'+
+   (quoted==null?'':'<div class="invline"><span class="k">Quoted price</span><span class="v">'+gbp(quoted)+'</span></div><div class="invline"><b>Difference</b><b>'+gbp(variance)+'</b></div>')+
+   (t.jobs.length?'<details style="margin-top:8px"><summary>Linked job sheets</summary><table class="invtable" style="margin-top:6px"><tr><th>Job</th><th>Last worked</th><th>Status</th><th>Materials used</th><th class="r">Cost inc VAT</th></tr>'+rows+'</table></details>':'<div class="muted" style="margin-top:8px">No job sheets have this quote number yet.</div>')+
+   actions+'</div></div>';
+ }).join('');
+}
+function loadQuoteForEdit(number){const q=quotes[String(number).toLowerCase()];if(!q)return;document.getElementById('q_number').value=q.number;document.getElementById('q_customer').value=q.customer||'';document.getElementById('q_email').value=q.email||'';document.getElementById('q_date').value=q.date||localDateStr();document.getElementById('q_value').value=q.value===''?'':q.value;document.getElementById('q_description').value=q.description||'';document.getElementById('q_status').value=q.status||'Open';window.scrollTo({top:0,behavior:'smooth'})}
+function completeQuote(number){const key=String(number).toLowerCase(),q=quotes[key];if(!q)return;const t=quoteTotals(q);if(!confirm('Complete quote '+q.number+'?\n\nIt currently contains '+t.jobs.length+' linked job sheet'+(t.jobs.length===1?'':'s')+' with an actual net cost of '+gbp(t.net)+'.\n\nNo further job sheets can be added to this quote until you re-open it.'))return;q.status='Complete';q.completedAt=new Date().toISOString();q.updatedAt=new Date().toISOString();saveQuotes();renderQuotes()}
+function reopenQuote(number){const q=quotes[String(number).toLowerCase()];if(!q)return;q.status='Open';q.updatedAt=new Date().toISOString();saveQuotes();renderQuotes()}
+
+/* ---------------- invoices ---------------- */
+const RATES_KEY='rkey_rates';
+const DEFAULT_RATES={nt:null,ot:null,dt:null,mile:null,callout:null,vat:null}; // Rates are deliberately NOT stored in the public GitHub source. Enter them once on the office device.
+function loadRates(){
+ const keys=['nt','ot','dt','mile','callout','vat'];
+ let raw=null;try{raw=localStorage.getItem(RATES_KEY)}catch(e){}
+ if(raw===null)return Object.assign({},DEFAULT_RATES); // never saved on this device: start from the standard rates
+ try{
+  const r=JSON.parse(raw);if(!r||typeof r!=='object')return Object.assign({},DEFAULT_RATES);
+  const out={};keys.forEach(k=>{const v=r[k];out[k]=(typeof v==='number'&&isFinite(v)&&v>=0)?v:null});return out; // anything cleared on purpose stays cleared
+ }catch(e){return Object.assign({},DEFAULT_RATES)}
+}
+let rates=loadRates();
+const pence=n=>Math.round(Number((Number(n)||0).toPrecision(12))*100);
+const roundP=x=>Math.round(Number(x.toPrecision(12))); // strips float noise so 787.4999999 / 787.5000001 both mean half-a-penny
+function gbp(p){return '£'+(p/100).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function hasInvoiceData(j){const v=j&&j.invoice;return !!(v&&typeof v==='object'&&(v.status==='invoiced'||(v.materials!==''&&v.materials!=null&&isFinite(Number(v.materials)))||String(v.note||'').trim()))}
+function normInvoice(v){
+ v=v&&typeof v==='object'?v:{};
+ const m=(v.materials===''||v.materials==null)?'':Number(v.materials);
+ const sn=v.snapshot&&typeof v.snapshot==='object'?{net:Math.round(+v.snapshot.net)||0,vat:Math.round(+v.snapshot.vat)||0,gross:Math.round(+v.snapshot.gross)||0}:null;
+ return{materials:(m===''||!isFinite(m)||m<0)?'':Math.round(m*100)/100,note:String(v.note||'').slice(0,200),status:v.status==='invoiced'?'invoiced':'',invoicedOn:/^\d{4}-\d{2}-\d{2}$/.test(v.invoicedOn||'')?v.invoicedOn:'',snapshot:sn};
+}
+function lastWorked(j){let d=j.date||'';(j.time||[]).forEach(r=>{if(r.date&&r.date>d)d=r.date});return d}
+function uniqueEngineers(list){const out=[];(list||[]).forEach(n=>{n=String(n||'').trim();if(n&&!out.some(m=>engineerNamesMatch(m,n)))out.push(n)});return out}
+function rowEngineers(j,r){
+ // Who a time row belongs to: the engineer named on that row, otherwise EVERY engineer on the job (the same person typed twice counts once).
+ const e=String((r&&r.eid)||'').trim();if(e)return[e];
+ const l=uniqueEngineers(j.engineers);return l.length?l:['Unassigned'];
+}
+function hrsNote(raw,man){
+ if(!(raw>0)||man===raw)return '';
+ const k=man/raw;
+ return Math.abs(k-Math.round(k))<1e-9?' ('+String(Math.round(raw*100)/100)+' h × '+Math.round(k)+' engineers)':' (engineer-hours)';
+}
+function jobCost(j,r){
+ // T = hours as typed on the sheet; M = chargeable engineer-hours (each row x the engineers it applies to: 2, 3 or 4 men = x2, x3, x4).
+ // Mileage and the call-out fee are charged once per job — one vehicle, one call-out.
+ const T={nt:0,ot:0,dt:0,mile:0},M={nt:0,ot:0,dt:0,mile:0};let crew=Math.max(1,uniqueEngineers(j.engineers).length);
+ (j.time||[]).forEach(t=>{
+  const k=rowEngineers(j,t).length,nt=+t.nt||0,ot=+t.ot||0,dt=+t.dt||0,mile=+t.mile||0;
+  T.nt+=nt;T.ot+=ot;T.dt+=dt;T.mile+=mile;
+  M.nt+=nt*k;M.ot+=ot*k;M.dt+=dt*k;M.mile+=mile*k;M.mile+=mile*k;
+  if((nt>0||ot>0||dt>0)&&k>crew)crew=k;
+ });
+ [T,M].forEach(o=>Object.keys(o).forEach(x=>{o[x]=Math.round(o[x]*100)/100}));
+ const inv=normInvoice(j.invoice),problems=[];
+ const part=(qty,rate,label)=>{if(!(qty>0))return 0;if(rate==null){problems.push('No '+label+' rate set');return 0}return roundP(qty*rate*100)};
+ const ntP=part(M.nt,r.nt,'normal-time'),otP=part(M.ot,r.ot,'overtime 1'),dtP=part(M.dt,r.dt,'overtime 2'),mileP=part(M.mile,r.mile,'mileage');
+ const callP=(j.callout&&r.callout!=null)?pence(r.callout)*crew:0;
+ const matP=inv.materials===''?null:pence(inv.materials);
+ const hasMats=(j.materials||[]).some(x=>String(x).trim());
+ if(hasMats&&matP===null)problems.push('Materials are listed — enter their cost (0 if nothing to charge)');
+ if(r.vat==null)problems.push('VAT rate not set');
+ const net=ntP+otP+dtP+mileP+callP+(matP||0);
+ if(!(T.nt>0||T.ot>0||T.dt>0||T.mile>0||callP>0||(matP||0)>0))problems.push('Nothing to charge — no hours, mileage or materials');
+ const vatP=r.vat==null?0:roundP(net*r.vat/100);
+ return{T,M,crew,ntP,otP,dtP,mileP,callP,matP,net,vatP,grossP:net+vatP,problems,ready:problems.length===0};
+}
+function invoiceSelection(){
+ const scope=document.getElementById('invScope').value;
+ const{start,end}=hoursWeekRange(document.getElementById('invWeekPick').value||localDateStr());
+ const s=localDateStr(start),e=localDateStr(end);
+ // A job is invoiced ONCE, in the week it was last worked, with ALL of its hours — so a job that
+ // runs across two weeks can never be billed twice. Jobs with no worked date (the old job book) never qualify.
+ const todo=[],done=[],incomplete=[];
+ jobs.forEach(j=>{
+  const d=lastWorked(j);if(!d)return;
+  if(scope==='week'&&!(d>=s&&d<=e))return;
+  if(j.status!=='Complete'){if(scope==='week')incomplete.push(j);return}
+  (normInvoice(j.invoice).status==='invoiced'?done:todo).push(j);
+ });
+ const by=(a,b)=>(a.customer||'').toLowerCase().localeCompare((b.customer||'').toLowerCase())||lastWorked(a).localeCompare(lastWorked(b))||(a.job||'').localeCompare(b.job||'');
+ todo.sort(by);done.sort(by);incomplete.sort(by);
+ return{scope,s,e,todo,done,incomplete};
+}
+function invoicesPage(){
+ hide();document.getElementById('invoices').classList.remove('hidden');
+ const pick=document.getElementById('invWeekPick');
+ if(!pick.value){ // land on the latest week that still has completed work waiting, so the button always shows something useful
+  let latest='';jobs.forEach(j=>{if(j.status==='Complete'&&normInvoice(j.invoice).status!=='invoiced'){const d=lastWorked(j);if(d>latest)latest=d}});
+  pick.value=localDateStr(hoursWeekRange(latest||localDateStr()).start);
+ }
+ fillRatesForm();renderInvoices();
+}
+function shiftInvWeek(days){
+ const pick=document.getElementById('invWeekPick');
+ const cur=hoursWeekRange(pick.value||localDateStr()).start;cur.setDate(cur.getDate()+days);
+ pick.value=localDateStr(cur);renderInvoices();
+}
+function fillRatesForm(){
+ ['nt','ot','dt','mile','callout','vat'].forEach(k=>{document.getElementById('rate_'+k).value=rates[k]==null?'':rates[k]});
+ document.getElementById('invRatesBox').open=['nt','ot','dt','mile','vat'].some(k=>rates[k]==null);
+ updateRatesState();
+}
+function updateRatesState(){document.getElementById('invRatesState').textContent=['nt','ot','dt','mile','vat'].some(k=>rates[k]==null)?'— not all set yet':'— set'}
+function saveRates(){
+ const next={};let bad=false;
+ ['nt','ot','dt','mile','callout','vat'].forEach(k=>{
+  const raw=document.getElementById('rate_'+k).value.trim();
+  if(raw===''){next[k]=null;return}
+  const v=Number(raw);if(!isFinite(v)||v<0||(k==='vat'&&v>100)){bad=true;return}
+  next[k]=v;
+ });
+ if(bad){alert('One of the rates is not a valid amount — please check them.');return}
+ try{localStorage.setItem(RATES_KEY,JSON.stringify(next))}catch(e){alert('Could not save the rates on this device.');return}
+ rates=next;updateRatesState();renderInvoices();
+}
+function renderInvNotices(){
+ const miss=[['nt','normal-time'],['ot','overtime 1'],['dt','overtime 2'],['mile','mileage']].filter(x=>rates[x[0]]==null).map(x=>x[1]);
+ if(rates.vat==null)miss.push('VAT');
+ document.getElementById('invNotices').innerHTML=miss.length?'<div class="notice warn">Rates not set yet: <b>'+miss.join(', ')+'</b>. Open <b>Rates</b> below and enter them (0 for anything you do not charge). A job cannot be marked ready until the rates it needs are in.</div>':'';
+}
+function renderInvEngCheck(sel){
+ const el=document.getElementById('invEngCheck');
+ if(sel.scope!=='week'){el.innerHTML='';return}
+ // Only people who worked in the previous 4 weeks are checked, so leavers and old typos in the engineers list never nag.
+ const base=new Date(sel.s+'T00:00:00'),quiet=[];
+ engineers.forEach(n=>{
+  if(!n||jobsForEngineerWeek(n,sel.s,sel.e).length)return;
+  for(let w=1;w<=4;w++){
+   const a=new Date(base);a.setDate(a.getDate()-7*w);const b=new Date(a);b.setDate(b.getDate()+6);
+   if(jobsForEngineerWeek(n,localDateStr(a),localDateStr(b)).length){quiet.push(n);return}
+  }
+ });
+ el.innerHTML=quiet.length?'<div class="notice warn">Worked in the last 4 weeks but nothing recorded for this week: <b>'+quiet.map(esc).join(', ')+'</b>. If they worked, ask for their backup and tap <b>⬆ Add engineers\' jobs</b>.</div>':'';
+}
+function invGroups(items){
+ const groups=[],by={};
+ items.forEach((j,idx)=>{const k=(j.customer||'Unknown').trim().toLowerCase();if(!by[k]){by[k]={name:j.customer||'Unknown',rows:[],id:'g'+groups.length};groups.push(by[k])}by[k].rows.push({j,idx})});
+ return groups;
+}
+function invCalcHtml(j,idx){
+ const c=jobCost(j,rates),inv=normInvoice(j.invoice);
+ const h=x=>String(Math.round(x*100)/100);
+ const L=(label,detail,p)=>'<div class="invline"><span class="k">'+label+(detail?' <span class="muted">'+detail+'</span>':'')+'</span><span class="v">'+gbp(p)+'</span></div>';
+ const rt=(k,unit)=>rates[k]!=null?' × '+gbp(pence(rates[k]))+unit:'';
+ let lines='';
+ if(c.M.nt>0)lines+=L('Normal time',h(c.M.nt)+' h'+hrsNote(c.T.nt,c.M.nt)+rt('nt','/h'),c.ntP);
+ if(c.M.ot>0)lines+=L('Overtime 1',h(c.M.ot)+' h'+hrsNote(c.T.ot,c.M.ot)+rt('ot','/h'),c.otP);
+ if(c.M.dt>0)lines+=L('Overtime 2',h(c.M.dt)+' h'+hrsNote(c.T.dt,c.M.dt)+rt('dt','/h'),c.dtP);
+ if(c.M.mile>0)lines+=L('Mileage',h(c.M.mile)+' mi charged ('+h(c.T.mile)+' mi per van × '+c.crew+' van'+(c.crew===1?'':'s')+')'+rt('mile','/mi'),c.mileP);
+ if(c.callP>0)lines+=L('Call-out fee',gbp(pence(r.callout))+' × '+c.crew+' engineer'+(c.crew===1?'':'s'),c.callP);
+ if(c.matP!==null)lines+=L('Materials',esc(inv.note),c.matP);
+ const totals='<div class="invtotal"><span>Net</span><span>'+gbp(c.net)+'</span></div><div class="invline"><span class="k">VAT'+(rates.vat!=null?' '+rates.vat+'%':'')+'</span><span class="v">'+gbp(c.vatP)+'</span></div><div class="invline"><b>Total</b><b>'+gbp(c.grossP)+'</b></div>';
+ const status=c.ready?'<div class="notice ok">✔ Ready to invoice</div>':'<div class="notice warn">'+c.problems.map(esc).join('<br>')+'</div>';
+ const btns='<div class="actions" style="margin-top:8px"><button class="primary" '+(c.ready?'':'disabled')+' onclick="markInvoiced('+idx+')">Mark as invoiced</button><button onclick="openInvoiceJob('+idx+')">Open job</button></div>';
+ return lines+totals+status+btns;
+}
+function invCardHtml(j,idx){
+ const inv=normInvoice(j.invoice);
+ const dates=[...new Set([j.date].concat((j.time||[]).map(t=>t.date)).filter(Boolean))].sort();
+ const when=dates.length>1?ukDate(dates[0])+' – '+ukDate(dates[dates.length-1]):ukDate(dates[0]||'');
+ const meta=['Job '+j.job,j.order?'PO '+j.order:'',when,j.site,(j.engineers||[]).join(', '),j.callout?'CALL-OUT':''].filter(Boolean).map(esc).join(' · ');
+ const mats=(j.materials||[]).filter(x=>String(x).trim());
+ return '<div class="invcard" id="invc-'+idx+'"><div class="meta">'+meta+'</div><div class="invmat">'
+  +(mats.length?'<div class="muted" style="margin-bottom:6px"><b>Materials used:</b> '+mats.map(esc).join('; ')+'</div>':'<div class="muted" style="margin-bottom:6px">No materials listed on the job sheet.</div>')
+  +'<div class="row"><label style="margin:0">Materials cost £</label><input id="invm-'+idx+'" type="number" min="0" step="0.01" inputmode="decimal" value="'+(inv.materials===''?'':inv.materials)+'" placeholder="0.00" onchange="onInvoiceInput('+idx+')" style="width:120px"><input id="invn-'+idx+'" value="'+esc(inv.note)+'" placeholder="Supplier / note (optional)" onchange="onInvoiceInput('+idx+')" style="flex:1;min-width:140px"></div></div>'
+  +'<div id="invcalc-'+idx+'">'+invCalcHtml(j,idx)+'</div></div>';
+}
+function renderInvoices(){
+ const sel=invoiceSelection();window._invSel=sel;window._invItems=sel.todo;window._invDone=sel.done;
+ document.getElementById('invWeekPick').value=sel.s;
+ document.getElementById('invWeekCtl').style.display=sel.scope==='all'?'none':'inline-flex';
+ renderInvNotices();renderInvEngCheck(sel);
+ const groups=invGroups(sel.todo);window._invGroups=groups;
+ document.getElementById('invBody').innerHTML=sel.todo.length
+  ?groups.map(g=>'<div class="repgroup"><h4>'+esc(g.name)+' <span class="muted">('+g.rows.length+')</span> <span class="muted" id="invg-'+g.id+'" style="float:right;font-weight:400"></span></h4>'+g.rows.map(r=>invCardHtml(r.j,r.idx)).join('')+'</div>').join('')
+  :'<p class="muted">'+(sel.scope==='all'?'Nothing is waiting to be invoiced.':'No completed job sheets for this week are waiting to be invoiced.')+'</p>';
+ const ex=[];
+ if(sel.scope==='week'&&sel.done.length)ex.push('<details class="invmat"><summary><b>Already invoiced ('+sel.done.length+')</b></summary>'+sel.done.map((j,i)=>{const v=normInvoice(j.invoice);return '<div class="invline" style="padding:6px 0;border-top:1px solid #e3e8ec;align-items:center"><span class="k">Job '+esc(j.job)+' — '+esc(j.customer)+' <span class="muted">· invoiced '+esc(ukDate(v.invoicedOn))+(v.snapshot?' · '+gbp(v.snapshot.gross)+' inc VAT':'')+'</span></span><button onclick="undoInvoiced('+i+')">Undo</button></div>'}).join('')+'</details>');
+ if(sel.incomplete.length)ex.push('<details class="invmat"><summary><b>Not complete — left out ('+sel.incomplete.length+')</b></summary>'+sel.incomplete.map(j=>'<div class="invline" style="padding:6px 0;border-top:1px solid #e3e8ec"><span class="k">Job '+esc(j.job)+' — '+esc(j.customer)+'</span><span class="muted">'+esc(j.status)+'</span></div>').join('')+'<div class="muted" style="font-size:12px;margin-top:6px">Set the job to Complete (Edit) and it will appear here.</div></details>');
+ document.getElementById('invExtra').innerHTML=ex.join('');
+ updateInvoiceSummary();
+}
+function updateInvoiceSummary(){
+ const items=window._invItems||[],costs=items.map(j=>jobCost(j,rates));
+ let ready=0,net=0,vat=0,gross=0;
+ costs.forEach(c=>{if(c.ready){ready++;net+=c.net;vat+=c.vatP;gross+=c.grossP}});
+ (window._invGroups||[]).forEach(g=>{
+  let gg=0,any=false;g.rows.forEach(r=>{const c=costs[r.idx];if(c.ready){gg+=c.grossP;any=true}});
+  const el=document.getElementById('invg-'+g.id);if(el)el.textContent=any?gbp(gg)+' inc VAT':'';
+ });
+ document.getElementById('invSummary').textContent=items.length?ready+' of '+items.length+' job'+(items.length===1?'':'s')+' ready to invoice'+(ready?' — net '+gbp(net)+' · VAT '+gbp(vat)+' · total '+gbp(gross):''):'';
+ document.getElementById('invBulk').innerHTML=ready?'<div class="actions no-print" style="margin:10px 0"><button class="primary" onclick="markAllInvoiced()">✔ Mark all '+ready+' ready job'+(ready===1?'':'s')+' as invoiced</button></div>':'';
+}
+function onInvoiceInput(idx){
+ // Updates only this job's figures in place (not the whole list), so tapping from one materials box
+ // straight into the next never loses focus or dismisses the keyboard.
+ const j=(window._invItems||[])[idx];if(!j)return;
+ const m=document.getElementById('invm-'+idx),n=document.getElementById('invn-'+idx);
+ const raw=m.value.trim();let val='';
+ if(raw!==''){const v=Number(raw);if(!isFinite(v)||v<0){alert('Please enter the materials cost as an amount, e.g. 125.50');m.value=normInvoice(j.invoice).materials;return}val=Math.round(v*100)/100}
+ j.invoice=Object.assign({},normInvoice(j.invoice),{materials:val,note:n.value.trim().slice(0,200)});
+ j.updatedAt=new Date().toISOString();saveJobsQuiet();
+ document.getElementById('invcalc-'+idx).innerHTML=invCalcHtml(j,idx);
+ updateInvoiceSummary();
+}
+function stampInvoiced(j,c,today,stamp){
+ j.invoice=Object.assign({},normInvoice(j.invoice),{status:'invoiced',invoicedOn:today,snapshot:{net:c.net,vat:c.vatP,gross:c.grossP}}); // amounts are frozen: a later rate change can't alter a job already invoiced
+ j.updatedAt=stamp;
+}
+function markInvoiced(idx){
+ const j=(window._invItems||[])[idx];if(!j)return;
+ const c=jobCost(j,rates);if(!c.ready){alert('This job is not ready yet:\n\n'+c.problems.join('\n'));return}
+ stampInvoiced(j,c,localDateStr(),new Date().toISOString());saveJobsQuiet();renderInvoices();
+}
+function markAllInvoiced(){
+ const ready=(window._invItems||[]).map(j=>({j,c:jobCost(j,rates)})).filter(x=>x.c.ready);
+ if(!ready.length)return;
+ const net=ready.reduce((a,x)=>a+x.c.net,0);
+ if(!confirm('Mark '+ready.length+' job'+(ready.length===1?'':'s')+' (net '+gbp(net)+') as invoiced?\n\nDo this once you have raised the invoices. They move to "Already invoiced" and drop off this list — you can undo any of them there.'))return;
+ const today=localDateStr(),stamp=new Date().toISOString();
+ ready.forEach(x=>stampInvoiced(x.j,x.c,today,stamp));saveJobsQuiet();renderInvoices();
+}
+function undoInvoiced(i){
+ const j=(window._invDone||[])[i];if(!j)return;
+ if(!confirm('Put Job '+j.job+' back on the to-invoice list?'))return;
+ j.invoice=Object.assign({},normInvoice(j.invoice),{status:'',invoicedOn:'',snapshot:null});
+ j.updatedAt=new Date().toISOString();saveJobsQuiet();renderInvoices();
+}
+function openInvoiceJob(idx){const j=(window._invItems||[])[idx];if(j)openJob(j.job)}
+
+function csvCell(v){
+ let s=v==null?'':String(v);
+ if(/^[=+\-@\t\r]/.test(s))s="'"+s; // stops a customer name like =HYPERLINK(...) running as a formula in Excel
+ return /[",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;
+}
+function invoiceFileLabel(sel){return sel.scope==='all'?'To invoice - '+ukDate(localDateStr()):'Week starting '+ukDate(sel.s)}
+function readyRows(sel){return sel.todo.map(j=>({j,c:jobCost(j,rates)})).filter(x=>x.c.ready)}
+function exportInvoicesCsv(){
+ const sel=invoiceSelection(),rows=readyRows(sel),skipped=sel.todo.length-rows.length;
+ if(!rows.length){alert('Nothing is ready to export yet — enter the materials costs (and any missing rates) first.');return}
+ const m=p=>(p/100).toFixed(2);
+ const head=['Week starting','Job no','Customer order no','Customer','Site','Last worked','Engineers','Crew size','Normal hrs (charged)','OT1 hrs (charged)','OT2 hrs (charged)','Normal £','OT1 £','OT2 £','Miles','Mileage £','Call-out £','Materials £','Materials note','Net £','VAT £','Gross £'];
+ const lines=[head.map(csvCell).join(',')];
+ rows.forEach(x=>{const j=x.j,c=x.c;lines.push([ukDate(sel.s),j.job,j.order,j.customer,j.site,ukDate(lastWorked(j)),(j.engineers||[]).join(' + '),c.crew,c.M.nt,c.M.ot,c.M.dt,m(c.ntP),m(c.otP),m(c.dtP),c.M.mile,m(c.mileP),m(c.callP),m(c.matP||0),normInvoice(j.invoice).note,m(c.net),m(c.vatP),m(c.grossP)].map(csvCell).join(','))});
+ const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Invoice worksheet - '+invoiceFileLabel(sel)+'.csv';document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+ if(skipped)alert(rows.length+' job'+(rows.length===1?'':'s')+' exported. '+skipped+' not included because they are not ready yet.');
+}
+function invoicePdfRow(j,c){
+ const h=x=>String(Math.round(x*100)/100);
+ const hours=[c.M.nt>0?'N/T '+h(c.M.nt)+(c.M.nt!==c.T.nt?' ('+h(c.T.nt)+'×'+Math.round(c.M.nt/c.T.nt)+')':''):'',c.M.ot>0?'O/T '+h(c.M.ot)+(c.M.ot!==c.T.ot?' ('+h(c.T.ot)+'×'+Math.round(c.M.ot/c.T.ot)+')':''):'',c.M.dt>0?'D/T '+h(c.M.dt)+(c.M.dt!==c.T.dt?' ('+h(c.T.dt)+'×'+Math.round(c.M.dt/c.T.dt)+')':''):''].filter(Boolean).join('<br>')||'—';
+ return '<tr><td><b>'+esc(j.job)+'</b>'+(j.order?'<br>PO '+esc(j.order):'')+'</td><td><b>'+esc(j.customer)+'</b><br>'+esc(j.site)+'<br>'+esc(ukDate(lastWorked(j)))+'</td><td>'+hours+'</td><td class="r">'+gbp(c.ntP+c.otP+c.dtP)+'</td><td class="r">'+(c.M.mile>0?h(c.M.mile)+' mi<br>'+gbp(c.mileP):'—')+'</td><td class="r">'+(c.callP?gbp(c.callP):'—')+'</td><td class="r">'+(c.matP==null?'—':gbp(c.matP))+'</td><td class="r">'+gbp(c.net)+'</td><td class="r">'+gbp(c.vatP)+'</td><td class="r"><b>'+gbp(c.grossP)+'</b></td></tr>';
+}
+function invoicePdfPage(title,rowsHtml,foot,notes,pageNo,pageCount){
+ return '<div class="job-sheet" style="background-image:none"><div class="company" style="display:flex;align-items:center;gap:12px"><img src="logo-header.png" alt="" style="height:52px;width:auto;flex-shrink:0"><div style="text-align:left"><strong>KEY ENGINEERING CHESTERFIELD LTD</strong><br>Invoice worksheet — costed from completed job sheets</div></div><div class="title" style="font-size:18px">'+esc(title)+'</div><div style="margin:8px 2px;font-size:12px;display:flex;justify-content:space-between"><span>Prepared '+esc(ukDate(localDateStr()))+'</span><span>Page '+pageNo+' of '+pageCount+'</span></div><table class="invtable"><thead><tr><th>Job / PO</th><th>Customer / site / date</th><th>Hours</th><th class="r">Labour</th><th class="r">Mileage</th><th class="r">Call-out</th><th class="r">Materials</th><th class="r">Net</th><th class="r">VAT</th><th class="r">Total</th></tr></thead><tbody>'+rowsHtml+foot+'</tbody></table>'+notes+'</div>';
+}
+const PDF_CHAR_MAP={'\u25cf':'-','\u2022':'-','\u2014':'-','\u2013':'-','\u2018':"'",'\u2019':"'",'\u201c':'"','\u201d':'"','\u2026':'...','\u00d7':'x','\u2192':'->','\u2190':'<-','\u00a0':' '};
+function pdfSafeText(s){
+ // the PDF's built-in fonts only cover Western characters: swap the fancy ones for plain equivalents, drop the rest
+ return String(s).replace(/[\u00a0\u2013\u2014\u2018\u2019\u201c\u201d\u2022\u2026\u00d7\u2190\u2192\u25cf]/g,c=>PDF_CHAR_MAP[c]).replace(/[^\x20-\x7e\xa1-\xff]/g,'');
+}
+function collectSheetText(root){
+ // Every visible line of text in the sheet, in reading order, with where it sits (CSS px from the sheet's top-left).
+ const out=[];
+ try{
+  const rr=root.getBoundingClientRect();if(!rr.width)return out;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+  let node;
+  while((node=walker.nextNode())){
+   const val=node.nodeValue;if(!val||!val.trim())continue;
+   const el=node.parentElement;if(!el||el.closest('script,style,button,select,option,textarea,input'))continue;
+   const cs=getComputedStyle(el);if(cs.display==='none'||cs.visibility==='hidden')continue;
+   const size=parseFloat(cs.fontSize)||11,range=document.createRange(),rows=[];
+   for(let i=0;i<val.length;i++){
+    range.setStart(node,i);range.setEnd(node,i+1);
+    const rc=range.getClientRects();if(!rc.length||!rc[0].width)continue;
+    const r=rc[0],last=rows[rows.length-1];
+    const row=last&&Math.abs(last.top-r.top)<size*0.6?last:null;
+    if(row){row.s+=val[i];row.left=Math.min(row.left,r.left);row.right=Math.max(row.right,r.right)}
+    else rows.push({top:r.top,left:r.left,right:r.right,height:r.height,s:val[i]});
+   }
+   rows.forEach(r=>{const t=pdfSafeText(r.s).replace(/\s+/g,' ').trim();if(t)out.push({text:t,x:r.left-rr.left,y:r.top-rr.top,w:r.right-r.left,h:r.height,size})});
+  }
+ }catch(e){console.warn('Could not read the sheet text:',e)}
+ return out;
+}
+function drawPdfText(pdf,lines,o){
+ // Puts the page's real text UNDER the picture of the page, in white. The picture is opaque so nothing changes
+ // visually, but PDF viewers still let you select, copy and search it. Any failure just skips the text layer.
+ try{
+  if(!lines||!lines.length||typeof pdf.text!=='function'||typeof pdf.setFontSize!=='function')return;
+  const k=o.k,off=o.yOffsetCss||0;
+  pdf.setTextColor(255,255,255);
+  lines.forEach(l=>{
+   const y=(l.y-off)*k,hmm=l.h*k;
+   if(y<0||y>=o.maxYmm||l.x<0||(l.x+l.w)*k>o.maxXmm+0.5)return; // a line belongs to the page where it STARTS, so one cut by a page break is kept, not lost
+   const size=Math.max(2,l.size*k*72/25.4);
+   pdf.setFontSize(size);
+   if(typeof pdf.getTextWidth==='function'){const have=pdf.getTextWidth(l.text),want=l.w*k;if(have>want&&have>0)pdf.setFontSize(Math.max(2,size*want/have))}
+   pdf.text(l.text,l.x*k,Math.min(y+hmm*0.78,o.maxYmm-0.3)); // keep the baseline on the page; the text is white, so this can never show
+  });
+ }catch(e){console.warn('Text layer skipped:',e)}
+}
+function addFitPage(pdf,canvas,newPage,root){
+ const pw=pdf.internal.pageSize.getWidth(),ph=pdf.internal.pageSize.getHeight();
+ let w=pw,h=canvas.height*pw/canvas.width;
+ if(h>ph){const k=ph/h;w*=k;h=ph}
+ if(newPage)pdf.addPage();
+ if(root){const b=root.getBoundingClientRect();drawPdfText(pdf,collectSheetText(root),{k:w/b.width,maxYmm:h,maxXmm:w})}
+ pdf.addImage(canvas.toDataURL('image/jpeg',0.92),'JPEG',0,0,w,h);
+}
+async function exportInvoicesPdf(mode){
+ const btn=event&&event.target,orig=btn?btn.textContent:'';
+ if(btn){btn.disabled=true;btn.textContent='Generating…'}
+ let off=null;
+ try{
+  const libs=await window.pdfLibsReady;
+  if(!libs||!window.html2canvas||!window.jspdf){alert('Could not load the PDF tools — check your internet connection and try again.');return}
+  const sel=invoiceSelection(),rows=readyRows(sel),skipped=sel.todo.length-rows.length;
+  if(!rows.length){alert('Nothing is ready to export yet — enter the materials costs (and any missing rates) first.');return}
+  const per=9,pages=Math.ceil(rows.length/per);
+  const tot=rows.reduce((a,x)=>({net:a.net+x.c.net,vat:a.vat+x.c.vatP,gross:a.gross+x.c.grossP}),{net:0,vat:0,gross:0});
+  const title='Invoice worksheet — '+invoiceFileLabel(sel);
+  const rateLine='Pricing is taken from the private Rates settings on this office device.';
+  const skipNote=skipped?'<br><b>'+skipped+' job'+(skipped===1?'':'s')+' not included</b> — not ready yet (materials not costed or a rate missing).':'';
+  off=document.createElement('div');off.style.cssText='position:fixed;left:-99999px;top:0;width:1000px';document.body.appendChild(off);
+  const{jsPDF}=window.jspdf;const pdf=new jsPDF('l','mm','a4');
+  for(let p=0;p<pages;p++){
+   const last=p===pages-1,chunk=rows.slice(p*per,(p+1)*per);
+   const foot=last?'<tr class="tot"><td colspan="7">Total — '+rows.length+' job'+(rows.length===1?'':'s')+'</td><td class="r">'+gbp(tot.net)+'</td><td class="r">'+gbp(tot.vat)+'</td><td class="r">'+gbp(tot.gross)+'</td></tr>':'';
+   const notes=last?'<div style="font-size:11px;margin-top:10px">'+esc(rateLine)+skipNote+'</div>':'';
+   off.innerHTML=invoicePdfPage(title,chunk.map(x=>invoicePdfRow(x.j,x.c)).join(''),foot,notes,p+1,pages);
+   await waitForImages(off);
+   const canvas=await html2canvas(off.firstElementChild,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
+   addFitPage(pdf,canvas,p>0,off.firstElementChild);
+  }
+  const name='Invoice worksheet - '+invoiceFileLabel(sel)+'.pdf',blob=pdf.output('blob'),file=new File([blob],name,{type:'application/pdf'});
+  if(mode==='share'&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:name,text:title})}
+  else{const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+ }catch(e){if(!(e&&e.name==='AbortError'))alert('Could not create the PDF: '+e.message)}
+ finally{if(off)off.remove();if(btn){btn.disabled=false;btn.textContent=orig}}
+}
+/* ---------------- per-engineer invoice bundles ---------------- */
+function defaultInvoiceWeekStart(){
+ let latest='';jobs.forEach(j=>{if(j.status==='Complete'&&normInvoice(j.invoice).status!=='invoiced'){const d=lastWorked(j);if(d>latest)latest=d}});
+ return localDateStr(hoursWeekRange(latest||localDateStr()).start);
+}
+function invoiceJobsForWeek(s,e){return jobs.filter(j=>{const d=lastWorked(j);return d&&d>=s&&d<=e&&j.status==='Complete'&&normInvoice(j.invoice).status!=='invoiced'})}
+function jobInvolves(j,name){return (j.engineers||[]).some(n=>engineerNamesMatch(n,name))||(j.time||[]).some(r=>String(r.eid||'').trim()&&engineerNamesMatch(r.eid,name))}
+function engineerInvoiceJobs(name,s,e){return invoiceJobsForWeek(s,e).filter(j=>jobInvolves(j,name))}
+function shiftEngWeek(days){
+ const pick=document.getElementById('engWeekPick');
+ const cur=hoursWeekRange(pick.value||localDateStr()).start;cur.setDate(cur.getDate()+days);
+ pick.value=localDateStr(cur);renderEngineers();
+}
+function pdfCompanyHeader(sub){return '<div class="company" style="display:flex;align-items:center;gap:12px"><img src="logo-header.png" alt="" style="height:52px;width:auto;flex-shrink:0"><div style="text-align:left"><strong>KEY ENGINEERING CHESTERFIELD LTD</strong><br>The Bungalow, Whittington Lane, Unstone, Dronfield, S18 4DQ<br>'+esc(sub)+'</div></div>'}
+function invoicePageHtml(j,c){
+ const h=x=>String(Math.round(x*100)/100);
+ const dates=[...new Set([j.date].concat((j.time||[]).map(t=>t.date)).filter(Boolean))].sort();
+ const when=dates.length>1?ukDate(dates[0])+' – '+ukDate(dates[dates.length-1]):ukDate(dates[0]||'');
+ const inv=normInvoice(j.invoice),rt=k=>rates[k]!=null?gbp(pence(rates[k])):'';
+ const rows=[];
+ if(c.M.nt>0)rows.push(['Normal time',h(c.M.nt)+' h'+hrsNote(c.T.nt,c.M.nt),rt('nt')+'/h',c.ntP]);
+ if(c.M.ot>0)rows.push(['Overtime 1',h(c.M.ot)+' h'+hrsNote(c.T.ot,c.M.ot),rt('ot')+'/h',c.otP]);
+ if(c.M.dt>0)rows.push(['Overtime 2',h(c.M.dt)+' h'+hrsNote(c.T.dt,c.M.dt),rt('dt')+'/h',c.dtP]);
+ if(c.T.mile>0)rows.push(['Mileage',h(c.T.mile)+' mi',rt('mile')+'/mi',c.mileP]);
+ if(c.callP>0)rows.push(['Call-out fee','1',gbp(c.callP),c.callP]);
+ if(c.matP!==null)rows.push(['Materials'+(inv.note?' — '+inv.note:''),'','',c.matP]);
+ const mats=(j.materials||[]).filter(x=>String(x).trim());
+ return '<div class="job-sheet" style="background-image:none">'+pdfCompanyHeader('Invoice details — ready to raise')
+  +'<div class="title" style="font-size:20px">INVOICE — JOB '+esc(j.job)+'</div>'
+  +'<table class="info"><tr><th>Customer</th><td colspan="3">'+esc(j.customer)+'</td></tr><tr><th>Site</th><td>'+esc(j.site)+'</td><th>Customer order no.</th><td>'+esc(j.order)+'</td></tr><tr><th>Date of work</th><td>'+esc(when)+'</td><th>Engineers</th><td>'+esc(uniqueEngineers(j.engineers).join(', '))+'</td></tr></table>'
+  +'<div class="section">DESCRIPTION OF WORK CARRIED OUT</div><div class="box" style="min-height:60px">'+esc(j.comments||'')+'</div>'
+  +(mats.length?'<div class="section">MATERIALS USED</div><div class="box" style="min-height:30px">'+mats.map(esc).join('<br>')+'</div>':'')
+  +'<div class="section">CHARGES</div><table class="invtable"><thead><tr><th>Description</th><th>Quantity</th><th class="r">Rate</th><th class="r">Amount</th></tr></thead><tbody>'
+  +rows.map(r=>'<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td><td class="r">'+esc(r[2])+'</td><td class="r">'+gbp(r[3])+'</td></tr>').join('')
+  +'<tr class="tot"><td colspan="3">Net</td><td class="r">'+gbp(c.net)+'</td></tr><tr><td colspan="3">VAT '+esc(String(rates.vat))+'%</td><td class="r">'+gbp(c.vatP)+'</td></tr><tr class="tot"><td colspan="3">TOTAL</td><td class="r">'+gbp(c.grossP)+'</td></tr></tbody></table>'
+  +'<div class="footer">Prepared '+esc(ukDate(localDateStr()))+' — Job '+esc(j.job)+' — Key Engineering Chesterfield LTD</div></div>';
+}
+function invoiceCoverHtml(name,s,e,ready,notReady){
+ const tot=ready.reduce((a,x)=>({net:a.net+x.c.net,vat:a.vat+x.c.vatP,gross:a.gross+x.c.grossP}),{net:0,vat:0,gross:0});
+ const rows=ready.map(x=>'<tr><td><b>'+esc(x.j.job)+'</b>'+(x.j.order?'<br>PO '+esc(x.j.order):'')+'</td><td>'+esc(x.j.customer)+'<br>'+esc(x.j.site)+'</td><td>'+esc(ukDate(lastWorked(x.j)))+'</td><td class="r">'+gbp(x.c.net)+'</td><td class="r">'+gbp(x.c.vatP)+'</td><td class="r"><b>'+gbp(x.c.grossP)+'</b></td></tr>').join('');
+ const skipped=notReady.length?'<div style="font-size:12px;margin-top:12px"><b>'+notReady.length+' job'+(notReady.length===1?'':'s')+' not included</b> — not ready yet:<br>'+notReady.map(x=>'Job '+esc(x.j.job)+' — '+esc(x.j.customer)+': '+esc(x.c.problems[0])).join('<br>')+'</div>':'';
+ return '<div class="job-sheet" style="background-image:none">'+pdfCompanyHeader('Invoices for the week')
+  +'<div class="title" style="font-size:20px">INVOICES — '+esc(name.toUpperCase())+'</div>'
+  +'<div style="margin:10px 2px;font-size:13px">Week starting '+esc(ukDate(s))+' (to '+esc(ukDate(e))+') · '+ready.length+' job'+(ready.length===1?'':'s')+' · prepared '+esc(ukDate(localDateStr()))+'</div>'
+  +'<table class="invtable"><thead><tr><th>Job / PO</th><th>Customer / site</th><th>Date</th><th class="r">Net</th><th class="r">VAT</th><th class="r">Total</th></tr></thead><tbody>'+rows
+  +'<tr class="tot"><td colspan="3">Total</td><td class="r">'+gbp(tot.net)+'</td><td class="r">'+gbp(tot.vat)+'</td><td class="r">'+gbp(tot.gross)+'</td></tr></tbody></table>'+skipped+'</div>';
+}
+function exportEngineerInvoicesAt(i){return exportEngineerInvoices(engineers[i],'engWeekPick')}
+function exportHoursEngineerInvoices(){return exportEngineerInvoices(hoursEngineerFilter,'hoursWeekPick')}
+async function exportEngineerInvoices(name,pickId){
+ if(!name){alert('Pick an engineer first.');return}
+ const btn=event&&event.target,orig=btn?btn.textContent:'';
+ if(btn){btn.disabled=true;btn.textContent='Generating…'}
+ let off=null;
+ try{
+  const libs=await window.pdfLibsReady;
+  if(!libs||!window.html2canvas||!window.jspdf){alert('Could not load the PDF tools — check your internet connection and try again.');return}
+  const{start,end}=hoursWeekRange(document.getElementById(pickId).value||localDateStr()),s=localDateStr(start),e=localDateStr(end);
+  const by=(a,b)=>(a.customer||'').toLowerCase().localeCompare((b.customer||'').toLowerCase())||lastWorked(a).localeCompare(lastWorked(b))||(a.job||'').localeCompare(b.job||'');
+  const rows=engineerInvoiceJobs(name,s,e).sort(by).map(j=>({j,c:jobCost(j,rates)}));
+  if(!rows.length){alert('There are no completed jobs waiting to be invoiced for '+name+' that week.');return}
+  const ready=rows.filter(x=>x.c.ready),notReady=rows.filter(x=>!x.c.ready);
+  if(!ready.length){alert('None of '+name+"'s jobs for that week are ready to invoice yet. Open Invoices, enter the materials costs and check the rates, then try again.");return}
+  off=document.createElement('div');off.style.cssText='position:fixed;left:-99999px;top:0;width:1000px';document.body.appendChild(off);
+  const{jsPDF}=window.jspdf,pdf=new jsPDF('p','mm','a4');
+  const snap=async html=>{off.innerHTML=html;await waitForImages(off);return{canvas:await html2canvas(off.firstElementChild,{scale:2,useCORS:true,backgroundColor:'#ffffff'}),root:off.firstElementChild}};
+  let pg=await snap(invoiceCoverHtml(name,s,e,ready,notReady));addFitPage(pdf,pg.canvas,false,pg.root);
+  for(const x of ready){pg=await snap(invoicePageHtml(x.j,x.c));addFitPage(pdf,pg.canvas,true,pg.root)}
+  const fname='Invoices - '+safeName(name)+' - Week starting '+safeName(ukDate(s))+'.pdf',blob=pdf.output('blob'),file=new File([blob],fname,{type:'application/pdf'});
+  const what=ready.length+' job'+(ready.length===1?'':'s');
+  if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:fname,text:'Invoices / '+name+' / Week starting '+ukDate(s)+' ('+what+')'})}
+  else{
+   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=fname;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);
+   alert('Saved as "'+fname+'" ('+what+(notReady.length?', '+notReady.length+' not included — not ready yet':'')+'). In Files, choose "Save to OneDrive" and file it under:\nJob Sheets / '+name+' / Week starting '+ukDate(s));
+  }
+ }catch(err){if(!(err&&err.name==='AbortError'))alert('Could not create the invoices PDF: '+err.message)}
+ finally{if(off)off.remove();if(btn){btn.disabled=false;btn.textContent=orig}}
+}
 setupLists();renderJobs();setTimeout(initCanvases,100)
 let printParam=new URLSearchParams(location.search).get('print');
 if(printParam){
+ printLanding=true;
  openJob(printParam);
- setTimeout(()=>window.print(),400);
+ printLanding=false;
+ // Don't auto-call window.print() here — browsers routinely ignore print() unless it's
+ // triggered by a direct, immediate tap. The Print button in the actions bar above is
+ // now inside a normal browser tab (not the standalone app), so tapping it here works.
 }
 </script>
 <script>
