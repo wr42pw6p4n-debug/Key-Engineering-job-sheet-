@@ -96,12 +96,17 @@ window.pdfLibsReady=(async()=>{
 })();
 loadWithFallback(['https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js','https://cdnjs.cloudflare.com/ajax/libs/emailjs-browser/4.4.1/email.min.js']);
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+@media(max-width:700px){#mobile .card{padding:12px}#mobile textarea,#mobile select,#mobile input{font-size:16px}.jobrow{flex-direction:column;align-items:stretch}.jobrow .actions{justify-content:flex-start}.nav{position:sticky;top:0;z-index:20;overflow-x:auto;white-space:nowrap}.nav button{flex:0 0 auto}}
+</style>
 </head>
 <body>
 <header class="no-print"><div class="head"><div style="display:flex;align-items:center;gap:10px"><img src="logo-header.png" alt="Key Engineering logo" style="height:38px;width:auto;flex-shrink:0"><h1>Key Engineering Chesterfield LTD — Job Manager <span style="font-size:11px;font-weight:400;opacity:.55">build 2026-10-03.1</span></h1></div><span id="counter"></span></div></header>
 <div class="wrap">
 <div class="nav no-print">
-<button class="primary" onclick="newJob()">＋ New Job</button><button onclick="home()">Jobs</button><button onclick="customersPage()">Customers</button><button onclick="engineersPage()">Engineers</button><button onclick="repairsPage()">🔧 Repairs</button><button onclick="invoicesPage()">🧾 Invoices</button><button onclick="quotesPage()">💷 Quotes</button>
+<button class="primary" onclick="newJob()">＋ New Job</button><button onclick="home()">Jobs</button><button onclick="customersPage()">Customers</button><button onclick="engineersPage()">Engineers</button><button onclick="repairsPage()">🔧 Repairs</button><button onclick="invoicesPage()">🧾 Invoices</button><button onclick="quotesPage()">💷 Quotes</button><button onclick="equipmentPage()">🏗️ Equipment</button><button onclick="inspectionsPage()">📋 Service / LOLER</button><button onclick="mobilePage()">📱 Engineer Mobile</button>
 </div>
 
 <section id="home" class="card no-print">
@@ -278,6 +283,50 @@ loadWithFallback(['https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.mi
 <div id="repairsSummary" style="font-weight:700;margin:6px 0"></div>
 <div id="repairsBody"></div>
 </section>
+
+<section id="equipment" class="card hidden">
+<button class="no-print" onclick="home()" style="margin-bottom:10px">← Back to Jobs</button>
+<h2>🏗️ Equipment & Crane Register</h2>
+<div class="muted" style="margin-bottom:10px">One record for every crane, hoist or machine. Jobs, service reports and LOLER inspections are linked to the equipment number. Print the QR label and scan it next time.</div>
+<div class="card" style="background:#f7f9fb"><div class="grid">
+<div><label>Equipment / Crane No.</label><input id="eq_id" placeholder="e.g. CRANE-001"></div>
+<div><label>Customer</label><input id="eq_customer" list="customerOptions"></div>
+<div><label>Site</label><input id="eq_site"></div>
+<div><label>Manufacturer / Model</label><input id="eq_model"></div>
+<div><label>Serial No.</label><input id="eq_serial"></div>
+<div><label>SWL / Capacity</label><input id="eq_swl"></div>
+<div><label>Equipment Type</label><input id="eq_type" placeholder="Overhead crane / hoist / forklift..."></div>
+<div><label>Notes</label><input id="eq_notes"></div>
+</div><div class="actions" style="margin-top:10px"><button class="primary" onclick="saveEquipment()">Save Equipment</button><button onclick="clearEquipmentForm()">Clear</button></div></div>
+<input id="eq_search" class="no-print" placeholder="Search equipment, customer, serial or site…" oninput="renderEquipment()" style="margin:10px 0">
+<div id="equipmentList"></div><div id="equipmentDetail"></div>
+</section>
+
+<section id="inspections" class="card hidden">
+<button class="no-print" onclick="home()" style="margin-bottom:10px">← Back to Jobs</button>
+<h2>📋 Service & LOLER</h2>
+<div class="muted" style="margin-bottom:10px">Record service visits and LOLER examinations against the equipment. Outstanding defects stay visible in the equipment history.</div>
+<div class="card" style="background:#f7f9fb"><div class="grid">
+<div><label>Inspection Type</label><select id="insp_type"><option>Service</option><option>LOLER Thorough Examination</option><option>LOLER Inspection</option><option>Repair / Inspection</option></select></div>
+<div><label>Equipment / Crane No.</label><input id="insp_equipment" list="equipmentOptions" oninput="inspectionEquipmentChanged()"></div>
+<div><label>Date</label><input id="insp_date" type="date"></div>
+<div><label>Engineer</label><input id="insp_engineer" list="engineerOptions"></div>
+<div><label>Job No.</label><input id="insp_job" placeholder="Optional"></div>
+<div><label>Certificate / Report No.</label><input id="insp_cert"></div>
+<div><label>Result</label><select id="insp_result"><option>Pass</option><option>Pass with observations</option><option>Defects found</option><option>Failed / unsafe</option></select></div>
+<div><label>Next Due</label><input id="insp_due" type="date"></div>
+</div><label style="margin-top:10px">Findings / defects / recommendations</label><textarea id="insp_findings" placeholder="Record findings, defects, remedial work and recommendations…"></textarea>
+<label style="margin-top:10px">Additional notes</label><textarea id="insp_notes"></textarea>
+<div class="actions" style="margin-top:10px"><button class="primary" onclick="saveInspection()">Save Report</button><button onclick="clearInspectionForm()">Clear</button></div></div>
+<div id="inspectionList"></div>
+</section>
+
+<section id="mobile" class="card hidden">
+<h2>📱 Engineer Mobile View</h2>
+<div class="muted" style="margin-bottom:10px">Designed for a phone: pick your name, see your jobs, open one, update status, add a quick note and jump straight into the full job sheet.</div>
+<div class="card" style="background:#f7f9fb"><div class="grid"><div><label>Engineer</label><select id="mobileEngineer" onchange="renderMobileJobs()"></select></div><div><label>Show</label><select id="mobileScope" onchange="renderMobileJobs()"><option value="today">Today</option><option value="week">This week</option><option value="open">Open / In Progress</option><option value="all">All my jobs</option></select></div></div></div>
+<div id="mobileJobs"></div>
+</section>
 <section id="detail" class="card hidden"></section>
 </div>
 
@@ -335,7 +384,7 @@ function updateCalloutBtn(){
  btn.textContent=calloutActive?'⚡ Call-out ✓':'⚡ Call-out';
 }
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function hide(){['home','form','customers','engineers','hours','repairs','invoices','quotes','detail'].forEach(x=>document.getElementById(x).classList.add('hidden'))}
+function hide(){['home','form','customers','engineers','hours','repairs','invoices','quotes','equipment','inspections','mobile','detail'].forEach(x=>{let e=document.getElementById(x);if(e)e.classList.add('hidden')})}
 function home(){window._jobFilterStatus=null;window._jobFilterDefects=false;window._jobFilterToday=false;window._showAllJobs=false;hide();document.getElementById('home').classList.remove('hidden');renderJobs()}
 function nextJob(){let n=jobs.map(j=>parseInt(j.job,10)).filter(Number.isFinite);return String((n.length?Math.max(...n):0)+1)}
 function setupLists(){let qdl=document.getElementById('quoteOptions');if(qdl&&typeof quotes!=='undefined')qdl.innerHTML=Object.values(quotes||{}).map(q=>'<option value="'+esc(q.number)+'"></option>').join('');customerOptions.innerHTML=customers.map(x=>`<option value="${esc(x)}"></option>`).join('');document.getElementById('engineerOptions').innerHTML=engineers.map(x=>`<option value="${esc(x)}"></option>`).join('');document.getElementById('f_type').innerHTML=types.map(x=>`<option>${esc(x)}</option>`).join('');
@@ -497,6 +546,7 @@ function saveJob(){
  customers=[...new Set([...customers,j.customer])];
  let jKey=j.customer.trim().toLowerCase();
  if(deletedCustomers.includes(jKey)){deletedCustomers=deletedCustomers.filter(x=>x!==jKey);saveDeletedCustomers()}
+ syncEquipmentFromJob(j);
  localStorage.setItem('rkey_jobs',JSON.stringify(jobs));
  localStorage.setItem('rkey_customers',JSON.stringify(customers));
  if(j.site||j.contact||j.email){
@@ -1159,13 +1209,16 @@ function showTodayJobs(){resetJobFilters();window._jobFilterToday=true;renderJob
 
 /* ---------------- backup / restore / merge ---------------- */
 const BACKUP_KEY='rkey_last_backup',PRE_IMPORT_KEY='rkey_pre_import';
-function backupPayload(){return{version:3,exportedAt:new Date().toISOString(),jobs,customers,engineers,customerRecords,deletedCustomers}}
+function backupPayload(){return{version:4,exportedAt:new Date().toISOString(),jobs,customers,engineers,customerRecords,deletedCustomers,quotes:typeof quotes!=='undefined'?quotes:{},equipment:typeof equipment!=='undefined'?equipment:{},inspections:typeof inspections!=='undefined'?inspections:[]}}
 function persistAll(){
  localStorage.setItem('rkey_jobs',JSON.stringify(jobs));
  localStorage.setItem('rkey_customers',JSON.stringify(customers));
  localStorage.setItem('rkey_engineers',JSON.stringify(engineers));
  localStorage.setItem('rkey_customer_records',JSON.stringify(customerRecords));
  localStorage.setItem('rkey_deleted_customers',JSON.stringify(deletedCustomers));
+ if(typeof quotes!=='undefined')localStorage.setItem(QUOTES_KEY,JSON.stringify(quotes));
+ if(typeof equipment!=='undefined')localStorage.setItem(EQUIPMENT_KEY,JSON.stringify(equipment));
+ if(typeof inspections!=='undefined')localStorage.setItem(INSPECTION_KEY,JSON.stringify(inspections));
 }
 function cleanCustomerRecords(o){
  const out={};if(!o||typeof o!=='object')return out;
@@ -1208,6 +1261,9 @@ function applyReplace(d,incoming){
  if(Array.isArray(d.engineers)&&d.engineers.length)engineers=d.engineers.map(String);
  customerRecords=cleanCustomerRecords(d.customerRecords);
  deletedCustomers=Array.isArray(d.deletedCustomers)?d.deletedCustomers.map(String):[];
+ if(typeof quotes!=='undefined')quotes=(d.quotes&&typeof d.quotes==='object')?d.quotes:{};
+ if(typeof equipment!=='undefined')equipment=(d.equipment&&typeof d.equipment==='object')?d.equipment:{};
+ if(typeof inspections!=='undefined')inspections=Array.isArray(d.inspections)?d.inspections:[];
  return 'Backup restored: '+jobs.length+' jobs.\n\nNot what you wanted? Tap "Undo last import" on the Jobs page.';
 }
 function applyMerge(d,incoming){
@@ -1227,6 +1283,9 @@ function applyMerge(d,incoming){
  (Array.isArray(d.engineers)?d.engineers:[]).forEach(e=>{e=String(e).trim();if(e&&!es.has(e.toLowerCase())){engineers.push(e);es.add(e.toLowerCase())}});
  const cr=cleanCustomerRecords(d.customerRecords);
  Object.keys(cr).forEach(k=>{if(!customerRecords[k])customerRecords[k]=cr[k];else if(!customerRecords[k].postcode&&cr[k].postcode)customerRecords[k].postcode=cr[k].postcode});
+ if(typeof quotes!=='undefined'&&d.quotes&&typeof d.quotes==='object'){Object.keys(d.quotes).forEach(k=>{if(!quotes[k]||String(d.quotes[k].updatedAt||'')>String(quotes[k].updatedAt||''))quotes[k]=d.quotes[k]})}
+ if(typeof equipment!=='undefined'&&d.equipment&&typeof d.equipment==='object'){Object.keys(d.equipment).forEach(k=>{if(!equipment[k]||String(d.equipment[k].updatedAt||'')>String(equipment[k].updatedAt||''))equipment[k]=d.equipment[k]})}
+ if(typeof inspections!=='undefined'&&Array.isArray(d.inspections)){const seenI=new Set(inspections.map(x=>x.id));d.inspections.forEach(x=>{if(x&&x.id&&!seenI.has(x.id)){inspections.push(x);seenI.add(x.id)}})}
  const counts={};jobs.forEach(j=>{counts[j.job]=(counts[j.job]||0)+1});
  const clashes=[...new Set(addedJobs.map(j=>j.job))].filter(n=>n&&counts[n]>1);
  let msg='Merged: '+added+' new job'+(added===1?'':'s')+', '+updated+' updated, '+same+' already up to date'+(keptLocal?', '+keptLocal+' kept as they are on this device (this device\'s copy was newer)':'')+'.';
@@ -1239,6 +1298,9 @@ function revertFromSnapshot(){
  const d=JSON.parse(raw);
  jobs=(d.jobs||[]).map(normalizeJob);customers=d.customers||[];engineers=d.engineers||[];
  customerRecords=cleanCustomerRecords(d.customerRecords);deletedCustomers=d.deletedCustomers||[];
+ if(typeof quotes!=='undefined')quotes=(d.quotes&&typeof d.quotes==='object')?d.quotes:{};
+ if(typeof equipment!=='undefined')equipment=(d.equipment&&typeof d.equipment==='object')?d.equipment:{};
+ if(typeof inspections!=='undefined')inspections=Array.isArray(d.inspections)?d.inspections:[];
  persistAll();try{localStorage.removeItem(PRE_IMPORT_KEY)}catch(e){}
  return true;
 }
@@ -1445,13 +1507,8 @@ function renderQuotes(){
    const mats=(j.materials||[]).filter(x=>String(x).trim()).join('; ');
    return '<tr><td>'+esc(j.job)+'</td><td>'+esc(lastWorked(j)?ukDate(lastWorked(j)):'')+'</td><td>'+esc(j.status)+'</td><td>'+esc(mats||'—')+'</td><td class="r">'+gbp(t.costs[i].grossP)+'</td></tr>';
   }).join('');
-  const safeArg=String(q.number).replace(/\\/g,'\\\\').replace(/'/g,"&#39;");
-  const actions='<div class="actions" style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">'+
-   '<button onclick="loadQuoteForEdit(\''+safeArg+'\')">✏️ Edit quote</button>'+
-   (q.status!=='Complete'
-    ? '<button class="primary" onclick="completeQuote(\''+safeArg+'\')">✓ Complete Quote</button>'
-    : '<button onclick="reopenQuote(\''+safeArg+'\')">↩️ Re-open Quote</button><button class="primary" onclick="createQuoteInvoice(\''+safeArg+'\')">🧾 Create Invoice</button>')+
-   '</div>';
+  const actions='<div class="actions" style="margin-top:10px"><button onclick="loadQuoteForEdit('+editArg+')">Edit quote</button>'+
+   (q.status!=='Complete'?'<button class="primary" onclick="completeQuote('+editArg+')">✓ Complete Quote</button>':'<button onclick="reopenQuote('+editArg+')">Re-open</button>')+'</div>';
   return '<div class="repgroup"><h4>'+esc(q.number)+' — '+esc(q.customer||'No customer')+' '+status+'</h4><div class="invcard">'+
    (q.description?'<div style="white-space:pre-wrap;margin-bottom:8px">'+esc(q.description)+'</div>':'')+
    '<div class="invline"><span class="k">Job sheets linked</span><span class="v">'+t.jobs.length+'</span></div>'+
@@ -1468,24 +1525,6 @@ function renderQuotes(){
 function loadQuoteForEdit(number){const q=quotes[String(number).toLowerCase()];if(!q)return;document.getElementById('q_number').value=q.number;document.getElementById('q_customer').value=q.customer||'';document.getElementById('q_email').value=q.email||'';document.getElementById('q_date').value=q.date||localDateStr();document.getElementById('q_value').value=q.value===''?'':q.value;document.getElementById('q_description').value=q.description||'';document.getElementById('q_status').value=q.status||'Open';window.scrollTo({top:0,behavior:'smooth'})}
 function completeQuote(number){const key=String(number).toLowerCase(),q=quotes[key];if(!q)return;const t=quoteTotals(q);if(!confirm('Complete quote '+q.number+'?\n\nIt currently contains '+t.jobs.length+' linked job sheet'+(t.jobs.length===1?'':'s')+' with an actual net cost of '+gbp(t.net)+'.\n\nNo further job sheets can be added to this quote until you re-open it.'))return;q.status='Complete';q.completedAt=new Date().toISOString();q.updatedAt=new Date().toISOString();saveQuotes();renderQuotes()}
 function reopenQuote(number){const q=quotes[String(number).toLowerCase()];if(!q)return;q.status='Open';q.updatedAt=new Date().toISOString();saveQuotes();renderQuotes()}
-function createQuoteInvoice(number){
- const q=quotes[String(number).toLowerCase()];if(!q)return;
- if(q.status!=='Complete'){alert('Complete the quote first. Once it is complete, the Create Invoice button will appear.');return}
- const t=quoteTotals(q);
- if(!t.jobs.length){alert('There are no job sheets linked to this quote yet. Add the jobs using this Quote No. first.');return}
- if(!t.jobs.every(j=>jobCost(j,rates).ready)){alert('Some jobs on this quote are not ready to invoice yet. Open Invoices, enter any missing materials costs and make sure your private rates are set.');return}
- const invoiceNo='INV-'+q.number,today=ukDate(localDateStr());
- const rows=t.jobs.map((j,i)=>'<tr><td>'+esc(j.job)+'</td><td>'+esc(lastWorked(j)?ukDate(lastWorked(j)):'')+'</td><td>'+esc(j.site||'')+'</td><td class="r">'+gbp(t.costs[i].net)+'</td></tr>').join('');
- const html=`<!doctype html><html><head><meta charset="utf-8"><title>${esc(invoiceNo)}</title><style>body{font-family:Arial,sans-serif;margin:40px;color:#111}h1{margin:0 0 6px}.top{display:flex;justify-content:space-between;border-bottom:2px solid #111;padding-bottom:18px;margin-bottom:24px}.box{border:1px solid #bbb;padding:14px;margin:12px 0}table{width:100%;border-collapse:collapse;margin-top:18px}th,td{padding:9px;border-bottom:1px solid #ddd;text-align:left}th.r,td.r{text-align:right}.total{font-size:20px;font-weight:700}.print{padding:10px 16px;margin-bottom:20px}@media print{.print{display:none}body{margin:15mm}}</style></head><body>
- <button class="print" onclick="window.print()">🖨️ Print / Save as PDF</button>
- <div class="top"><div><h1>INVOICE</h1><b>${esc(invoiceNo)}</b><br>Quote: ${esc(q.number)}</div><div style="text-align:right"><b>KEY ENGINEERING CHESTERFIELD LTD</b><br>The Bungalow, Whittington Lane<br>Unstone, Dronfield, S18 4DQ<br>Date: ${today}</div></div>
- <div class="box"><b>Bill to</b><br>${esc(q.customer||'')}${q.email?'<br>'+esc(q.email):''}</div>
- ${q.description?'<div class="box"><b>Work / Quote description</b><br>'+esc(q.description).replace(/\n/g,'<br>')+'</div>':''}
- <table><tr><th>Job</th><th>Date</th><th>Site</th><th class="r">Net</th></tr>${rows}</table>
- <div style="margin-left:auto;max-width:320px;margin-top:20px"><p>Labour: <b style="float:right">${gbp(t.nt+t.ot+t.dt)}</b></p><p>Mileage: <b style="float:right">${gbp(t.mile)}</b></p><p>Call-outs: <b style="float:right">${gbp(t.call)}</b></p><p>Materials: <b style="float:right">${gbp(t.mat)}</b></p><hr><p>Net: <b style="float:right">${gbp(t.net)}</b></p><p>VAT: <b style="float:right">${gbp(t.vat)}</b></p><p class="total">TOTAL: <span style="float:right">${gbp(t.gross)}</span></p></div>
- </body></html>`;
- const w=window.open('','_blank');if(!w){alert('Your browser blocked the invoice window. Please allow pop-ups for this app and try again.');return}w.document.open();w.document.write(html);w.document.close();
-}
 
 /* ---------------- invoices ---------------- */
 const RATES_KEY='rkey_rates';
@@ -1901,7 +1940,62 @@ async function exportEngineerInvoices(name,pickId){
  }catch(err){if(!(err&&err.name==='AbortError'))alert('Could not create the invoices PDF: '+err.message)}
  finally{if(off)off.remove();if(btn){btn.disabled=false;btn.textContent=orig}}
 }
-setupLists();renderJobs();setTimeout(initCanvases,100)
+
+/* ================= BUILD 4/5/6/8: Equipment, Service/LOLER & Engineer Mobile ================= */
+const EQUIPMENT_KEY='rkey_equipment_v1',INSPECTION_KEY='rkey_inspections_v1';
+let equipment={};let inspections=[];
+try{equipment=JSON.parse(localStorage.getItem(EQUIPMENT_KEY)||'{}')||{}}catch(e){equipment={}}
+try{inspections=JSON.parse(localStorage.getItem(INSPECTION_KEY)||'[]')||[]}catch(e){inspections=[]}
+function saveEquipmentStore(){localStorage.setItem(EQUIPMENT_KEY,JSON.stringify(equipment))}
+function saveInspectionStore(){localStorage.setItem(INSPECTION_KEY,JSON.stringify(inspections))}
+function equipmentKey(v){return String(v||'').trim().toLowerCase().replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'')}
+function equipmentPage(){hide();document.getElementById('equipment').classList.remove('hidden');setupLists();renderEquipment();clearEquipmentForm()}
+function clearEquipmentForm(){['eq_id','eq_customer','eq_site','eq_model','eq_serial','eq_swl','eq_type','eq_notes'].forEach(id=>{let e=document.getElementById(id);if(e)e.value=''})}
+function saveEquipment(){
+ const id=document.getElementById('eq_id').value.trim();if(!id){alert('Please enter the equipment / crane number.');return}
+ const key=equipmentKey(id),old=equipment[key]||{};
+ equipment[key]={id,customer:document.getElementById('eq_customer').value.trim(),site:document.getElementById('eq_site').value.trim(),model:document.getElementById('eq_model').value.trim(),serial:document.getElementById('eq_serial').value.trim(),swl:document.getElementById('eq_swl').value.trim(),type:document.getElementById('eq_type').value.trim(),notes:document.getElementById('eq_notes').value.trim(),createdAt:old.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
+ saveEquipmentStore();renderEquipment();showEquipment(id)
+}
+function equipmentJobs(id){const k=String(id||'').trim().toLowerCase();return jobs.filter(j=>String(j.equipment||'').trim().toLowerCase()===k)}
+function equipmentInspections(id){const k=String(id||'').trim().toLowerCase();return inspections.filter(x=>String(x.equipment||'').trim().toLowerCase()===k).sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')))}
+function renderEquipment(){
+ const q=(document.getElementById('eq_search')?.value||'').toLowerCase().trim();
+ const a=Object.values(equipment).filter(x=>!q||[x.id,x.customer,x.site,x.model,x.serial,x.type].join(' ').toLowerCase().includes(q));
+ const opts=Object.values(equipment).sort((a,b)=>a.id.localeCompare(b.id)).map(x=>'<option value="'+esc(x.id)+'"></option>').join('');
+ let dl=document.getElementById('equipmentOptions');if(!dl){dl=document.createElement('datalist');dl.id='equipmentOptions';document.body.appendChild(dl)}dl.innerHTML=opts;
+ document.getElementById('equipmentList').innerHTML=a.length?a.map(x=>{let jc=equipmentJobs(x.id).length,ic=equipmentInspections(x.id).length;return '<div class="jobrow"><div><b>'+esc(x.id)+'</b> — '+esc(x.customer||'')+'<div class="muted">'+esc(x.site||'')+' · '+esc(x.model||'')+' · '+esc(x.serial||'')+'</div></div><div class="actions"><span class="pill">'+jc+' jobs</span><span class="pill">'+ic+' reports</span><button onclick="showEquipment(\''+esc(x.id).replace(/'/g,'\\\'')+'\')">Open</button></div></div>'}).join(''):'<p class="muted">No equipment records yet. Create one above, or open a job and use its equipment number.</p>';
+}
+function syncEquipmentFromJob(j){
+ const id=String(j.equipment||'').trim();if(!id)return;const key=equipmentKey(id),old=equipment[key]||{};
+ equipment[key]={id,customer:j.customer||old.customer||'',site:j.site||old.site||'',model:j.model||old.model||'',serial:j.serial||old.serial||'',swl:old.swl||'',type:old.type||j.type||'',notes:old.notes||'',createdAt:old.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};saveEquipmentStore()
+}
+function showEquipment(id){
+ const e=equipment[equipmentKey(id)];if(!e)return;document.getElementById('eq_id').value=e.id;document.getElementById('eq_customer').value=e.customer||'';document.getElementById('eq_site').value=e.site||'';document.getElementById('eq_model').value=e.model||'';document.getElementById('eq_serial').value=e.serial||'';document.getElementById('eq_swl').value=e.swl||'';document.getElementById('eq_type').value=e.type||'';document.getElementById('eq_notes').value=e.notes||'';
+ const js=equipmentJobs(e.id),is=equipmentInspections(e.id),next=is.filter(x=>x.due).sort((a,b)=>a.due.localeCompare(b.due))[0];
+ const qrId='qr_'+equipmentKey(e.id);document.getElementById('equipmentDetail').innerHTML='<hr><div class="card"><div style="display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap"><div><h3 style="margin-top:0">'+esc(e.id)+'</h3><div><b>'+esc(e.customer||'')+'</b><br>'+esc(e.site||'')+'<br>'+esc(e.model||'')+' · '+esc(e.serial||'')+' · SWL '+esc(e.swl||'')+'</div>'+(next?'<p><b>Next inspection due:</b> '+esc(ukDate(next.due))+'</p>':'')+'</div><div><div id="'+qrId+'"></div><small>Scan to open this equipment record</small></div></div><div class="actions no-print" style="margin-top:10px"><button onclick="printEquipmentLabel(\''+esc(e.id).replace(/'/g,'\\\'')+'\')">🖨️ Print QR Label</button><button onclick="newInspectionFor(\''+esc(e.id).replace(/'/g,'\\\'')+'\')">＋ Service / LOLER</button></div><h3>Job History ('+js.length+')</h3>'+ (js.length?js.sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))).map(j=>'<div class="jobrow"><div><b>Job '+esc(j.job)+'</b> — '+esc(j.type)+'<div class="muted">'+esc(ukDate(j.date))+' · '+esc(j.status)+' · '+esc(j.customer)+'</div></div><button onclick="openJob(\''+esc(j.job).replace(/'/g,'\\\'')+'\')">Open</button></div>').join(''):'<p class="muted">No jobs linked yet.</p>')+'<h3>Service / LOLER History ('+is.length+')</h3>'+ (is.length?is.map(x=>'<div class="jobrow"><div><b>'+esc(x.type)+'</b> — '+esc(ukDate(x.date))+'<div class="muted">'+esc(x.result)+' · Engineer '+esc(x.engineer||'')+(x.due?' · Due '+esc(ukDate(x.due)):'')+(x.cert?' · '+esc(x.cert):'')+'</div></div><button onclick="printInspection(\''+esc(x.id).replace(/'/g,'\\\'')+'\')">Print</button></div>').join(''):'<p class="muted">No inspection records yet.</p>')+'</div>';
+ if(window.QRCode){const el=document.getElementById(qrId);if(el)new QRCode(el,{text:location.origin+location.pathname+'?asset='+encodeURIComponent(e.id),width:150,height:150,correctLevel:QRCode.CorrectLevel.M})}
+}
+function printEquipmentLabel(id){const e=equipment[equipmentKey(id)];if(!e)return;const qr=location.origin+location.pathname+'?asset='+encodeURIComponent(e.id);const w=window.open('','_blank');if(!w)return;w.document.write('<html><head><title>'+esc(e.id)+'</title><style>body{font-family:Arial;text-align:center;padding:15mm}#qr{margin:10px auto;width:180px}</style></head><body><h1>KEY ENGINEERING</h1><h2>'+esc(e.id)+'</h2><div id="qr"></div><b>'+esc(e.customer||'')+'</b><br>'+esc(e.site||'')+'<br>'+esc(e.model||'')+'<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script><script>new QRCode(document.getElementById("qr"),{text:'+JSON.stringify(qr)+',width:180,height:180});<\/script><p>Scan with the Key Engineering app to view equipment history.</p><script>setTimeout(()=>window.print(),700)<\/script></body></html>');w.document.close()}
+function inspectionsPage(){hide();document.getElementById('inspections').classList.remove('hidden');setupLists();document.getElementById('insp_date').value=localDateStr();renderInspections()}
+function clearInspectionForm(){['insp_equipment','insp_date','insp_engineer','insp_job','insp_cert','insp_due','insp_findings','insp_notes'].forEach(id=>{let e=document.getElementById(id);if(e)e.value=''});document.getElementById('insp_date').value=localDateStr();document.getElementById('insp_result').value='Pass';document.getElementById('insp_type').value='Service'}
+function newInspectionFor(id){inspectionsPage();document.getElementById('insp_equipment').value=id;inspectionEquipmentChanged()}
+function inspectionEquipmentChanged(){const id=document.getElementById('insp_equipment').value.trim();const e=equipment[equipmentKey(id)];if(e){if(!document.getElementById('insp_job').value){const js=equipmentJobs(e.id);if(js.length)document.getElementById('insp_job').value=js[0].job}}}
+function saveInspection(){
+ const id=document.getElementById('insp_equipment').value.trim();if(!id){alert('Please enter the equipment / crane number.');return}
+ if(!equipment[equipmentKey(id)]){if(confirm('That equipment is not in the register. Create it from this report?')){equipment[equipmentKey(id)]={id,customer:'',site:'',model:'',serial:'',swl:'',type:'',notes:'',createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};saveEquipmentStore()}else return}
+ const x={id:'I-'+Date.now(),type:document.getElementById('insp_type').value,equipment:id,date:document.getElementById('insp_date').value||localDateStr(),engineer:document.getElementById('insp_engineer').value.trim(),job:document.getElementById('insp_job').value.trim(),cert:document.getElementById('insp_cert').value.trim(),result:document.getElementById('insp_result').value,due:document.getElementById('insp_due').value,findings:document.getElementById('insp_findings').value.trim(),notes:document.getElementById('insp_notes').value.trim(),createdAt:new Date().toISOString()};inspections.push(x);saveInspectionStore();syncEquipmentFromJob({equipment:id});renderInspections();showEquipment(id);alert('Report saved against '+id+'.')
+}
+function renderInspections(){const q=(document.getElementById('insp_equipment')?.value||'').toLowerCase().trim();const a=inspections.filter(x=>!q||String(x.equipment).toLowerCase().includes(q)).sort((a,b)=>String(b.date).localeCompare(String(a.date)));document.getElementById('inspectionList').innerHTML=a.length?a.map(x=>'<div class="jobrow"><div><b>'+esc(x.type)+'</b> — '+esc(x.equipment)+'<div class="muted">'+esc(ukDate(x.date))+' · '+esc(x.result)+' · '+esc(x.engineer||'')+(x.due?' · Due '+esc(ukDate(x.due)):'')+'</div>'+(x.findings?'<div style="margin-top:5px">'+esc(x.findings)+'</div>':'')+'</div><div class="actions"><button onclick="printInspection(\''+esc(x.id)+'\')">Print</button><button onclick="deleteInspection(\''+esc(x.id)+'\')">Delete</button></div></div>').join(''):'<p class="muted">No service/LOLER records yet.</p>'}
+function deleteInspection(id){if(!confirm('Delete this report?'))return;inspections=inspections.filter(x=>x.id!==id);saveInspectionStore();renderInspections()}
+function printInspection(id){const x=inspections.find(a=>a.id===id);if(!x)return;const e=equipment[equipmentKey(x.equipment)]||{};const w=window.open('','_blank');if(!w)return;w.document.write('<html><head><title>'+esc(x.type)+' '+esc(x.equipment)+'</title><style>body{font-family:Arial;margin:18mm;color:#111}h1{border-bottom:2px solid #111;padding-bottom:8px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:8px;text-align:left}.box{border:1px solid #bbb;padding:12px;min-height:80px;margin-top:8px}.sign{margin-top:30px;border-bottom:1px solid #111;width:300px;padding-top:35px}</style></head><body><h1>KEY ENGINEERING CHESTERFIELD LTD</h1><h2>'+esc(x.type)+'</h2><table><tr><th>Equipment</th><td>'+esc(x.equipment)+'</td><th>Customer</th><td>'+esc(e.customer||'')+'</td></tr><tr><th>Site</th><td>'+esc(e.site||'')+'</td><th>Date</th><td>'+esc(ukDate(x.date))+'</td></tr><tr><th>Engineer</th><td>'+esc(x.engineer||'')+'</td><th>Certificate / Report</th><td>'+esc(x.cert||'')+'</td></tr><tr><th>Result</th><td>'+esc(x.result)+'</td><th>Next Due</th><td>'+esc(x.due?ukDate(x.due):'')+'</td></tr></table><h3>Findings / Defects / Recommendations</h3><div class="box">'+esc(x.findings||'None recorded').replace(/\n/g,'<br>')+'</div><h3>Additional Notes</h3><div class="box">'+esc(x.notes||'').replace(/\n/g,'<br>')+'</div><div class="sign">Engineer signature</div><div class="sign">Customer / representative</div><script>setTimeout(()=>window.print(),500)<\/script></body></html>');w.document.close()}
+function mobilePage(){hide();document.getElementById('mobile').classList.remove('hidden');const s=document.getElementById('mobileEngineer');s.innerHTML='<option value="">Select engineer</option>'+engineers.map(x=>'<option>'+esc(x)+'</option>').join('');const saved=localStorage.getItem('rkey_mobile_engineer')||'';s.value=engineers.includes(saved)?saved:(engineers[0]||'');if(s.value)localStorage.setItem('rkey_mobile_engineer',s.value);renderMobileJobs()}
+function renderMobileJobs(){const name=document.getElementById('mobileEngineer').value;localStorage.setItem('rkey_mobile_engineer',name);const scope=document.getElementById('mobileScope').value,today=localDateStr(),range=hoursWeekRange(today),s=localDateStr(range.start),e=localDateStr(range.end);let a=jobs.filter(j=>(j.engineers||[]).map(x=>x.toLowerCase()).includes((name||'').toLowerCase()));if(scope==='today')a=a.filter(j=>jobIsToday(j,today));else if(scope==='week')a=a.filter(j=>jobIsToday(j,s)||((j.time||[]).some(t=>t.date>=s&&t.date<=e)));else if(scope==='open')a=a.filter(j=>j.status!=='Complete');a.sort((x,y)=>String(x.date).localeCompare(String(y.date)));document.getElementById('mobileJobs').innerHTML=name?(a.length?a.map(j=>'<div class="card" style="margin-top:10px"><div style="display:flex;justify-content:space-between;gap:8px"><div><h3 style="margin:0">Job '+esc(j.job)+'</h3><b>'+esc(j.customer)+'</b><div class="muted">'+esc(j.site)+' · '+esc(ukDate(j.date))+' · '+esc(j.equipment||'No equipment linked')+'</div></div><span class="pill">'+esc(j.status)+'</span></div><div style="margin-top:8px"><label>Quick status</label><select onchange="mobileStatus(\''+esc(j.job).replace(/'/g,'\\\'')+'\',this.value)"><option>Open</option><option>In Progress</option><option>Complete</option></select><label style="margin-top:8px">Quick note</label><textarea id="mn_'+esc(j.job).replace(/[^a-zA-Z0-9_-]/g,'_')+'" placeholder="Add a short site note…">'+esc(j.mobileNote||'')+'</textarea><div class="actions"><button class="primary" onclick="mobileSaveNote(\''+esc(j.job).replace(/'/g,'\\\'')+'\')">Save note</button><button onclick="openJob(\''+esc(j.job).replace(/'/g,'\\\'')+'\')">Open full job</button></div></div></div>').join(''):'<p class="muted">No jobs in this view.</p>'):'<p class="muted">Select your name.</p>'}
+function mobileStatus(no,status){const j=jobs.find(x=>x.job===no);if(!j)return;j.status=status;j.updatedAt=new Date().toISOString();saveJobsQuiet();renderMobileJobs();renderJobs();if(status==='Complete'&&j.email&&!j.completionEmailSentAt)sendCompletionEmail(j)}
+function mobileSaveNote(no){const j=jobs.find(x=>x.job===no);if(!j)return;const id='mn_'+no.replace(/[^a-zA-Z0-9_-]/g,'_'),e=document.getElementById(id);j.mobileNote=e?e.value.trim():j.mobileNote||'';j.comments=(j.comments?j.comments+'\n':'')+(j.mobileNote?('Mobile note: '+j.mobileNote):'');j.updatedAt=new Date().toISOString();saveJobsQuiet();alert('Note saved to Job '+no+'.')}
+function handleAssetUrl(){const id=new URLSearchParams(location.search).get('asset');if(id&&equipment[equipmentKey(id)]){equipmentPage();setTimeout(()=>showEquipment(id),50)}}
+
+setupLists();renderJobs();setTimeout(initCanvases,100);handleAssetUrl()
 let printParam=new URLSearchParams(location.search).get('print');
 if(printParam){
  printLanding=true;
