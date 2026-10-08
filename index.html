@@ -373,12 +373,16 @@ let deletedCustomers=[];
 try{deletedCustomers=JSON.parse(localStorage.getItem('rkey_deleted_customers')||'[]');if(!Array.isArray(deletedCustomers))deletedCustomers=[]}catch(e){deletedCustomers=[]}
 function saveDeletedCustomers(){localStorage.setItem('rkey_deleted_customers',JSON.stringify(deletedCustomers))}
 let customers=[...new Set([...savedCustomers,...SEED.customers])].filter(c=>!deletedCustomers.includes(c.trim().toLowerCase()));
+const REMOVED_ENGINEERS=['alex','d','jardan','joradn','mike','tom','berry','berry;'];
+function cleanEngineerList(list){
+ return [...new Set((Array.isArray(list)?list:[]).map(String).filter(n=>!REMOVED_ENGINEERS.includes(n.trim().toLowerCase())))];
+}
 let engineers=(()=>{
  try{
   let saved=JSON.parse(localStorage.getItem('rkey_engineers')||'null');
-  if(Array.isArray(saved)&&saved.length)return saved;
+  if(Array.isArray(saved)&&saved.length)return cleanEngineerList(saved);
  }catch(e){}
- return SEED.engineers.slice();
+ return cleanEngineerList(SEED.engineers.slice());
 })();
 function saveEngineers(){localStorage.setItem('rkey_engineers',JSON.stringify(engineers))}
 let types=[...new Set(['Repair','Service','Office Work','Test','Inspection','Survey','Delivery','Quotation','Installation','Crane build',...SEED.types])];
@@ -1267,7 +1271,7 @@ function jobSig(j){ // what "the same job" means for merge purposes (signature i
 function applyReplace(d,incoming){
  jobs=incoming;
  customers=Array.isArray(d.customers)?d.customers.map(String):customers;
- if(Array.isArray(d.engineers)&&d.engineers.length)engineers=d.engineers.map(String);
+ if(Array.isArray(d.engineers)&&d.engineers.length)engineers=cleanEngineerList(d.engineers);
  customerRecords=cleanCustomerRecords(d.customerRecords);
  deletedCustomers=Array.isArray(d.deletedCustomers)?d.deletedCustomers.map(String):[];
  if(typeof quotes!=='undefined')quotes=(d.quotes&&typeof d.quotes==='object')?d.quotes:{};
@@ -1305,7 +1309,7 @@ function revertFromSnapshot(){
  let raw=null;try{raw=localStorage.getItem(PRE_IMPORT_KEY)}catch(e){}
  if(!raw)return false;
  const d=JSON.parse(raw);
- jobs=(d.jobs||[]).map(normalizeJob);customers=d.customers||[];engineers=d.engineers||[];
+ jobs=(d.jobs||[]).map(normalizeJob);customers=d.customers||[];engineers=cleanEngineerList(d.engineers||[]);
  customerRecords=cleanCustomerRecords(d.customerRecords);deletedCustomers=d.deletedCustomers||[];
  if(typeof quotes!=='undefined')quotes=(d.quotes&&typeof d.quotes==='object')?d.quotes:{};
  if(typeof equipment!=='undefined')equipment=(d.equipment&&typeof d.equipment==='object')?d.equipment:{};
