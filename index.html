@@ -1516,7 +1516,9 @@ function renderQuotes(){
  body.innerHTML=list.map(q=>{
   const t=quoteTotals(q),quoted=q.value===''?null:Number(q.value)*100,variance=quoted==null?null:quoted-t.net;
   const status=q.status==='Complete'?'<span class="pill">Complete</span>':'<span class="pill">Open</span>';
-  const editArg=JSON.stringify(q.number);
+  // Encode the quote number safely for an HTML onclick attribute.
+  // JSON.stringify() by itself creates nested double-quotes which break the attribute.
+  const editArg=JSON.stringify(q.number).replace(/\"/g,'&quot;');
   const rows=t.jobs.map((j,i)=>{
    const mats=(j.materials||[]).filter(x=>String(x).trim()).join('; ');
    return '<tr><td>'+esc(j.job)+'</td><td>'+esc(lastWorked(j)?ukDate(lastWorked(j)):'')+'</td><td>'+esc(j.status)+'</td><td>'+esc(mats||'—')+'</td><td class="r">'+gbp(t.costs[i].grossP)+'</td></tr>';
