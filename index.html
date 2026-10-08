@@ -1871,7 +1871,9 @@ async function exportInvoicesPdf(mode){
   if(!libs||!window.html2canvas||!window.jspdf){alert('Could not load the PDF tools — check your internet connection and try again.');return}
   const sel=invoiceSelection(),rows=readyRows(sel),skipped=sel.todo.length-rows.length;
   if(!rows.length){alert('Nothing is ready to export yet — enter the materials costs (and any missing rates) first.');return}
-  const per=9,pages=Math.ceil(rows.length/per);
+  // Keep the invoice worksheet as a single A4 landscape page to save paper.
+  // The whole table is rendered together and then scaled to the printable area.
+  const per=rows.length,pages=1;
   const tot=rows.reduce((a,x)=>({net:a.net+x.c.net,vat:a.vat+x.c.vatP,gross:a.gross+x.c.grossP}),{net:0,vat:0,gross:0});
   const title='Invoice worksheet — '+invoiceFileLabel(sel);
   const rateLine='Pricing is taken from the private Rates settings on this office device.';
@@ -1883,6 +1885,13 @@ async function exportInvoicesPdf(mode){
    const foot=last?'<tr class="tot"><td colspan="7">Total — '+rows.length+' job'+(rows.length===1?'':'s')+'</td><td class="r">'+gbp(tot.net)+'</td><td class="r">'+gbp(tot.vat)+'</td><td class="r">'+gbp(tot.gross)+'</td></tr>':'';
    const notes=last?'<div style="font-size:11px;margin-top:10px">'+esc(rateLine)+skipNote+'</div>':'';
    off.innerHTML=invoicePdfPage(title,chunk.map(x=>invoicePdfRow(x.j,x.c)).join(''),foot,notes,p+1,pages);
+   // Compact the worksheet so even a busy week's invoice remains on one A4 sheet.
+   const compact=off.firstElementChild;
+   compact.style.fontSize='9px';
+   compact.style.padding='8px';
+   compact.style.boxSizing='border-box';
+   compact.querySelectorAll('table.invtable th,table.invtable td').forEach(el=>{el.style.padding='3px 4px';el.style.fontSize='8px';el.style.lineHeight='1.05'});
+   compact.querySelectorAll('.company').forEach(el=>el.style.fontSize='10px');
    await waitForImages(off);
    const canvas=await html2canvas(off.firstElementChild,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
    addFitPage(pdf,canvas,p>0,off.firstElementChild);
