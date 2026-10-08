@@ -12,7 +12,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#eef1f4;color:#111;font-family:Arial,Helvetica,sans-serif}
 header{background:#17232d;color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10}.head{max-width:1180px;margin:auto;display:flex;justify-content:space-between;align-items:center}
-h1{font-size:20px;margin:0}.wrap{max-width:1180px;margin:auto;padding:15px}.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+h1{font-size:20px;margin:0}.wrap{max-width:1180px;margin:auto;padding:15px}.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;position:sticky;top:66px;z-index:30;background:#eef1f4;padding:8px 0}.nav button{flex:0 0 auto}
 button{border:1px solid #c4ccd2;border-radius:7px;background:#fff;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:#1769aa;color:#fff;border-color:#1769aa}.danger{background:#b42318;color:#fff;border-color:#b42318}
 .card{background:#fff;border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:0 1px 5px #0002}.hidden{display:none}.muted{color:#68747d;font-size:12px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
@@ -99,9 +99,9 @@ loadWithFallback(['https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.mi
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-@media(max-width:700px){#mobile .card{padding:12px}#mobile textarea,#mobile select,#mobile input{font-size:16px}.jobrow{flex-direction:column;align-items:stretch}.jobrow .actions{justify-content:flex-start}.nav{position:sticky;top:0;z-index:20;overflow-x:auto;white-space:nowrap}.nav button{flex:0 0 auto}}
+@media(max-width:700px){.nav{top:62px}#mobile .card{padding:12px}#mobile textarea,#mobile select,#mobile input{font-size:16px}.jobrow{flex-direction:column;align-items:stretch}.jobrow .actions{justify-content:flex-start}.nav{position:sticky;top:0;z-index:20;overflow-x:auto;white-space:nowrap}.nav button{flex:0 0 auto}}
 
-.duepanel{margin:10px 0;padding:10px 12px;border:1px solid #bbb;border-radius:10px;background:#f7f9fb}.duebad{border-color:#d66;background:#fff1f1}.duesoon{border-color:#e3ad42;background:#fff8e8}.dueok{border-color:#8bb88b;background:#f2fff2}.duerow{padding:6px 0;border-top:1px solid rgba(0,0,0,.08)}.duebadge{display:inline-block;padding:2px 6px;border-radius:10px;font-size:10px;font-weight:700;margin-left:5px}.duebadge.overdue{background:#d33;color:#fff}.duebadge.soon{background:#e6a21a;color:#111}.sigbox-readonly{min-height:55px;border:1px solid #ccc;border-radius:6px;padding:5px;background:#fff;display:flex;align-items:center}.sigbox-readonly img{max-height:55px;max-width:260px}
+.dashboard-alert-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0}.alert-button{background:#fff;border:1px solid #c4ccd2}.alert-count{display:inline-flex;min-width:24px;height:24px;padding:0 7px;align-items:center;justify-content:center;border-radius:20px;background:#b42318;color:#fff;font-size:12px}.alert-count.zero{background:#68747d}.duepanel{margin:10px 0;padding:10px 12px;border:1px solid #bbb;border-radius:10px;background:#f7f9fb}.duebad{border-color:#d66;background:#fff1f1}.duesoon{border-color:#e3ad42;background:#fff8e8}.dueok{border-color:#8bb88b;background:#f2fff2}.duerow{padding:6px 0;border-top:1px solid rgba(0,0,0,.08)}.duebadge{display:inline-block;padding:2px 6px;border-radius:10px;font-size:10px;font-weight:700;margin-left:5px}.duebadge.overdue{background:#d33;color:#fff}.duebadge.soon{background:#e6a21a;color:#111}.sigbox-readonly{min-height:55px;border:1px solid #ccc;border-radius:6px;padding:5px;background:#fff;display:flex;align-items:center}.sigbox-readonly img{max-height:55px;max-width:260px}
 </style>
 </head>
 <body>
@@ -116,7 +116,8 @@ loadWithFallback(['https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.mi
 <div id="backupNotice"></div>
 <div id="dashboardCards" class="dashgrid"></div>
 <div id="stats"></div>
-<div id="dueDashboard" class="no-print"></div>
+<div class="dashboard-alert-bar no-print"><button class="alert-button" onclick="toggleDueAlerts()">🔔 Due Alerts <span id="dueAlertCount" class="alert-count">0</span></button><span class="muted">Service and LOLER items due soon or overdue</span></div>
+<div id="dueDashboard" class="no-print hidden"></div>
 <div class="backupbar">
  <button onclick="exportBackup()">⬇ Backup Data</button>
  <button onclick="importBackup()">⬆ Restore / Merge Backup</button>
@@ -2011,13 +2012,7 @@ function dueItems(){
   ['service','loler'].forEach(k=>{const x=latestByType[k];if(!x||!x.due)return;let status=x.due<today?'overdue':x.due<=limitStr?'soon':'ok';out.push({equipment:e,type:k==='loler'?'LOLER':'Service',due:x.due,status,customer:e.customer||'',site:e.site||''})});
  });return out.sort((a,b)=>a.due.localeCompare(b.due))
 }
-function renderDueDashboard(){
- const el=document.getElementById('dueDashboard');if(!el)return;const items=dueItems(),over=items.filter(x=>x.status==='overdue'),soon=items.filter(x=>x.status==='soon');
- if(!items.length){el.innerHTML='<div class="duepanel dueok"><b>📅 Service / LOLER due dates:</b> No future due dates have been recorded yet.</div>';return}
- const row=x=>`<div class="duerow"><b>${esc(x.equipment)}</b> — ${esc(x.type)} <span class="duebadge ${x.status}">${x.status==='overdue'?'OVERDUE':'DUE SOON'}</span><span class="muted">Due ${esc(ukDate(x.due))}${x.customer?' · '+esc(x.customer):''}</span></div>`;
- el.innerHTML=`<div class="duepanel ${over.length?'duebad':soon.length?'duesoon':'dueok'}"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b>📅 Service / LOLER Due Dates</b><span>${over.length} overdue · ${soon.length} due within 30 days</span></div>${(over.concat(soon)).slice(0,12).map(row).join('')||'<div class="duerow">All current</div>'}${items.length>12?`<div class="muted">Showing first 12 — open Service / LOLER for the full list.</div>`:''}</div>`
-}
-function enableDueNotifications(){
+function renderDueDashboard(){const el=document.getElementById('dueDashboard');if(!el)return;const items=dueItems(),over=items.filter(x=>x.status==='overdue'),soon=items.filter(x=>x.status==='soon'),alerts=over.concat(soon),countEl=document.getElementById('dueAlertCount');if(countEl){countEl.textContent=String(alerts.length);countEl.classList.toggle('zero',alerts.length===0)}const row=x=>`<div class=\"duerow\"><b>${esc(x.equipment)}</b> — ${esc(x.type)} <span class=\"duebadge ${x.status}\">${x.status==='overdue'?'OVERDUE':'DUE SOON'}</span><span class=\"muted\">Due ${esc(ukDate(x.due))}${x.customer?' · '+esc(x.customer):''}${x.site?' · '+esc(x.site):''}</span></div>`;if(!alerts.length){el.innerHTML='<div class=\"duepanel dueok\"><b>📅 Service / LOLER Due Alerts</b><div class=\"duerow\">No service or LOLER items are overdue or due within 30 days.</div></div>';return}el.innerHTML=`<div class=\"duepanel ${over.length?'duebad':'duesoon'}\"><div style=\"display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap\"><b>🔔 Service / LOLER Due Alerts</b><span>${over.length} overdue · ${soon.length} due within 30 days</span></div>${alerts.map(row).join('')}</div>`} function toggleDueAlerts(){const el=document.getElementById('dueDashboard');if(!el)return;el.classList.toggle('hidden');if(!el.classList.contains('hidden'))renderDueDashboard()} function enableDueNotifications(){
  if(!('Notification' in window)){alert('This browser does not support notifications. The in-app due-date dashboard will still work.');return}
  Notification.requestPermission().then(p=>{if(p==='granted'){localStorage.setItem('rkey_due_notifications','1');checkDueNotifications(true)}else alert('Notifications were not enabled. You can still use the due-date dashboard.')})
 }
