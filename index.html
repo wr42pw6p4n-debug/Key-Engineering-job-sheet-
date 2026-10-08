@@ -1539,7 +1539,22 @@ function renderQuotes(){
  }).join('');
 }
 function loadQuoteForEdit(number){const q=quotes[String(number).toLowerCase()];if(!q)return;document.getElementById('q_number').value=q.number;document.getElementById('q_customer').value=q.customer||'';document.getElementById('q_email').value=q.email||'';document.getElementById('q_date').value=q.date||localDateStr();document.getElementById('q_value').value=q.value===''?'':q.value;document.getElementById('q_description').value=q.description||'';document.getElementById('q_status').value=q.status||'Open';window.scrollTo({top:0,behavior:'smooth'})}
-function completeQuote(number){const key=String(number).toLowerCase(),q=quotes[key];if(!q)return;const t=quoteTotals(q);if(!confirm('Complete quote '+q.number+'?\n\nIt currently contains '+t.jobs.length+' linked job sheet'+(t.jobs.length===1?'':'s')+' with an actual net cost of '+gbp(t.net)+'.\n\nNo further job sheets can be added to this quote until you re-open it.'))return;q.status='Complete';q.completedAt=new Date().toISOString();q.updatedAt=new Date().toISOString();saveQuotes();renderQuotes()}
+const QUOTE_INVOICE_KEY='rkey_quote_invoices_v1';
+let quoteInvoices={};try{quoteInvoices=JSON.parse(localStorage.getItem(QUOTE_INVOICE_KEY)||'{}')||{}}catch(e){quoteInvoices={}}
+function saveQuoteInvoices(){try{localStorage.setItem(QUOTE_INVOICE_KEY,JSON.stringify(quoteInvoices))}catch(e){alert('Could not save quote invoices on this device.')}}
+function quoteInvoiceKey(q){return String(q.number||'').trim().toLowerCase()}
+function quoteInvoiceJobs(q){return quoteJobs(q).filter(j=>j.status==='Complete')}
+function quoteInvoiceDate(q){const js=quoteInvoiceJobs(q),dates=js.map(lastWorked).filter(Boolean).sort();return dates[dates.length-1]||q.date||localDateStr()}
+function ensureQuoteInvoice(q){
+ const key=quoteInvoiceKey(q),old=quoteInvoices[key]||{};
+ const t=quoteTotals(q),quoted=q.value===''?null:Number(q.value)*100;
+ const net=quoted!=null?Math.max(0,Math.round(quoted)):t.net;
+ const vat=roundP(net*(Number(rates.vat)||0)/100),gross=net+vat;
+ const engineerList=uniqueEngineers(t.jobs.flatMap(j=>j.engineers||[]));
+ quoteInvoices[key]=Object.assign({},old,{quoteNumber:q.number,customer:q.customer||'',email:q.email||'',date:quoteInvoiceDate(q),description:q.description||'',jobs:t.jobs.map(j=>j.job),engineers:engineerList,net,vat,gross,status:old.status==='invoiced'?'invoiced':'ready',createdAt:old.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()});
+ saveQuoteInvoices();return quoteInvoices[key]
+}
+function completeQuote(number){const key=String(number).toLowerCase(),q=quotes[key];if(!q)return;const t=quoteTotals(q);if(!confirm('Complete quote '+q.number+'?\n\nIt currently contains '+t.jobs.length+' linked job sheet'+(t.jobs.length===1?'':'s')+' with an actual net cost of '+gbp(t.net)+'.\n\nThis will also put the quote into your invoice queue for the weekly invoice merge.'))return;q.status='Complete';q.completedAt=new Date().toISOString();q.updatedAt=new Date().toISOString();ensureQuoteInvoice(q);saveQuotes();renderQuotes();if(typeof renderInvoices==='function')renderInvoices()}
 function reopenQuote(number){const q=quotes[String(number).toLowerCase()];if(!q)return;q.status='Open';q.updatedAt=new Date().toISOString();saveQuotes();renderQuotes()}
 
 /* ---------------- invoices ---------------- */
@@ -1883,6 +1898,18 @@ function defaultInvoiceWeekStart(){
  let latest='';jobs.forEach(j=>{if(j.status==='Complete'&&normInvoice(j.invoice).status!=='invoiced'){const d=lastWorked(j);if(d>latest)latest=d}});
  return localDateStr(hoursWeekRange(latest||localDateStr()).start);
 }
+function quoteInvoicesForWeek(s,e){return Object.values(quoteInvoices).filter(q=>q.status!=='invoiced'&&q.date>=s&&q.date<=e)}
+function quoteInvoiceInvolves(q,name){return !name||!q.engineers.length||q.engineers.some(n=>engineerNamesMatch(n,name))}
+function quoteInvoicePageHtml(q){
+ const vatRate=Number(rates.vat)||0;
+ return '<div class="job-sheet" style="background-image:none">'+pdfCompanyHeader('Quote invoice — ready to raise')
+  +'<div class="title" style="font-size:20px">INVOICE — QUOTE '+esc(q.quoteNumber)+'</div>'
+  +'<table class="info"><tr><th>Customer</th><td colspan="3">'+esc(q.customer)+'</td></tr><tr><th>Quote no.</th><td>'+esc(q.quoteNumber)+'</td><th>Date</th><td>'+esc(ukDate(q.date))+'</td></tr><tr><th>Engineers</th><td colspan="3">'+esc(q.engineers.join(', '))+'</td></tr></table>'
+  +(q.description?'<div class="section">DESCRIPTION</div><div class="box" style="min-height:50px">'+esc(q.description)+'</div>':'')
+  +'<div class="section">CHARGES</div><table class="invtable"><tbody><tr><td>Quoted works — Quote '+esc(q.quoteNumber)+'</td><td class="r">'+gbp(q.net)+'</td></tr><tr><td>VAT '+esc(String(vatRate))+'%</td><td class="r">'+gbp(q.vat)+'</td></tr><tr class="tot"><td>TOTAL</td><td class="r">'+gbp(q.gross)+'</td></tr></tbody></table>'
+  +'<div class="footer">Prepared '+esc(ukDate(localDateStr()))+' — Quote '+esc(q.quoteNumber)+' — Key Engineering Chesterfield LTD</div></div>';
+}
+function markQuoteInvoiceInvoiced(q){q.status='invoiced';q.invoicedOn=localDateStr();q.updatedAt=new Date().toISOString();saveQuoteInvoices()}
 function invoiceJobsForWeek(s,e){return jobs.filter(j=>{const d=lastWorked(j);return d&&d>=s&&d<=e&&j.status==='Complete'&&normInvoice(j.invoice).status!=='invoiced'})}
 function jobInvolves(j,name){return (j.engineers||[]).some(n=>engineerNamesMatch(n,name))||(j.time||[]).some(r=>String(r.eid||'').trim()&&engineerNamesMatch(r.eid,name))}
 function engineerInvoiceJobs(name,s,e){return invoiceJobsForWeek(s,e).filter(j=>jobInvolves(j,name))}
@@ -1934,25 +1961,27 @@ async function exportEngineerInvoices(name,pickId){
  let off=null;
  try{
   const libs=await window.pdfLibsReady;
-  if(!libs||!window.html2canvas||!window.jspdf){alert('Could not load the PDF tools — check your internet connection and try again.');return}
+  if(!libs||!window.html2canvas||!window.jspdf){alert('Could not load the PDF tools — check your internet connection or try again.');return}
   const{start,end}=hoursWeekRange(document.getElementById(pickId).value||localDateStr()),s=localDateStr(start),e=localDateStr(end);
-  const by=(a,b)=>(a.customer||'').toLowerCase().localeCompare((b.customer||'').toLowerCase())||lastWorked(a).localeCompare(lastWorked(b))||(a.job||'').localeCompare(b.job||'');
-  const rows=engineerInvoiceJobs(name,s,e).sort(by).map(j=>({j,c:jobCost(j,rates)}));
-  if(!rows.length){alert('There are no completed jobs waiting to be invoiced for '+name+' that week.');return}
-  const ready=rows.filter(x=>x.c.ready),notReady=rows.filter(x=>!x.c.ready);
+  const by=(a,b)=>(a.customer||'').toLowerCase().localeCompare((b.customer||'').toLowerCase())||(a.date||'').localeCompare(b.date||'')||(a.quoteNumber||a.job||'').localeCompare(b.quoteNumber||b.job||'');
+  const jobRows=engineerInvoiceJobs(name,s,e).sort(by).map(j=>({kind:'job',j,c:jobCost(j,rates)}));
+  const quoteRows=quoteInvoicesForWeek(s,e).filter(q=>quoteInvoiceInvolves(q,name)).sort(by).map(q=>({kind:'quote',q,c:{net:q.net,vatP:q.vat,grossP:q.gross}}));
+  const rows=jobRows.concat(quoteRows);
+  if(!rows.length){alert('There are no completed jobs or completed quotes waiting to be invoiced for '+name+' that week.');return}
+  const ready=rows.filter(x=>x.kind==='quote'||x.c.ready),notReady=rows.filter(x=>x.kind==='job'&&!x.c.ready);
   if(!ready.length){alert('None of '+name+"'s jobs for that week are ready to invoice yet. Open Invoices, enter the materials costs and check the rates, then try again.");return}
   off=document.createElement('div');off.style.cssText='position:fixed;left:-99999px;top:0;width:1000px';document.body.appendChild(off);
   const{jsPDF}=window.jspdf,pdf=new jsPDF('p','mm','a4');
   const snap=async html=>{off.innerHTML=html;await waitForImages(off);return{canvas:await html2canvas(off.firstElementChild,{scale:2,useCORS:true,backgroundColor:'#ffffff'}),root:off.firstElementChild}};
-  let pg=await snap(invoiceCoverHtml(name,s,e,ready,notReady));addFitPage(pdf,pg.canvas,false,pg.root);
-  for(const x of ready){pg=await snap(invoicePageHtml(x.j,x.c));addFitPage(pdf,pg.canvas,true,pg.root)}
+  const normal=ready.filter(x=>x.kind==='job'),quoteReady=ready.filter(x=>x.kind==='quote');
+  let pg=await snap(invoiceCoverHtml(name,s,e,normal,notReady));addFitPage(pdf,pg.canvas,false,pg.root);
+  for(const x of normal){pg=await snap(invoicePageHtml(x.j,x.c));addFitPage(pdf,pg.canvas,true,pg.root)}
+  for(const x of quoteReady){pg=await snap(quoteInvoicePageHtml(x.q));addFitPage(pdf,pg.canvas,true,pg.root)}
   const fname='Invoices - '+safeName(name)+' - Week starting '+safeName(ukDate(s))+'.pdf',blob=pdf.output('blob'),file=new File([blob],fname,{type:'application/pdf'});
-  const what=ready.length+' job'+(ready.length===1?'':'s');
+  const what=ready.length+' invoice'+(ready.length===1?'':'s');
   if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:fname,text:'Invoices / '+name+' / Week starting '+ukDate(s)+' ('+what+')'})}
-  else{
-   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=fname;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);
-   alert('Saved as "'+fname+'" ('+what+(notReady.length?', '+notReady.length+' not included — not ready yet':'')+'). In Files, choose "Save to OneDrive" and file it under:\nJob Sheets / '+name+' / Week starting '+ukDate(s));
-  }
+  else{const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=fname;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);alert('Saved as "'+fname+'" ('+what+(notReady.length?', '+notReady.length+' job not included — not ready yet':'')+'). In Files, choose "Save to OneDrive" and file it under:\nJob Sheets / '+name+' / Week starting '+ukDate(s))}
+  if(quoteReady.length&&confirm('The PDF has been created. Mark the '+quoteReady.length+' completed quote invoice'+(quoteReady.length===1?'':'s')+' as invoiced so they do not appear again?')){quoteReady.forEach(x=>markQuoteInvoiceInvoiced(x.q));if(typeof renderInvoices==='function')renderInvoices()}
  }catch(err){if(!(err&&err.name==='AbortError'))alert('Could not create the invoices PDF: '+err.message)}
  finally{if(off)off.remove();if(btn){btn.disabled=false;btn.textContent=orig}}
 }
