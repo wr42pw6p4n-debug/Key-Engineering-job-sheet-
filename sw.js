@@ -1,8 +1,18 @@
-const CACHE = "rkey-job-manager-v3";
-const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
+const CACHE = "rkey-job-manager-v11";
+const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./logo-header.png", "./watermark.png"];
+
+// Live lookups (mileage). These must always go straight to the network: caching them would let a
+// single temporary error be replayed forever, and would fill the device with one-off answers.
+const LIVE_API_HOSTS = ["api.postcodes.io", "router.project-osrm.org"];
 
 self.addEventListener("install", event => {
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
+  event.waitUntil(
+    caches.open(CACHE).then(cache =>
+      // Precache each asset independently — if one fails (missing file, blip, etc.)
+      // the whole update no longer silently fails to install.
+      Promise.all(ASSETS.map(url => cache.add(url).catch(err => console.warn("Precache skipped for", url, err))))
+    ).then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", event => {
@@ -14,6 +24,8 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
+  const host = new URL(event.request.url).hostname;
+  if (LIVE_API_HOSTS.includes(host) || host.endsWith(".supabase.co")) return; // live data (mileage, cloud sync): straight to the network, never cached
 
   const isPage = event.request.mode === "navigate" || event.request.destination === "document";
   if (isPage) {
@@ -22,20 +34,28 @@ self.addEventListener("fetch", event => {
     // the cached copy if there's no connection at all.
     event.respondWith(
       fetch(event.request).then(response => {
-        const copy = response.clone();
-        caches.open(CACHE).then(cache => cache.put(event.request, copy));
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE).then(cache => cache.put(event.request, copy));
+        }
         return response;
       }).catch(() => caches.match(event.request).then(cached => cached || caches.match("./index.html")))
     );
     return;
   }
 
-  // Static assets (icons, manifest): cache-first is fine, they rarely change.
+  // Static assets (icons, logo, watermark, PDF libraries): serve the cached copy immediately for
+  // speed, but always fetch a fresh copy in the background and update the cache for next time.
+  // Only successful responses are ever stored, so a failed download can't replace a good copy.
   event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
-      const copy = response.clone();
-      caches.open(CACHE).then(cache => cache.put(event.request, copy));
-      return response;
-    }))
+    caches.open(CACHE).then(cache =>
+      cache.match(event.request).then(cached => {
+        const fetchPromise = fetch(event.request).then(response => {
+          if (response.ok) cache.put(event.request, response.clone());
+          return response;
+        }).catch(() => cached);
+        return cached || fetchPromise;
+      })
+    )
   );
 });
